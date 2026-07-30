@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { PAYSTACK } from '../payments.js';
 
 const LINKS = [
   { to: '/', label: 'Home' },
@@ -52,7 +53,7 @@ export default function Header() {
               </Link>
             );
           })}
-          <Link to="/contact" onClick={close} className="btn-book" style={{ background: '#C9A227', color: '#131F38', padding: '10px 20px', borderRadius: '3px', fontWeight: 600 }}>Book a Service</Link>
+          <a href={PAYSTACK.bookService} onClick={close} className="btn-book" style={{ background: '#C9A227', color: '#131F38', padding: '10px 20px', borderRadius: '3px', fontWeight: 600 }}>Book a Service</a>
         </nav>
       </div>
     </header>

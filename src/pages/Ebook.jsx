@@ -1,3 +1,5 @@
+import { PAYSTACK } from '../payments.js';
+
 export default function Ebook() {
   return (
     <>
@@ -8,7 +10,7 @@ export default function Ebook() {
             <h1 style={{ fontFamily: "'Source Serif 4',serif", fontWeight: "600", fontSize: "clamp(32px,5vw,50px)", lineHeight: "1.1", margin: "0", textAlign: "center", textWrap: "pretty" }}><em style={{ fontStyle: "italic", color: "#C9A227" }}>8 Proven Axis Steps</em> Before You Apply</h1>
             <p style={{ fontSize: "17px", lineHeight: "1.65", color: "#B9C0D2", margin: "22px 0 34px", maxWidth: "520px" }}>A simple, structured tool that helps you align your application with the actual requirements of a role — before you submit it. Use it every time you prepare to apply.</p>
             <div style={{ display: "flex", alignItems: "center", gap: "22px", flexWrap: "wrap" }}>
-              <a href="/contact" style={{ background: "#C9A227", color: "#131F38", padding: "15px 28px", borderRadius: "3px", fontWeight: "600", fontSize: "15.5px" }} data-h="hv-ebook-0">Purchase eBook — R245</a>
+              <a href={PAYSTACK.ebook} style={{ background: "#C9A227", color: "#131F38", padding: "15px 28px", borderRadius: "3px", fontWeight: "600", fontSize: "15.5px" }} data-h="hv-ebook-0">Purchase eBook — R245</a>
               <div style={{ fontSize: "13.5px", color: "#8A94AC" }}>One-time purchase · Digital PDF · Immediate access</div>
             </div>
           </div>
@@ -59,7 +61,7 @@ export default function Ebook() {
         <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "72px 32px", textAlign: "center" }}>
           <h2 style={{ fontFamily: "'Source Serif 4',serif", fontSize: "clamp(26px,3.6vw,36px)", fontWeight: "600", margin: "0 0 14px" }}>Apply with intention, not hope.</h2>
           <p style={{ fontSize: "16px", color: "#B9C0D2", margin: "0 0 30px" }}>R245 one-time purchase · Digital PDF · Immediate access after payment</p>
-          <a href="/contact" style={{ background: "#C9A227", color: "#131F38", padding: "15px 30px", borderRadius: "3px", fontWeight: "600", fontSize: "15.5px", display: "inline-block" }} data-h="hv-ebook-1">Purchase eBook</a>
+          <a href={PAYSTACK.ebook} style={{ background: "#C9A227", color: "#131F38", padding: "15px 30px", borderRadius: "3px", fontWeight: "600", fontSize: "15.5px", display: "inline-block" }} data-h="hv-ebook-1">Purchase eBook</a>
           <div style={{ fontSize: "13px", color: "#8A94AC", marginTop: "22px" }}>Digital products provide guidance only and are non-refundable once delivered or accessed.</div>
         </div>
       </section>

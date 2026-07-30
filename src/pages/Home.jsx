@@ -1,3 +1,5 @@
+import { PAYSTACK } from '../payments.js';
+
 export default function Home() {
   return (
     <>
@@ -10,7 +12,7 @@ export default function Home() {
           <h1 style={{ fontFamily: "'Source Serif 4',serif", fontWeight: "600", fontSize: "clamp(34px,5.5vw,56px)", lineHeight: "1.1", margin: "0 auto", maxWidth: "820px", textWrap: "pretty" }}><span style={{ display: "inline-block", animation: "wordUp .6s cubic-bezier(.2,.7,.2,1) 0s both" }}>Position</span> <span style={{ display: "inline-block", animation: "wordUp .6s cubic-bezier(.2,.7,.2,1) 0.08s both" }}>your</span> <span style={{ display: "inline-block", animation: "wordUp .6s cubic-bezier(.2,.7,.2,1) 0.16s both" }}>career</span> <span style={{ display: "inline-block", animation: "wordUp .6s cubic-bezier(.2,.7,.2,1) 0.24s both" }}>with</span> <span style={{ display: "inline-block", fontStyle: "italic", color: "#C9A227", animation: "wordUp .6s cubic-bezier(.2,.7,.2,1) 0.32s both" }}>clarity</span> <span style={{ display: "inline-block", animation: "wordUp .6s cubic-bezier(.2,.7,.2,1) 0.4s both" }}>and</span> <span style={{ display: "inline-block", fontStyle: "italic", color: "#C9A227", animation: "wordUp .6s cubic-bezier(.2,.7,.2,1) 0.48s both" }}>intent.</span></h1>
           <p style={{ fontSize: "18px", lineHeight: "1.65", color: "#B9C0D2", maxWidth: "580px", margin: "24px auto 38px" }}>Professional CV writing, interview readiness, and structured employability guidance — built to help you approach every opportunity with purpose.</p>
           <div style={{ display: "flex", gap: "14px", flexWrap: "wrap", justifyContent: "center" }}>
-            <a href="/services" style={{ background: "#C9A227", color: "#131F38", padding: "16px 30px", borderRadius: "3px", fontWeight: "600", fontSize: "15.5px" }} data-h="hv-home-0">Book a CV Revamp — from R150</a>
+            <a href={PAYSTACK.cvRevamp} style={{ background: "#C9A227", color: "#131F38", padding: "16px 30px", borderRadius: "3px", fontWeight: "600", fontSize: "15.5px" }} data-h="hv-home-0">Book a CV Revamp — from R150</a>
             <a href="/xislab" style={{ border: "1px solid #3C4B6E", color: "#F4EFE4", padding: "16px 30px", borderRadius: "3px", fontWeight: "600", fontSize: "15.5px" }} data-h="hv-home-1">Join XisLab — R199/mo</a>
           </div>
           <svg viewBox="0 0 1200 90" style={{ width: "100%", marginTop: "56px", opacity: ".9" }} preserveAspectRatio="none">
@@ -128,7 +130,7 @@ export default function Home() {
         <h2 style={{ fontFamily: "'Source Serif 4',serif", fontSize: "clamp(30px,4.5vw,46px)", fontWeight: "600", margin: "0 0 18px", textWrap: "pretty" }}>Ready to position your career?</h2>
         <p style={{ fontSize: "17px", color: "#56607A", maxWidth: "520px", margin: "0 auto 36px", lineHeight: "1.6" }}>Start with a CV revamp, book an interview session, or join XisLab Apex for ongoing support.</p>
         <div style={{ display: "flex", gap: "14px", justifyContent: "center", flexWrap: "wrap" }}>
-          <a href="/contact" style={{ background: "#C9A227", color: "#131F38", padding: "16px 32px", borderRadius: "3px", fontWeight: "600", fontSize: "15.5px" }} data-h="hv-home-5">Book a Service</a>
+          <a href={PAYSTACK.bookService} style={{ background: "#C9A227", color: "#131F38", padding: "16px 32px", borderRadius: "3px", fontWeight: "600", fontSize: "15.5px" }} data-h="hv-home-5">Book a Service</a>
           <a href="/contact" style={{ border: "1px solid #C9B98A", color: "#1B2A4A", padding: "16px 32px", borderRadius: "3px", fontWeight: "600", fontSize: "15.5px" }} data-h="hv-home-6">Contact Us</a>
         </div>
       </section>
