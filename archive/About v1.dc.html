@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="./image-slot.js"></script>
+<style>
+body{margin:0;background:#FAF7F0;color:#1B2A4A;font-family:'Public Sans',sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#1B2A4A;text-decoration:none}a:hover{color:#C9A227}
+</style>
+</helmet>
+<header style="position:sticky;top:0;z-index:50;background:rgba(250,247,240,.94);backdrop-filter:blur(8px);border-bottom:1px solid #E7E2D6">
+  <div style="max-width:1200px;margin:0 auto;padding:14px 32px;display:flex;align-items:center;gap:36px">
+    <a href="Home.dc.html" style="display:flex;align-items:center;gap:10px">
+      <svg width="34" height="34" viewBox="0 0 34 34"><circle cx="17" cy="17" r="16" fill="#1B2A4A"></circle><polyline points="6,17 12,17 14,10 17,24 19,13 21,17 28,17" fill="none" stroke="#FFFFFF" stroke-width="1.8"></polyline></svg>
+      <span style="font-family:'Source Serif 4',serif;font-weight:700;font-size:19px">CareerPulse <span style="color:#C9A227">Axis</span></span>
+    </a>
+    <nav style="display:flex;gap:26px;margin-left:auto;align-items:center;font-size:14.5px;font-weight:500">
+      <a href="Home.dc.html">Home</a>
+      <a href="Services.dc.html">Services</a>
+      <a href="XisLab.dc.html">XisLab</a>
+      <a href="eBook.dc.html">eBook</a>
+      <a href="About.dc.html" style="color:#C9A227;font-weight:600">About</a>
+      <a href="Contact.dc.html">Contact</a>
+      <a href="Contact.dc.html" style="background:#C9A227;color:#131F38;padding:10px 20px;border-radius:6px;font-weight:600" style-hover="background:#B08E1F;color:#131F38">Book a Service</a>
+    </nav>
+  </div>
+</header>
+<section style="background:#131F38;color:#F4EFE4">
+  <div style="max-width:1200px;margin:0 auto;padding:72px 32px 64px">
+    <div style="letter-spacing:.22em;text-transform:uppercase;font-size:12.5px;font-weight:600;color:#C9A227;margin-bottom:16px">About CareerPulse Axis</div>
+    <h1 style="font-family:'Source Serif 4',serif;font-weight:600;font-size:50px;line-height:1.1;margin:0;max-width:720px;text-wrap:pretty">Career-aligned. Structured. Intentional.</h1>
+    <p style="font-size:17px;line-height:1.65;color:#B9C0D2;max-width:560px;margin:22px 0 0">We help you approach every opportunity with purpose — not by promising outcomes, but by equipping you with clarity, structure, and confidence.</p>
+  </div>
+</section>
+<section style="max-width:1200px;margin:0 auto;padding:88px 32px;display:grid;grid-template-columns:400px 1fr;gap:64px;align-items:start">
+  <div style="width:100%;aspect-ratio:4/5;position:relative">
+    <image-slot id="founder-about" shape="rounded" radius="12" placeholder="Founder photo — Sinovuyo Mgogo"></image-slot>
+  </div>
+  <div>
+    <div style="letter-spacing:.2em;text-transform:uppercase;font-size:12px;font-weight:600;color:#C9A227;margin-bottom:14px">The founder</div>
+    <h2 style="font-family:'Source Serif 4',serif;font-size:36px;font-weight:600;margin:0 0 20px">Sinovuyo Mgogo</h2>
+    <p style="font-size:16px;line-height:1.7;color:#56607A;margin:0 0 16px">CareerPulse Axis was founded on a simple observation: most applications fail before they're ever read — not because candidates lack ability, but because their CVs and applications aren't aligned with what the role actually asks for.</p>
+    <p style="font-size:16px;line-height:1.7;color:#56607A;margin:0 0 16px">Sinovuyo built CareerPulse Axis to close that gap: professional CV writing, structured interview preparation, and ongoing employability guidance — all following a clear, intentional process designed for consistent results.</p>
+    <p style="font-size:16px;line-height:1.7;color:#56607A;margin:0 0 28px">Whether you're a graduate entering the market or an executive repositioning your career, every engagement is tailored to your level, industry, and goals.</p>
+    <div style="display:flex;gap:14px;flex-wrap:wrap">
+      <a href="Contact.dc.html" style="background:#C9A227;color:#131F38;padding:13px 26px;border-radius:6px;font-weight:600;font-size:15px" style-hover="background:#B08E1F;color:#131F38">Work with us</a>
+      <a href="https://wa.me/27710203982" style="border:1px solid #C9B98A;padding:13px 26px;border-radius:6px;font-weight:600;font-size:15px" style-hover="border-color:#C9A227;color:#C9A227">WhatsApp Sinovuyo</a>
+    </div>
+  </div>
+</section>
+<section style="background:#FFFFFF;border-top:1px solid #E7E2D6;border-bottom:1px solid #E7E2D6">
+  <div style="max-width:1200px;margin:0 auto;padding:88px 32px">
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:24px">
+      <div style="background:#FAF7F0;border:1px solid #E7E2D6;border-radius:10px;padding:34px 32px">
+        <h3 style="font-family:'Source Serif 4',serif;font-size:22px;font-weight:600;margin:0 0 12px">Our approach</h3>
+        <p style="font-size:15px;line-height:1.7;color:#56607A;margin:0">Professional CV writing, interview readiness, and structured employability guidance built to help you approach every opportunity with purpose. Every service follows a clear, intentional process designed to strengthen your position in the job market.</p>
+      </div>
+      <div style="background:#FAF7F0;border:1px solid #E7E2D6;border-radius:10px;padding:34px 32px">
+        <h3 style="font-family:'Source Serif 4',serif;font-size:22px;font-weight:600;margin:0 0 12px">What sets us apart</h3>
+        <p style="font-size:15px;line-height:1.7;color:#56607A;margin:0">Our services are advisory: we equip you with the tools and guidance to navigate the job market effectively. We don't guarantee interviews or placement — we empower you to present your best self with clarity and confidence.</p>
+      </div>
+      <div style="background:#FAF7F0;border:1px solid #E7E2D6;border-radius:10px;padding:34px 32px">
+        <h3 style="font-family:'Source Serif 4',serif;font-size:22px;font-weight:600;margin:0 0 12px">Our commitment to your privacy</h3>
+        <p style="font-size:15px;line-height:1.7;color:#56607A;margin:0">All information collected is used strictly for delivering services, processing payments, and communicating with you. Your data is treated as confidential and will never be shared with third parties without your consent.</p>
+      </div>
+      <div style="background:#FAF7F0;border:1px solid #E7E2D6;border-radius:10px;padding:34px 32px">
+        <h3 style="font-family:'Source Serif 4',serif;font-size:22px;font-weight:600;margin:0 0 12px">What we need from you</h3>
+        <p style="font-size:15px;line-height:1.7;color:#56607A;margin:0">Please submit all relevant information — experience, responsibilities, and certifications — before work begins. Significant new information submitted after the first draft may carry an additional fee.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<section style="max-width:1200px;margin:0 auto;padding:88px 32px;text-align:center">
+  <h2 style="font-family:'Source Serif 4',serif;font-size:38px;font-weight:600;margin:0 0 16px">Let's position your career.</h2>
+  <p style="font-size:16px;color:#56607A;margin:0 0 32px">Questions about which service fits? We'll point you in the right direction.</p>
+  <a href="Contact.dc.html" style="background:#C9A227;color:#131F38;padding:15px 30px;border-radius:6px;font-weight:600;font-size:15.5px;display:inline-block" style-hover="background:#B08E1F;color:#131F38">Get in touch</a>
+</section>
+<footer style="background:#0E1830;color:#B9C0D2">
+  <div style="max-width:1200px;margin:0 auto;padding:64px 32px 40px;display:grid;grid-template-columns:2fr 1fr 1fr;gap:48px">
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div style="display:flex;align-items:center;gap:10px">
+        <svg width="30" height="30" viewBox="0 0 34 34"><circle cx="17" cy="17" r="16" fill="#C9A227"></circle><polyline points="6,17 12,17 14,10 17,24 19,13 21,17 28,17" fill="none" stroke="#0E1830" stroke-width="1.8"></polyline></svg>
+        <span style="font-family:'Source Serif 4',serif;font-weight:700;font-size:18px;color:#F4EFE4">CareerPulse <span style="color:#C9A227">Axis</span></span>
+      </div>
+      <p style="font-size:14px;line-height:1.6;margin:0;max-width:320px">Align. Elevate. Thrive. Professional CV writing, interview readiness, and employability guidance.</p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px;font-size:14px">
+      <div style="font-weight:600;color:#F4EFE4;margin-bottom:4px">Quick links</div>
+      <a href="Services.dc.html" style="color:#B9C0D2">Services</a>
+      <a href="XisLab.dc.html" style="color:#B9C0D2">XisLab Apex</a>
+      <a href="eBook.dc.html" style="color:#B9C0D2">eBook</a>
+      <a href="About.dc.html" style="color:#B9C0D2">About</a>
+      <a href="Refund Policy.dc.html" style="color:#B9C0D2">Refund Policy</a>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px;font-size:14px">
+      <div style="font-weight:600;color:#F4EFE4;margin-bottom:4px">Contact</div>
+      <a href="mailto:sinovuyo.mgogo@careerpulseaxis.co.za" style="color:#B9C0D2">sinovuyo.mgogo@careerpulseaxis.co.za</a>
+      <a href="https://wa.me/27710203982" style="color:#B9C0D2">071 020 3982 (WhatsApp)</a>
+    </div>
+  </div>
+  <div style="border-top:1px solid #1B2A4A;padding:20px 32px;text-align:center;font-size:13px;color:#8A94AC">© 2026 CareerPulse Axis. All rights reserved.</div>
+</footer>
+</x-dc>
+</body>
+</html>
