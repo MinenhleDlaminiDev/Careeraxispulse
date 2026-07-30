@@ -1,0 +1,26 @@
+/* ---- Global styles (ported from the original site's <helmet>) ---- */
+body{margin:0;background-color:#FAF7F0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");color:#1B2A4A;font-family:'Public Sans',sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#1B2A4A;text-decoration:none}
+a:hover{color:#C9A227}
+
+@keyframes pulseDraw{0%{stroke-dashoffset:1400}55%{stroke-dashoffset:0}100%{stroke-dashoffset:0}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes wordUp{from{opacity:0;transform:translateY(.6em)}to{opacity:1;transform:none}}
+
+/* Header "Book a Service" button hover (ported from style-hover) */
+.btn-book:hover{background:#E0BA3C !important;color:#131F38 !important}
+
+/* ---- Mobile hamburger nav (React state-driven) ---- */
+.hamburger{display:none;background:none;border:0;padding:0}
+@media(max-width:760px){
+  .hamburger{display:flex;flex-direction:column;justify-content:center;gap:5px;width:42px;height:42px;margin-left:auto;padding:9px;box-sizing:border-box;cursor:pointer;position:relative;z-index:60}
+  .hamburger .bar{display:block;height:2.5px;width:100%;background:#F4EFE4;border-radius:2px;transition:transform .35s cubic-bezier(.2,.7,.2,1),opacity .2s ease}
+  .site-nav{position:absolute !important;top:100% !important;left:0 !important;right:0 !important;margin:0 !important;z-index:55;flex-direction:column !important;align-items:stretch !important;justify-content:flex-start !important;flex-wrap:nowrap !important;gap:0 !important;background:rgba(14,24,48,.98);backdrop-filter:blur(10px);border-top:1px solid rgba(201,162,39,.25);border-bottom:1px solid rgba(201,162,39,.25);box-shadow:0 24px 48px rgba(0,0,0,.35);padding:6px 24px 20px !important;font-size:16px !important;transform:translateY(-14px);opacity:0;visibility:hidden;transition:transform .4s cubic-bezier(.2,.7,.2,1),opacity .3s ease,visibility .4s}
+  .site-nav>a{padding:15px 2px;border-bottom:1px solid rgba(255,255,255,.07)}
+  .site-nav>a:last-child{border-bottom:none;margin-top:12px;text-align:center}
+  .site-nav.open{transform:translateY(0);opacity:1;visibility:visible}
+  .hamburger.open .bar1{transform:translateY(7.5px) rotate(45deg)}
+  .hamburger.open .bar2{opacity:0}
+  .hamburger.open .bar3{transform:translateY(-7.5px) rotate(-45deg)}
+}
