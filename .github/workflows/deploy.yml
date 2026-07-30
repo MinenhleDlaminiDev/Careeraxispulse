@@ -32,4 +32,4 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftps            # use ftp only if your host has no FTPS
           local-dir: ./dist/
-          server-dir: public_html/  # set to ./ if your FTP account is rooted at public_html
+          server-dir: ./            # FTP account is rooted at public_html, so deploy to its root
