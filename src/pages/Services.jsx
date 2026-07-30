@@ -62,7 +62,7 @@ export default function Services() {
             <h2 style={{ fontFamily: "'Source Serif 4',serif", fontSize: "clamp(26px,3.6vw,36px)", fontWeight: "600", margin: "0 0 12px" }}>Walk in prepared</h2>
             <p style={{ fontSize: "16px", color: "#56607A", margin: "0", maxWidth: "600px", lineHeight: "1.6", marginLeft: "auto", marginRight: "auto" }}>Structured one-on-one preparation for graduate and professional-level interviews.</p>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(280px,1fr))", gap: "20px", maxWidth: "800px" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(280px,1fr))", gap: "20px", maxWidth: "800px", margin: "0 auto" }}>
             <div style={{ background: "#FAF7F0", border: "1px solid #E7E2D6", borderRadius: "4px", padding: "32px 28px", display: "flex", flexDirection: "column", gap: "12px", animation: "cardUp .6s ease both", transition: "transform .25s ease, box-shadow .25s ease, border-color .25s ease" }} data-h="hv-services-8">
               <div style={{ fontSize: "12px", letterSpacing: ".14em", textTransform: "uppercase", fontWeight: "600", color: "#6B7690" }}>Graduate level</div>
               <h3 style={{ fontFamily: "'Source Serif 4',serif", fontSize: "21px", fontWeight: "600", margin: "0" }}>Basic Interview Readiness</h3>

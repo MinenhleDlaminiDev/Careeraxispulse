@@ -9,6 +9,7 @@ const LINKS = [
   { to: '/ebook', label: 'eBook' },
   { to: '/testimonials', label: 'Testimonials' },
   { to: '/about', label: 'About' },
+  { to: '/refund-policy', label: 'Refund Policy' },
   { to: '/contact', label: 'Contact' },
 ];
 
