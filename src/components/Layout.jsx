@@ -31,8 +31,13 @@ export default function Layout() {
     window.scrollTo(0, 0);
   }, [location.pathname, location.hash]);
 
+  // Deter casual image saving: block right-click and drag on <img>.
+  const blockImage = useCallback((e) => {
+    if (e.target && e.target.tagName === 'IMG') e.preventDefault();
+  }, []);
+
   return (
-    <div onClickCapture={onClick}>
+    <div onClickCapture={onClick} onContextMenu={blockImage} onDragStart={blockImage}>
       <Header />
       <Outlet />
       <Footer />
