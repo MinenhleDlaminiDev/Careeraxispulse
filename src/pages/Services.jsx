@@ -1,3 +1,5 @@
+import { PAYSTACK } from '../payments.js';
+
 export default function Services() {
   return (
     <>
@@ -22,7 +24,7 @@ export default function Services() {
             <ul style={{ margin: "0", padding: "0 0 0 18px", fontSize: "14.5px", color: "#56607A", lineHeight: "2", flex: "1" }}>
               <li>CV restructuring</li><li>Content refinement</li><li>ATS-aligned formatting</li>
             </ul>
-            <a href="/contact" style={{ border: "1px solid #C9B98A", textAlign: "center", padding: "12px", borderRadius: "3px", fontWeight: "600", fontSize: "14.5px" }} data-h="hv-services-1">Enquire now</a>
+            <a href={PAYSTACK.cv.entry} style={{ border: "1px solid #C9B98A", textAlign: "center", padding: "12px", borderRadius: "3px", fontWeight: "600", fontSize: "14.5px" }} data-h="hv-services-1">Pay now</a>
           </div>
           <div style={{ background: "#FFFFFF", border: "1px solid #E7E2D6", borderRadius: "4px", padding: "32px 26px", display: "flex", flexDirection: "column", gap: "12px", animation: "cardUp .6s ease both", transition: "transform .25s ease, box-shadow .25s ease, border-color .25s ease" }} data-h="hv-services-2">
             <div style={{ fontSize: "12px", letterSpacing: ".14em", textTransform: "uppercase", fontWeight: "600", color: "#6B7690" }}>Mid-level</div>
@@ -31,7 +33,7 @@ export default function Services() {
             <ul style={{ margin: "0", padding: "0 0 0 18px", fontSize: "14.5px", color: "#56607A", lineHeight: "2", flex: "1" }}>
               <li>CV restructuring</li><li>Content refinement</li><li>ATS-aligned formatting</li>
             </ul>
-            <a href="/contact" style={{ border: "1px solid #C9B98A", textAlign: "center", padding: "12px", borderRadius: "3px", fontWeight: "600", fontSize: "14.5px" }} data-h="hv-services-3">Enquire now</a>
+            <a href={PAYSTACK.cv.mid} style={{ border: "1px solid #C9B98A", textAlign: "center", padding: "12px", borderRadius: "3px", fontWeight: "600", fontSize: "14.5px" }} data-h="hv-services-3">Pay now</a>
           </div>
           <div style={{ background: "linear-gradient(180deg,#131F38 0%,#26396A 100%)", color: "#F4EFE4", borderRadius: "4px", padding: "32px 26px", display: "flex", flexDirection: "column", gap: "12px", position: "relative", boxShadow: "0 8px 20px rgba(19,31,56,.16)", animation: "cardUp .6s ease .12s both", transition: "transform .25s ease, box-shadow .25s ease" }} data-h="hv-services-4">
             <div style={{ position: "absolute", top: "-13px", left: "50%", transform: "translateX(-50%)", background: "#C9A227", color: "#131F38", fontSize: "11.5px", fontWeight: "700", letterSpacing: ".12em", textTransform: "uppercase", padding: "5px 14px", borderRadius: "99px" }}>Most popular</div>
@@ -41,7 +43,7 @@ export default function Services() {
             <ul style={{ margin: "0", padding: "0 0 0 18px", fontSize: "14.5px", color: "#B9C0D2", lineHeight: "2", flex: "1" }}>
               <li>CV restructuring</li><li>Content refinement</li><li>ATS-aligned formatting</li>
             </ul>
-            <a href="/contact" style={{ background: "#C9A227", color: "#131F38", textAlign: "center", padding: "12px", borderRadius: "3px", fontWeight: "600", fontSize: "14.5px" }} data-h="hv-services-5">Enquire now</a>
+            <a href={PAYSTACK.cv.senior} style={{ background: "#C9A227", color: "#131F38", textAlign: "center", padding: "12px", borderRadius: "3px", fontWeight: "600", fontSize: "14.5px" }} data-h="hv-services-5">Pay now</a>
           </div>
           <div style={{ background: "#FFFFFF", border: "1px solid #E7E2D6", borderRadius: "4px", padding: "32px 26px", display: "flex", flexDirection: "column", gap: "12px", animation: "cardUp .6s ease both", transition: "transform .25s ease, box-shadow .25s ease, border-color .25s ease" }} data-h="hv-services-6">
             <div style={{ fontSize: "12px", letterSpacing: ".14em", textTransform: "uppercase", fontWeight: "600", color: "#6B7690" }}>Executive</div>
@@ -50,7 +52,7 @@ export default function Services() {
             <ul style={{ margin: "0", padding: "0 0 0 18px", fontSize: "14.5px", color: "#56607A", lineHeight: "2", flex: "1" }}>
               <li>CV restructuring</li><li>Content refinement</li><li>ATS-aligned formatting</li>
             </ul>
-            <a href="/contact" style={{ border: "1px solid #C9B98A", textAlign: "center", padding: "12px", borderRadius: "3px", fontWeight: "600", fontSize: "14.5px" }} data-h="hv-services-7">Enquire now</a>
+            <a href={PAYSTACK.cv.executive} style={{ border: "1px solid #C9B98A", textAlign: "center", padding: "12px", borderRadius: "3px", fontWeight: "600", fontSize: "14.5px" }} data-h="hv-services-7">Pay now</a>
           </div>
         </div>
         <div style={{ marginTop: "22px", fontSize: "13.5px", color: "#8A94AC" }}>Returning clients receive an 11% discount. Turnaround 3–4 working days, subject to current capacity and scope of work.</div>

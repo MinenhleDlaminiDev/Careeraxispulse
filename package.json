@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "vite",
     "thumbs": "node scripts/gen-thumbs.mjs",
+    "price-images": "node scripts/gen-price-images.mjs",
+    "plan-cards": "node scripts/gen-plan-cards.mjs",
     "build": "vite build",
     "preview": "vite preview"
   },
