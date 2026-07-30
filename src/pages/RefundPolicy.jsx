@@ -1,7 +1,7 @@
 export default function RefundPolicy() {
   return (
     <>
-      <section style={{ background: "#131F38", color: "#F4EFE4" }}>
+      <section style={{ background: "linear-gradient(180deg,#131F38 0%,#26396A 100%)", color: "#F4EFE4" }}>
         <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "64px 32px 56px" }}>
           <div style={{ letterSpacing: ".22em", textTransform: "uppercase", fontSize: "12.5px", fontWeight: "600", color: "#C9A227", marginBottom: "16px", textAlign: "center" }}>Policy</div>
           <h1 style={{ fontFamily: "'Source Serif 4',serif", fontWeight: "600", fontSize: "clamp(30px,4.5vw,44px)", lineHeight: "1.1", margin: "0", textAlign: "center" }}>Refund Policy</h1>
@@ -35,7 +35,7 @@ export default function RefundPolicy() {
               <li>Outcomes, opportunities or results fall outside the client's personal expectations</li>
             </ul>
           </div>
-          <div style={{ background: "#131F38", color: "#F4EFE4", borderRadius: "4px", padding: "36px 34px" }}>
+          <div style={{ background: "linear-gradient(180deg,#131F38 0%,#26396A 100%)", color: "#F4EFE4", borderRadius: "4px", padding: "36px 34px" }}>
             <h2 style={{ fontFamily: "'Source Serif 4',serif", fontSize: "24px", fontWeight: "600", margin: "0 0 12px" }}>Important notice</h2>
             <p style={{ fontSize: "14.5px", color: "#B9C0D2", lineHeight: "1.7", margin: "0 0 12px" }}>CareerPulse Axis does not guarantee interviews, employment opportunities, job offers, career progression or any specific outcome arising from the use of its services, products or subscriptions.</p>
             <p style={{ fontSize: "14.5px", color: "#B9C0D2", lineHeight: "1.7", margin: "0" }}>All refund requests are subject to review and assessment by CareerPulse Axis. Any decision regarding a refund shall be made at the sole discretion of CareerPulse Axis and shall be final.</p>

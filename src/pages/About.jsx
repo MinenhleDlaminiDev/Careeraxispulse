@@ -1,7 +1,7 @@
 export default function About() {
   return (
     <>
-      <section style={{ background: "#131F38", color: "#F4EFE4" }}>
+      <section style={{ background: "linear-gradient(180deg,#131F38 0%,#26396A 100%)", color: "#F4EFE4" }}>
         <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "72px 32px 64px" }}>
           <div style={{ letterSpacing: ".22em", textTransform: "uppercase", fontSize: "12.5px", fontWeight: "600", color: "#C9A227", marginBottom: "16px", textAlign: "center" }}>About CareerPulse Axis</div>
           <h1 style={{ fontFamily: "'Source Serif 4',serif", fontWeight: "600", fontSize: "clamp(32px,5vw,50px)", lineHeight: "1.1", margin: "0", textAlign: "center", maxWidth: "720px", marginLeft: "auto", marginRight: "auto", textWrap: "pretty" }}>Career-aligned. Structured. <em style={{ fontStyle: "italic", color: "#C9A227" }}>Intentional.</em></h1>

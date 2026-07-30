@@ -1,7 +1,7 @@
 export default function XisLab() {
   return (
     <>
-      <section style={{ background: "#131F38", color: "#F4EFE4" }}>
+      <section style={{ background: "linear-gradient(180deg,#131F38 0%,#26396A 100%)", color: "#F4EFE4" }}>
         <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "88px 32px", display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(320px,1fr))", gap: "64px", alignItems: "center" }}>
           <div>
             <div style={{ letterSpacing: ".22em", textTransform: "uppercase", fontSize: "12.5px", fontWeight: "600", color: "#C9A227", marginBottom: "16px", textAlign: "center" }}>Monthly membership</div>
@@ -51,7 +51,7 @@ export default function XisLab() {
             <h3 style={{ fontSize: "17px", fontWeight: "600", margin: "0 0 8px" }}>Labour market awareness</h3>
             <p style={{ fontSize: "14.5px", color: "#56607A", lineHeight: "1.6", margin: "0" }}>Research-based labour market intelligence and employability awareness.</p>
           </div>
-          <div style={{ background: "#131F38", color: "#F4EFE4", borderRadius: "4px", padding: "30px 28px", display: "flex", flexDirection: "column", justifyContent: "center", gap: "10px" }}>
+          <div style={{ background: "linear-gradient(180deg,#131F38 0%,#26396A 100%)", color: "#F4EFE4", borderRadius: "4px", padding: "30px 28px", display: "flex", flexDirection: "column", justifyContent: "center", gap: "10px" }}>
             <h3 style={{ fontFamily: "'Source Serif 4',serif", fontSize: "21px", fontWeight: "600", margin: "0" }}>Ready to join?</h3>
             <p style={{ fontSize: "14.5px", color: "#B9C0D2", lineHeight: "1.6", margin: "0 0 8px" }}>Membership guidance is advisory — you stay in control of every application.</p>
             <a href="https://paystack.shop/pay/zzvuae8ftf" style={{ color: "#C9A227", fontWeight: "600", fontSize: "14.5px" }}>Subscribe now →</a>

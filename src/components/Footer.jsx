@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 export default function Footer() {
   return (
-    <footer style={{ background: '#0E1830', color: '#B9C0D2' }}>
+    <footer style={{ background: 'linear-gradient(180deg,#0E1830 0%,#1E3054 100%)', color: '#B9C0D2' }}>
       <div style={{ maxWidth: '1240px', margin: '0 auto', padding: '64px 32px 40px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(220px,1fr))', gap: '48px' }}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>

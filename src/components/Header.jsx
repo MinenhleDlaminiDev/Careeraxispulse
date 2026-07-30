@@ -6,6 +6,7 @@ const LINKS = [
   { to: '/services', label: 'Services' },
   { to: '/xislab', label: 'XisLab' },
   { to: '/ebook', label: 'eBook' },
+  { to: '/testimonials', label: 'Testimonials' },
   { to: '/about', label: 'About' },
   { to: '/contact', label: 'Contact' },
 ];

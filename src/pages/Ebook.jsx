@@ -1,7 +1,7 @@
 export default function Ebook() {
   return (
     <>
-      <section style={{ background: "#131F38", color: "#F4EFE4" }}>
+      <section style={{ background: "linear-gradient(180deg,#131F38 0%,#26396A 100%)", color: "#F4EFE4" }}>
         <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "88px 32px", display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(320px,1fr))", gap: "72px", alignItems: "center" }}>
           <div>
             <div style={{ letterSpacing: ".22em", textTransform: "uppercase", fontSize: "12.5px", fontWeight: "600", color: "#C9A227", marginBottom: "16px", textAlign: "center" }}>Digital product · eBook</div>
@@ -55,7 +55,7 @@ export default function Ebook() {
           </div>
         </div>
       </section>
-      <section style={{ background: "#131F38", color: "#F4EFE4" }}>
+      <section style={{ background: "linear-gradient(180deg,#131F38 0%,#26396A 100%)", color: "#F4EFE4" }}>
         <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "72px 32px", textAlign: "center" }}>
           <h2 style={{ fontFamily: "'Source Serif 4',serif", fontSize: "clamp(26px,3.6vw,36px)", fontWeight: "600", margin: "0 0 14px" }}>Apply with intention, not hope.</h2>
           <p style={{ fontSize: "16px", color: "#B9C0D2", margin: "0 0 30px" }}>R245 one-time purchase · Digital PDF · Immediate access after payment</p>

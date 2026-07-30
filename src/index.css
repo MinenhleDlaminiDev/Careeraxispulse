@@ -1,5 +1,5 @@
 /* ---- Global styles (ported from the original site's <helmet>) ---- */
-body{margin:0;background-color:#FAF7F0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");color:#1B2A4A;font-family:'Public Sans',sans-serif;-webkit-font-smoothing:antialiased}
+body{margin:0;min-height:100vh;background-color:#FAF7F0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E"),linear-gradient(180deg,#FDFBF6 0%,#FAF7F0 38%,#F4ECDC 100%);background-attachment:scroll,fixed;color:#1B2A4A;font-family:'Public Sans',sans-serif;-webkit-font-smoothing:antialiased}
 a{color:#1B2A4A;text-decoration:none}
 a:hover{color:#C9A227}
 
@@ -10,6 +10,28 @@ a:hover{color:#C9A227}
 
 /* Header "Book a Service" button hover (ported from style-hover) */
 .btn-book:hover{background:#E0BA3C !important;color:#131F38 !important}
+
+/* ---- Testimonials gallery + lightbox ---- */
+.t-grid{columns:4 250px;column-gap:18px}
+.t-card{position:relative;break-inside:avoid;margin:0 0 18px;display:block;width:100%;padding:0;border:0;background:#0E1830;cursor:zoom-in;border-radius:8px;overflow:hidden;box-shadow:0 4px 18px rgba(27,42,74,.10);transition:transform .25s ease,box-shadow .25s ease}
+.t-card:hover{transform:translateY(-4px);box-shadow:0 12px 30px rgba(27,42,74,.20)}
+.t-card img{display:block;width:100%;height:auto}
+.t-view{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:8px;font-size:12.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#F4EFE4;background:rgba(14,24,48,.5);opacity:0;transition:opacity .22s ease}
+.t-view::before{content:"\2922";font-size:18px}
+.t-card:hover .t-view,.t-card:focus-visible .t-view{opacity:1}
+.t-lightbox{position:fixed;inset:0;z-index:100;background:rgba(8,14,28,.92);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:24px;animation:fadeUp .25s ease both}
+.t-stage{position:relative;display:flex;align-items:center;justify-content:center;max-width:min(92vw,900px);max-height:90vh}
+.t-stage img{max-width:min(92vw,900px);max-height:90vh;border-radius:8px;box-shadow:0 20px 60px rgba(0,0,0,.5);cursor:default;transition:opacity .2s ease}
+.t-close,.t-nav{position:fixed;z-index:2;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);color:#F4EFE4;cursor:pointer;border-radius:50%;width:46px;height:46px;font-size:22px;line-height:1;display:flex;align-items:center;justify-content:center;transition:background .2s,border-color .2s}
+.t-close:hover,.t-nav:hover,.t-close:focus-visible,.t-nav:focus-visible{background:rgba(201,162,39,.3);border-color:#C9A227;color:#fff;outline:none}
+.t-close{top:18px;right:18px}
+.t-nav.prev{left:18px;top:50%;transform:translateY(-50%)}
+.t-nav.next{right:18px;top:50%;transform:translateY(-50%)}
+.t-counter{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);color:#B9C0D2;font-size:13px;letter-spacing:.05em;background:rgba(255,255,255,.08);padding:6px 14px;border-radius:20px}
+.t-spinner{position:absolute;width:38px;height:38px;border-radius:50%;border:3px solid rgba(255,255,255,.25);border-top-color:#C9A227;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media(max-width:640px){.t-grid{columns:2 150px;column-gap:12px}.t-nav{width:40px;height:40px}}
+@media(prefers-reduced-motion:reduce){.t-card,.t-view,.t-stage img,.t-lightbox{transition:none;animation:none}.t-spinner{animation-duration:1.6s}}
 
 /* ---- Mobile hamburger nav (React state-driven) ---- */
 .hamburger{display:none;background:none;border:0;padding:0}

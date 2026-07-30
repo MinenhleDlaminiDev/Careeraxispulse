@@ -1,7 +1,7 @@
 export default function Services() {
   return (
     <>
-      <section style={{ background: "#131F38", color: "#F4EFE4" }}>
+      <section style={{ background: "linear-gradient(180deg,#131F38 0%,#26396A 100%)", color: "#F4EFE4" }}>
         <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "72px 32px 64px" }}>
           <div style={{ letterSpacing: ".22em", textTransform: "uppercase", fontSize: "12.5px", fontWeight: "600", color: "#C9A227", marginBottom: "16px", textAlign: "center" }}>Services &amp; pricing</div>
           <h1 style={{ fontFamily: "'Source Serif 4',serif", fontWeight: "600", fontSize: "clamp(32px,5vw,50px)", lineHeight: "1.1", margin: "0", textAlign: "center", maxWidth: "700px", marginLeft: "auto", marginRight: "auto", textWrap: "pretty" }}>Professional services, priced by <em style={{ fontStyle: "italic", color: "#C9A227" }}>where you are</em> in your career.</h1>
@@ -33,7 +33,7 @@ export default function Services() {
             </ul>
             <a href="/contact" style={{ border: "1px solid #C9B98A", textAlign: "center", padding: "12px", borderRadius: "3px", fontWeight: "600", fontSize: "14.5px" }} data-h="hv-services-3">Enquire now</a>
           </div>
-          <div style={{ background: "#131F38", color: "#F4EFE4", borderRadius: "4px", padding: "32px 26px", display: "flex", flexDirection: "column", gap: "12px", position: "relative", boxShadow: "0 8px 20px rgba(19,31,56,.16)", animation: "cardUp .6s ease .12s both", transition: "transform .25s ease, box-shadow .25s ease" }} data-h="hv-services-4">
+          <div style={{ background: "linear-gradient(180deg,#131F38 0%,#26396A 100%)", color: "#F4EFE4", borderRadius: "4px", padding: "32px 26px", display: "flex", flexDirection: "column", gap: "12px", position: "relative", boxShadow: "0 8px 20px rgba(19,31,56,.16)", animation: "cardUp .6s ease .12s both", transition: "transform .25s ease, box-shadow .25s ease" }} data-h="hv-services-4">
             <div style={{ position: "absolute", top: "-13px", left: "50%", transform: "translateX(-50%)", background: "#C9A227", color: "#131F38", fontSize: "11.5px", fontWeight: "700", letterSpacing: ".12em", textTransform: "uppercase", padding: "5px 14px", borderRadius: "99px" }}>Most popular</div>
             <div style={{ fontSize: "12px", letterSpacing: ".14em", textTransform: "uppercase", fontWeight: "600", color: "#C9A227" }}>Senior level</div>
             <h3 style={{ fontFamily: "'Source Serif 4',serif", fontSize: "21px", fontWeight: "600", margin: "0" }}>5–10 years</h3>
@@ -117,7 +117,7 @@ export default function Services() {
           </div>
         </div>
       </section>
-      <section style={{ background: "#131F38", color: "#F4EFE4" }}>
+      <section style={{ background: "linear-gradient(180deg,#131F38 0%,#26396A 100%)", color: "#F4EFE4" }}>
         <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "72px 32px", textAlign: "center" }}>
           <h2 style={{ fontFamily: "'Source Serif 4',serif", fontSize: "clamp(26px,3.6vw,36px)", fontWeight: "600", margin: "0 0 14px" }}>Not sure which level fits you?</h2>
           <p style={{ fontSize: "16px", color: "#B9C0D2", margin: "0 0 30px" }}>Send us a message — we'll recommend the right service for your experience and goals.</p>
