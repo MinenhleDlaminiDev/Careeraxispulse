@@ -1,6 +1,12 @@
 import { PAYSTACK } from '../payments.js';
+import { useSeo } from '../seo.js';
 
 export default function Home() {
+  useSeo({
+    title: 'CareerPulse Axis — Professional CV Writing & Interview Readiness',
+    description: 'ATS-aligned CV writing, interview readiness, and structured career guidance in South Africa. Align. Elevate. Thrive.',
+    path: '/',
+  });
   return (
     <>
       <section style={{ background: "linear-gradient(180deg,#0E1830 0%,#1E3054 100%)", position: "relative" }}>

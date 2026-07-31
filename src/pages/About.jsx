@@ -1,4 +1,11 @@
+import { useSeo } from '../seo.js';
+
 export default function About() {
+  useSeo({
+    title: 'About & Founder Sinovuyo Mgogo | CareerPulse Axis',
+    description: 'CareerPulse Axis helps you approach every opportunity with purpose — professional CV writing, interview readiness, and career guidance.',
+    path: '/about',
+  });
   return (
     <>
       <section style={{ background: "linear-gradient(180deg,#131F38 0%,#26396A 100%)", color: "#F4EFE4" }}>

@@ -1,6 +1,12 @@
 import { PAYSTACK } from '../payments.js';
+import { useSeo } from '../seo.js';
 
 export default function XisLab() {
+  useSeo({
+    title: 'XisLab Apex Membership — Ongoing Career Support | CareerPulse Axis',
+    description: 'Join XisLab Apex (R199/mo): weekly live sessions, monthly CV reviews, and hiring insights to strengthen your employability.',
+    path: '/xislab',
+  });
   return (
     <>
       <section style={{ background: "linear-gradient(180deg,#131F38 0%,#26396A 100%)", color: "#F4EFE4" }}>

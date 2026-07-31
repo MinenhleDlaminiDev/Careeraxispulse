@@ -1,7 +1,13 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import ITEMS from '../testimonials.data.js';
+import { useSeo } from '../seo.js';
 
 export default function Testimonials() {
+  useSeo({
+    title: 'Client Testimonials | CareerPulse Axis',
+    description: 'Real feedback and success stories from professionals who trusted CareerPulse Axis with their CVs and interview preparation.',
+    path: '/testimonials',
+  });
   const [idx, setIdx] = useState(null);
   const [loading, setLoading] = useState(false);
   const triggerRef = useRef(null); // thumbnail that opened the lightbox

@@ -1,6 +1,12 @@
 import { PAYSTACK } from '../payments.js';
+import { useSeo } from '../seo.js';
 
 export default function Contact() {
+  useSeo({
+    title: 'Contact & Book a Service | CareerPulse Axis',
+    description: 'Get in touch with CareerPulse Axis to book a CV revamp, interview session, or ask which service fits your goals.',
+    path: '/contact',
+  });
   return (
     <>
       <section style={{ background: "linear-gradient(180deg,#131F38 0%,#26396A 100%)", color: "#F4EFE4" }}>

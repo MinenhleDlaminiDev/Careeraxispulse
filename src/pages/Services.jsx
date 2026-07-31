@@ -1,6 +1,12 @@
 import { PAYSTACK } from '../payments.js';
+import { useSeo } from '../seo.js';
 
 export default function Services() {
+  useSeo({
+    title: 'Services & Pricing — CV Revamp & Interview Readiness | CareerPulse Axis',
+    description: 'Professional CV revamps from R150 and interview readiness from R200 — ATS-aligned and priced by experience, from graduate to executive.',
+    path: '/services',
+  });
   return (
     <>
       <section style={{ background: "linear-gradient(180deg,#131F38 0%,#26396A 100%)", color: "#F4EFE4" }}>

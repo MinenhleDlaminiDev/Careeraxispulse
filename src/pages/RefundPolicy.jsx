@@ -1,4 +1,11 @@
+import { useSeo } from '../seo.js';
+
 export default function RefundPolicy() {
+  useSeo({
+    title: 'Refund Policy | CareerPulse Axis',
+    description: 'Read the CareerPulse Axis refund policy for CV writing, interview readiness, and membership services.',
+    path: '/refund-policy',
+  });
   return (
     <>
       <section style={{ background: "linear-gradient(180deg,#131F38 0%,#26396A 100%)", color: "#F4EFE4" }}>
