@@ -100,7 +100,7 @@ export default function Home() {
       </section>
       <section style={{ maxWidth: "1240px", margin: "0 auto", padding: "92px 32px", display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(300px,1fr))", gap: "64px", alignItems: "center" }}>
         <div style={{ width: "100%", maxWidth: "380px", aspectRatio: "4/5", position: "relative", justifySelf: "center" }}>
-          <img src="/assets/Sino-Founder.jpg" alt="Sinovuyo Mgogo — Founder of CareerPulse Axis" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "left center", borderRadius: "4px", display: "block" }} />
+          <img src="/assets/Sino-Founder.jpg" alt="Sinovuyo Mgogo — Founder of CareerPulse Axis" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", borderRadius: "4px", display: "block" }} />
         </div>
         <div>
           <div style={{ letterSpacing: ".2em", textTransform: "uppercase", fontSize: "12px", fontWeight: "600", color: "#9A7B12", marginBottom: "14px" }}>Meet the founder</div>
