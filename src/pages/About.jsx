@@ -16,10 +16,7 @@ export default function About() {
         </div>
       </section>
       <section style={{ maxWidth: "1000px", margin: "0 auto", padding: "88px 32px 40px" }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px" }}>
-          <div style={{ letterSpacing: ".22em", textTransform: "uppercase", fontSize: "12px", fontWeight: "600", color: "#9A7B12" }}>Who we are</div>
-          <div style={{ letterSpacing: ".22em", textTransform: "uppercase", fontSize: "12px", fontWeight: "600", color: "#B4A87E" }}>01 / 06</div>
-        </div>
+        <div style={{ letterSpacing: ".22em", textTransform: "uppercase", fontSize: "12px", fontWeight: "600", color: "#9A7B12", marginBottom: "16px" }}>Who we are</div>
         <h2 style={{ fontFamily: "'Source Serif 4',serif", fontSize: "clamp(30px,5vw,52px)", fontWeight: "600", lineHeight: "1.1", margin: "0", textWrap: "pretty" }}>A resilient bridge between talent and opportunity</h2>
         <div style={{ width: "56px", height: "3px", background: "#C9A227", margin: "24px 0 32px" }}></div>
         <p style={{ fontSize: "16.5px", lineHeight: "1.75", color: "#56607A", margin: "0 0 20px", maxWidth: "760px" }}><strong style={{ color: "#131F38" }}>CareerPulse Axis</strong> intentionally redefines career mobility by building a resilient bridge between talent and the global employability infrastructure. Grounded in rigorous research and measurable outcomes, we engineer structured employability systems that connect individuals to opportunity across industries, professional stages, and international workforce markets.</p>
