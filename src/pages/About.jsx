@@ -43,12 +43,13 @@ export default function About() {
           </div>
         </div>
       </section>
-      <section style={{ maxWidth: "1200px", margin: "0 auto", padding: "88px 32px", display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(300px,1fr))", gap: "64px", alignItems: "start" }}>
-        <div style={{ width: "100%", maxWidth: "380px", aspectRatio: "4/5", position: "relative", justifySelf: "center" }}>
-          <img src="/assets/Sino-Founder.jpg" alt="Sinovuyo Mgogo — Founder of CareerPulse Axis" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", borderRadius: "4px", display: "block" }} />
-        </div>
-        <div>
-          <div style={{ letterSpacing: ".2em", textTransform: "uppercase", fontSize: "12px", fontWeight: "600", color: "#9A7B12", marginBottom: "14px" }}>The founder</div>
+      <section style={{ background: "#FFFFFF", borderTop: "1px solid #E7E2D6", borderBottom: "1px solid #E7E2D6" }}>
+        <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "88px 32px", display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(300px,1fr))", gap: "64px", alignItems: "start" }}>
+          <div style={{ width: "100%", maxWidth: "380px", aspectRatio: "4/5", position: "relative", justifySelf: "center" }}>
+            <img src="/assets/Sino-Founder.jpg" alt="Sinovuyo Mgogo — Founder of CareerPulse Axis" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", borderRadius: "4px", display: "block" }} />
+          </div>
+          <div>
+            <div style={{ letterSpacing: ".2em", textTransform: "uppercase", fontSize: "12px", fontWeight: "600", color: "#9A7B12", marginBottom: "14px" }}>The founder</div>
           <h2 style={{ fontFamily: "'Source Serif 4',serif", fontSize: "clamp(26px,3.6vw,36px)", fontWeight: "600", margin: "0 0 20px" }}>Sinovuyo Mgogo</h2>
           <p style={{ fontSize: "16px", lineHeight: "1.7", color: "#56607A", margin: "0 0 16px" }}>CareerPulse Axis was founded on a simple observation: most applications fail before they're ever read — not because candidates lack ability, but because their CVs and applications aren't aligned with what the role actually asks for.</p>
           <p style={{ fontSize: "16px", lineHeight: "1.7", color: "#56607A", margin: "0 0 16px" }}>Sinovuyo built CareerPulse Axis to close that gap: professional CV writing, structured interview preparation, and ongoing employability guidance — all following a clear, intentional process designed for consistent results.</p>
@@ -56,6 +57,7 @@ export default function About() {
           <div style={{ display: "flex", gap: "14px", flexWrap: "wrap" }}>
             <a href="/contact" style={{ background: "#C9A227", color: "#131F38", padding: "13px 26px", borderRadius: "3px", fontWeight: "600", fontSize: "15px" }} data-h="hv-about-0">Work with us</a>
             <a href="https://wa.me/27710203982" style={{ border: "1px solid #C9B98A", padding: "13px 26px", borderRadius: "3px", fontWeight: "600", fontSize: "15px" }} data-h="hv-about-1">WhatsApp Sinovuyo</a>
+          </div>
           </div>
         </div>
       </section>
