@@ -61,32 +61,34 @@ export default function About() {
           </div>
         </div>
       </section>
-      <section style={{ background: "#FFFFFF", borderTop: "1px solid #E7E2D6", borderBottom: "1px solid #E7E2D6" }}>
+      <section>
         <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "88px 32px" }}>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(300px,1fr))", gap: "24px" }}>
-            <div style={{ background: "#FAF7F0", border: "1px solid #E7E2D6", borderRadius: "4px", padding: "34px 32px" }}>
+            <div style={{ background: "#FFFFFF", border: "1px solid #E7E2D6", borderRadius: "4px", padding: "34px 32px" }}>
               <h3 style={{ fontFamily: "'Source Serif 4',serif", fontSize: "22px", fontWeight: "600", margin: "0 0 12px" }}>Our approach</h3>
               <p style={{ fontSize: "15px", lineHeight: "1.7", color: "#56607A", margin: "0" }}>Professional CV writing, interview readiness, and structured employability guidance built to help you approach every opportunity with purpose. Every service follows a clear, intentional process designed to strengthen your position in the job market.</p>
             </div>
-            <div style={{ background: "#FAF7F0", border: "1px solid #E7E2D6", borderRadius: "4px", padding: "34px 32px" }}>
+            <div style={{ background: "#FFFFFF", border: "1px solid #E7E2D6", borderRadius: "4px", padding: "34px 32px" }}>
               <h3 style={{ fontFamily: "'Source Serif 4',serif", fontSize: "22px", fontWeight: "600", margin: "0 0 12px" }}>What sets us apart</h3>
               <p style={{ fontSize: "15px", lineHeight: "1.7", color: "#56607A", margin: "0" }}>Our services are advisory: we equip you with the tools and guidance to navigate the job market effectively. We don't guarantee interviews or placement — we empower you to present your best self with clarity and confidence.</p>
             </div>
-            <div style={{ background: "#FAF7F0", border: "1px solid #E7E2D6", borderRadius: "4px", padding: "34px 32px" }}>
+            <div style={{ background: "#FFFFFF", border: "1px solid #E7E2D6", borderRadius: "4px", padding: "34px 32px" }}>
               <h3 style={{ fontFamily: "'Source Serif 4',serif", fontSize: "22px", fontWeight: "600", margin: "0 0 12px" }}>Our commitment to your privacy</h3>
               <p style={{ fontSize: "15px", lineHeight: "1.7", color: "#56607A", margin: "0" }}>All information collected is used strictly for delivering services, processing payments, and communicating with you. Your data is treated as confidential and will never be shared with third parties without your consent.</p>
             </div>
-            <div style={{ background: "#FAF7F0", border: "1px solid #E7E2D6", borderRadius: "4px", padding: "34px 32px" }}>
+            <div style={{ background: "#FFFFFF", border: "1px solid #E7E2D6", borderRadius: "4px", padding: "34px 32px" }}>
               <h3 style={{ fontFamily: "'Source Serif 4',serif", fontSize: "22px", fontWeight: "600", margin: "0 0 12px" }}>What we need from you</h3>
               <p style={{ fontSize: "15px", lineHeight: "1.7", color: "#56607A", margin: "0" }}>Please submit all relevant information — experience, responsibilities, and certifications — before work begins. Significant new information submitted after the first draft may carry an additional fee.</p>
             </div>
           </div>
         </div>
       </section>
-      <section style={{ maxWidth: "1200px", margin: "0 auto", padding: "88px 32px", textAlign: "center" }}>
-        <h2 style={{ fontFamily: "'Source Serif 4',serif", fontSize: "clamp(26px,3.8vw,38px)", fontWeight: "600", margin: "0 0 16px" }}>Let's position your career.</h2>
-        <p style={{ fontSize: "16px", color: "#56607A", margin: "0 0 32px" }}>Questions about which service fits? We'll point you in the right direction.</p>
-        <a href="/contact" style={{ background: "#C9A227", color: "#131F38", padding: "15px 30px", borderRadius: "3px", fontWeight: "600", fontSize: "15.5px", display: "inline-block" }} data-h="hv-about-2">Get in touch</a>
+      <section style={{ background: "linear-gradient(180deg,#131F38 0%,#26396A 100%)", color: "#F4EFE4" }}>
+        <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "88px 32px", textAlign: "center" }}>
+          <h2 style={{ fontFamily: "'Source Serif 4',serif", fontSize: "clamp(26px,3.8vw,38px)", fontWeight: "600", margin: "0 0 16px" }}>Let's position your career.</h2>
+          <p style={{ fontSize: "16px", color: "#B9C0D2", margin: "0 0 32px" }}>Questions about which service fits? We'll point you in the right direction.</p>
+          <a href="/contact" style={{ background: "#C9A227", color: "#131F38", padding: "15px 30px", borderRadius: "3px", fontWeight: "600", fontSize: "15.5px", display: "inline-block" }} data-h="hv-about-2">Get in touch</a>
+        </div>
       </section>
     </>
   );
