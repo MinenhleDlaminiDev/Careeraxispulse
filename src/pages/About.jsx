@@ -15,35 +15,31 @@ export default function About() {
           <p style={{ fontSize: "17px", lineHeight: "1.65", color: "#B9C0D2", maxWidth: "560px", margin: "22px 0 0", marginLeft: "auto", marginRight: "auto", textAlign: "center" }}>We help you approach every opportunity with purpose — not by promising outcomes, but by equipping you with clarity, structure, and confidence.</p>
         </div>
       </section>
-      <section style={{ maxWidth: "1200px", margin: "0 auto", padding: "88px 32px 72px", textAlign: "center" }}>
-        <div style={{ letterSpacing: ".22em", textTransform: "uppercase", fontSize: "12px", fontWeight: "600", color: "#9A7B12", marginBottom: "16px" }}>Who we are</div>
-        <h2 style={{ fontFamily: "'Source Serif 4',serif", fontSize: "clamp(28px,4.4vw,46px)", fontWeight: "600", lineHeight: "1.12", margin: "0 auto", maxWidth: "760px", textWrap: "pretty" }}>A resilient bridge between talent and opportunity</h2>
-        <div style={{ width: "56px", height: "3px", background: "#C9A227", margin: "24px auto 32px" }}></div>
-        <p style={{ fontSize: "16.5px", lineHeight: "1.75", color: "#56607A", margin: "0 auto 20px", maxWidth: "720px" }}><strong style={{ color: "#131F38" }}>CareerPulse Axis</strong> intentionally redefines career mobility by building a resilient bridge between talent and the global employability infrastructure. Grounded in rigorous research and measurable outcomes, we engineer structured employability systems that connect individuals to opportunity across industries, professional stages, and international workforce markets.</p>
-        <p style={{ fontSize: "16.5px", lineHeight: "1.75", color: "#56607A", margin: "0 auto", maxWidth: "720px" }}>By aligning labour market intelligence, institutional ecosystems, and strategic positioning at scale, Axis constructs a transnational bridge between human potential and the world's evolving workforce infrastructure. This expands access, elevates competitiveness, and ensures neither talent nor skill is left behind.</p>
-      </section>
-      <section style={{ background: "linear-gradient(180deg,#131F38 0%,#26396A 100%)", color: "#F4EFE4" }}>
-        <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "80px 32px", textAlign: "center" }}>
+      <section style={{ maxWidth: "1200px", margin: "0 auto", padding: "88px 32px" }}>
+        <div style={{ textAlign: "center" }}>
+          <div style={{ letterSpacing: ".22em", textTransform: "uppercase", fontSize: "12px", fontWeight: "600", color: "#9A7B12", marginBottom: "16px" }}>Who we are</div>
+          <h2 style={{ fontFamily: "'Source Serif 4',serif", fontSize: "clamp(28px,4.4vw,46px)", fontWeight: "600", lineHeight: "1.12", margin: "0 auto", maxWidth: "760px", textWrap: "pretty" }}>A resilient bridge between talent and opportunity</h2>
+          <div style={{ width: "56px", height: "3px", background: "#C9A227", margin: "24px auto 32px" }}></div>
+          <p style={{ fontSize: "16.5px", lineHeight: "1.75", color: "#56607A", margin: "0 auto 20px", maxWidth: "720px" }}><strong style={{ color: "#131F38" }}>CareerPulse Axis</strong> intentionally redefines career mobility by building a resilient bridge between talent and the global employability infrastructure. Grounded in rigorous research and measurable outcomes, we engineer structured employability systems that connect individuals to opportunity across industries, professional stages, and international workforce markets.</p>
+          <p style={{ fontSize: "16.5px", lineHeight: "1.75", color: "#56607A", margin: "0 auto", maxWidth: "720px" }}>By aligning labour market intelligence, institutional ecosystems, and strategic positioning at scale, Axis constructs a transnational bridge between human potential and the world's evolving workforce infrastructure. This expands access, elevates competitiveness, and ensures neither talent nor skill is left behind.</p>
+        </div>
+        <div style={{ background: "linear-gradient(180deg,#131F38 0%,#26396A 100%)", color: "#F4EFE4", borderRadius: "6px", padding: "52px 44px", textAlign: "center", margin: "56px 0 40px" }}>
           <div style={{ letterSpacing: ".22em", textTransform: "uppercase", fontSize: "12px", fontWeight: "600", color: "#C9A227", marginBottom: "18px" }}>The Axis</div>
           <h3 style={{ fontFamily: "'Source Serif 4',serif", fontSize: "clamp(24px,3.4vw,34px)", fontWeight: "600", lineHeight: "1.22", margin: "0 auto 18px", maxWidth: "740px", textWrap: "pretty" }}>The point of intersection and alignment, where skills, experience, and opportunity converge.</h3>
           <p style={{ fontSize: "16px", lineHeight: "1.7", color: "#B9C0D2", margin: "0 auto", maxWidth: "640px" }}>It reflects our commitment to refining professional identity and positioning that identity within workforce systems across industries and labour markets.</p>
         </div>
-      </section>
-      <section style={{ background: "#FFFFFF", borderBottom: "1px solid #E7E2D6" }}>
-        <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "80px 32px" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(240px,1fr))", gap: "24px" }}>
-            <div style={{ background: "#FAF7F0", border: "1px solid #E7E2D6", borderRadius: "4px", padding: "34px 32px", textAlign: "center" }}>
-              <h4 style={{ fontFamily: "'Source Serif 4',serif", fontSize: "24px", fontWeight: "600", margin: "0 0 10px" }}>Research led</h4>
-              <div style={{ fontSize: "12px", letterSpacing: ".14em", textTransform: "uppercase", fontWeight: "600", color: "#6B7690", lineHeight: "1.6" }}>Grounded in labour market intelligence</div>
-            </div>
-            <div style={{ background: "#FAF7F0", border: "1px solid #E7E2D6", borderRadius: "4px", padding: "34px 32px", textAlign: "center" }}>
-              <h4 style={{ fontFamily: "'Source Serif 4',serif", fontSize: "24px", fontWeight: "600", margin: "0 0 10px" }}>Global</h4>
-              <div style={{ fontSize: "12px", letterSpacing: ".14em", textTransform: "uppercase", fontWeight: "600", color: "#6B7690", lineHeight: "1.6" }}>Across international workforce markets</div>
-            </div>
-            <div style={{ background: "#FAF7F0", border: "1px solid #E7E2D6", borderRadius: "4px", padding: "34px 32px", textAlign: "center" }}>
-              <h4 style={{ fontFamily: "'Source Serif 4',serif", fontSize: "24px", fontWeight: "600", margin: "0 0 10px" }}>Measurable</h4>
-              <div style={{ fontSize: "12px", letterSpacing: ".14em", textTransform: "uppercase", fontWeight: "600", color: "#6B7690", lineHeight: "1.6" }}>Outcomes tracked at scale</div>
-            </div>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(240px,1fr))", gap: "24px" }}>
+          <div style={{ background: "#FFFFFF", border: "1px solid #E7E2D6", borderTop: "3px solid #C9A227", borderRadius: "4px", padding: "28px 26px" }}>
+            <h4 style={{ fontFamily: "'Source Serif 4',serif", fontSize: "24px", fontWeight: "600", margin: "0 0 10px" }}>Research led</h4>
+            <div style={{ fontSize: "12px", letterSpacing: ".14em", textTransform: "uppercase", fontWeight: "600", color: "#6B7690", lineHeight: "1.6" }}>Grounded in labour market intelligence</div>
+          </div>
+          <div style={{ background: "#FFFFFF", border: "1px solid #E7E2D6", borderTop: "3px solid #C9A227", borderRadius: "4px", padding: "28px 26px" }}>
+            <h4 style={{ fontFamily: "'Source Serif 4',serif", fontSize: "24px", fontWeight: "600", margin: "0 0 10px" }}>Global</h4>
+            <div style={{ fontSize: "12px", letterSpacing: ".14em", textTransform: "uppercase", fontWeight: "600", color: "#6B7690", lineHeight: "1.6" }}>Across international workforce markets</div>
+          </div>
+          <div style={{ background: "#FFFFFF", border: "1px solid #E7E2D6", borderTop: "3px solid #C9A227", borderRadius: "4px", padding: "28px 26px" }}>
+            <h4 style={{ fontFamily: "'Source Serif 4',serif", fontSize: "24px", fontWeight: "600", margin: "0 0 10px" }}>Measurable</h4>
+            <div style={{ fontSize: "12px", letterSpacing: ".14em", textTransform: "uppercase", fontWeight: "600", color: "#6B7690", lineHeight: "1.6" }}>Outcomes tracked at scale</div>
           </div>
         </div>
       </section>
