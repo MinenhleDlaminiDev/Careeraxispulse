@@ -15,6 +15,40 @@ export default function About() {
           <p style={{ fontSize: "17px", lineHeight: "1.65", color: "#B9C0D2", maxWidth: "560px", margin: "22px 0 0", marginLeft: "auto", marginRight: "auto", textAlign: "center" }}>We help you approach every opportunity with purpose — not by promising outcomes, but by equipping you with clarity, structure, and confidence.</p>
         </div>
       </section>
+      <section style={{ maxWidth: "1000px", margin: "0 auto", padding: "88px 32px 40px" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px" }}>
+          <div style={{ letterSpacing: ".22em", textTransform: "uppercase", fontSize: "12px", fontWeight: "600", color: "#9A7B12" }}>Who we are</div>
+          <div style={{ letterSpacing: ".22em", textTransform: "uppercase", fontSize: "12px", fontWeight: "600", color: "#B4A87E" }}>01 / 06</div>
+        </div>
+        <h2 style={{ fontFamily: "'Source Serif 4',serif", fontSize: "clamp(30px,5vw,52px)", fontWeight: "600", lineHeight: "1.1", margin: "0", textWrap: "pretty" }}>A resilient bridge between talent and opportunity</h2>
+        <div style={{ width: "56px", height: "3px", background: "#C9A227", margin: "24px 0 32px" }}></div>
+        <p style={{ fontSize: "16.5px", lineHeight: "1.75", color: "#56607A", margin: "0 0 20px", maxWidth: "760px" }}><strong style={{ color: "#131F38" }}>CareerPulse Axis</strong> intentionally redefines career mobility by building a resilient bridge between talent and the global employability infrastructure. Grounded in rigorous research and measurable outcomes, we engineer structured employability systems that connect individuals to opportunity across industries, professional stages, and international workforce markets.</p>
+        <p style={{ fontSize: "16.5px", lineHeight: "1.75", color: "#56607A", margin: "0", maxWidth: "760px" }}>By aligning labour market intelligence, institutional ecosystems, and strategic positioning at scale, Axis constructs a transnational bridge between human potential and the world's evolving workforce infrastructure — expanding access, elevating competitiveness, and ensuring neither talent nor skill is left behind.</p>
+      </section>
+      <section style={{ maxWidth: "1000px", margin: "0 auto", padding: "0 32px" }}>
+        <div style={{ background: "linear-gradient(180deg,#0E1830 0%,#1E3054 100%)", color: "#F4EFE4", borderRadius: "6px", padding: "48px 44px", position: "relative", overflow: "hidden" }}>
+          <div style={{ position: "absolute", top: "0", right: "0", width: "0", height: "0", borderTop: "70px solid rgba(255,255,255,.04)", borderLeft: "70px solid transparent" }}></div>
+          <div style={{ letterSpacing: ".22em", textTransform: "uppercase", fontSize: "12px", fontWeight: "600", color: "#C9A227", marginBottom: "18px" }}>The Axis</div>
+          <h3 style={{ fontFamily: "'Source Serif 4',serif", fontSize: "clamp(22px,3vw,30px)", fontWeight: "600", lineHeight: "1.25", margin: "0 0 18px", maxWidth: "640px", textWrap: "pretty" }}>The point of intersection and alignment — where skills, experience, and opportunity converge.</h3>
+          <p style={{ fontSize: "15.5px", lineHeight: "1.7", color: "#B9C0D2", margin: "0", maxWidth: "620px" }}>It reflects our commitment to refining professional identity and positioning that identity within workforce systems across industries and labour markets.</p>
+        </div>
+      </section>
+      <section style={{ maxWidth: "1000px", margin: "0 auto", padding: "40px 32px 24px" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(240px,1fr))", gap: "24px" }}>
+          <div style={{ background: "#FFFFFF", border: "1px solid #E7E2D6", borderTop: "3px solid #C9A227", borderRadius: "4px", padding: "28px 26px" }}>
+            <h4 style={{ fontFamily: "'Source Serif 4',serif", fontSize: "24px", fontWeight: "600", margin: "0 0 10px" }}>Research-led</h4>
+            <div style={{ fontSize: "12px", letterSpacing: ".14em", textTransform: "uppercase", fontWeight: "600", color: "#6B7690", lineHeight: "1.6" }}>Grounded in labour-market intelligence</div>
+          </div>
+          <div style={{ background: "#FFFFFF", border: "1px solid #E7E2D6", borderTop: "3px solid #C9A227", borderRadius: "4px", padding: "28px 26px" }}>
+            <h4 style={{ fontFamily: "'Source Serif 4',serif", fontSize: "24px", fontWeight: "600", margin: "0 0 10px" }}>Global</h4>
+            <div style={{ fontSize: "12px", letterSpacing: ".14em", textTransform: "uppercase", fontWeight: "600", color: "#6B7690", lineHeight: "1.6" }}>Across international workforce markets</div>
+          </div>
+          <div style={{ background: "#FFFFFF", border: "1px solid #E7E2D6", borderTop: "3px solid #C9A227", borderRadius: "4px", padding: "28px 26px" }}>
+            <h4 style={{ fontFamily: "'Source Serif 4',serif", fontSize: "24px", fontWeight: "600", margin: "0 0 10px" }}>Measurable</h4>
+            <div style={{ fontSize: "12px", letterSpacing: ".14em", textTransform: "uppercase", fontWeight: "600", color: "#6B7690", lineHeight: "1.6" }}>Outcomes tracked at scale</div>
+          </div>
+        </div>
+      </section>
       <section style={{ maxWidth: "1200px", margin: "0 auto", padding: "88px 32px", display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(300px,1fr))", gap: "64px", alignItems: "start" }}>
         <div style={{ width: "100%", maxWidth: "380px", aspectRatio: "4/5", position: "relative", justifySelf: "center" }}>
           <img src="/assets/Sino-Founder.jpg" alt="Sinovuyo Mgogo — Founder of CareerPulse Axis" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", borderRadius: "4px", display: "block" }} />
