@@ -3,8 +3,8 @@ import { useSeo } from '../seo.js';
 
 export default function Ebook() {
   useSeo({
-    title: 'The eBook — 8 Proven Axis Steps Before You Apply | CareerPulse Axis',
-    description: 'A step-by-step guide to positioning your application before you apply. Instant download — R245.',
+    title: 'The eBook: 8 Proven Axis Steps Before You Apply | CareerPulse Axis',
+    description: 'A step-by-step guide to positioning your application before you apply. Instant download for R245.',
     path: '/ebook',
   });
   return (
@@ -14,9 +14,9 @@ export default function Ebook() {
           <div>
             <div style={{ letterSpacing: ".22em", textTransform: "uppercase", fontSize: "12.5px", fontWeight: "600", color: "#C9A227", marginBottom: "16px", textAlign: "center" }}>Digital product · eBook</div>
             <h1 style={{ fontFamily: "'Source Serif 4',serif", fontWeight: "600", fontSize: "clamp(32px,5vw,50px)", lineHeight: "1.1", margin: "0", textAlign: "center", textWrap: "pretty" }}><em style={{ fontStyle: "italic", color: "#C9A227" }}>8 Proven Axis Steps</em> Before You Apply</h1>
-            <p style={{ fontSize: "17px", lineHeight: "1.65", color: "#B9C0D2", margin: "22px 0 34px", maxWidth: "520px" }}>A simple, structured tool that helps you align your application with the actual requirements of a role — before you submit it. Use it every time you prepare to apply.</p>
+            <p style={{ fontSize: "17px", lineHeight: "1.65", color: "#B9C0D2", margin: "22px 0 34px", maxWidth: "520px" }}>A simple, structured tool that helps you align your application with the actual requirements of a role, before you submit it. Use it every time you prepare to apply.</p>
             <div style={{ display: "flex", alignItems: "center", gap: "22px", flexWrap: "wrap" }}>
-              <a href={PAYSTACK.ebook} style={{ background: "#C9A227", color: "#131F38", padding: "15px 28px", borderRadius: "3px", fontWeight: "600", fontSize: "15.5px" }} data-h="hv-ebook-0">Purchase eBook — R245</a>
+              <a href={PAYSTACK.ebook} style={{ background: "#C9A227", color: "#131F38", padding: "15px 28px", borderRadius: "3px", fontWeight: "600", fontSize: "15.5px" }} data-h="hv-ebook-0">Purchase eBook for R245</a>
               <div style={{ fontSize: "13.5px", color: "#8A94AC" }}>One-time purchase · Digital PDF · Immediate access</div>
             </div>
           </div>
@@ -59,7 +59,7 @@ export default function Ebook() {
           </div>
           <div style={{ background: "#FFFFFF", border: "1px solid #E7E2D6", borderRadius: "4px", padding: "24px 26px", display: "flex", gap: "16px", alignItems: "flex-start", gridColumn: "1 / -1" }}>
             <div style={{ fontFamily: "'Source Serif 4',serif", fontSize: "22px", fontWeight: "600", color: "#C9A227", minWidth: "32px" }}>05</div>
-            <p style={{ fontSize: "15px", color: "#1B2A4A", lineHeight: "1.6", margin: "0", fontWeight: "500" }}>Present your information clearly and appropriately — every time you apply</p>
+            <p style={{ fontSize: "15px", color: "#1B2A4A", lineHeight: "1.6", margin: "0", fontWeight: "500" }}>Present your information clearly and appropriately, every time you apply</p>
           </div>
         </div>
       </section>

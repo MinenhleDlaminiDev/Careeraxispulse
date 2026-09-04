@@ -3,8 +3,8 @@ import { useSeo } from '../seo.js';
 
 export default function Services() {
   useSeo({
-    title: 'Services & Pricing — CV Revamp & Interview Readiness | CareerPulse Axis',
-    description: 'Professional CV revamps from R150 and interview readiness from R200 — ATS-aligned and priced by experience, from graduate to executive.',
+    title: 'Services & Pricing | CV Revamp & Interview Readiness | CareerPulse Axis',
+    description: 'Professional CV revamps from R150 and interview readiness from R200, ATS-aligned and priced by experience, from graduate to executive.',
     path: '/services',
   });
   return (
@@ -118,7 +118,7 @@ export default function Services() {
           <div style={{ background: "#FFFFFF", border: "1px solid #E7E2D6", borderRadius: "4px", padding: "30px 28px" }}>
             <h3 style={{ fontSize: "17px", fontWeight: "600", margin: "0 0 14px" }}>Good to know</h3>
             <ul style={{ margin: "0", padding: "0 0 0 18px", fontSize: "14.5px", color: "#56607A", lineHeight: "2" }}>
-              <li>Services are advisory — no placement guarantees</li>
+              <li>Services are advisory, no placement guarantees</li>
               <li>Submit all relevant information before work begins</li>
               <li>New information after drafting may carry an additional fee</li>
             </ul>
@@ -128,7 +128,7 @@ export default function Services() {
       <section style={{ background: "linear-gradient(180deg,#131F38 0%,#26396A 100%)", color: "#F4EFE4" }}>
         <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "72px 32px", textAlign: "center" }}>
           <h2 style={{ fontFamily: "'Source Serif 4',serif", fontSize: "clamp(26px,3.6vw,36px)", fontWeight: "600", margin: "0 0 14px" }}>Not sure which level fits you?</h2>
-          <p style={{ fontSize: "16px", color: "#B9C0D2", margin: "0 0 30px" }}>Send us a message — we'll recommend the right service for your experience and goals.</p>
+          <p style={{ fontSize: "16px", color: "#B9C0D2", margin: "0 0 30px" }}>Send us a message and we'll recommend the right service for your experience and goals.</p>
           <a href="/contact" style={{ background: "#C9A227", color: "#131F38", padding: "15px 30px", borderRadius: "3px", fontWeight: "600", fontSize: "15.5px", display: "inline-block" }} data-h="hv-services-12">Get in touch</a>
         </div>
       </section>

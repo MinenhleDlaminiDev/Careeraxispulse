@@ -55,7 +55,7 @@ export default function Contact() {
       <section style={{ background: "#FFFFFF", borderTop: "1px solid #E7E2D6" }}>
         <div style={{ maxWidth: "860px", margin: "0 auto", padding: "72px 32px", textAlign: "center" }}>
           <h2 style={{ fontFamily: "'Source Serif 4',serif", fontSize: "30px", fontWeight: "600", margin: "0 0 14px" }}>Prefer to talk it through first?</h2>
-          <p style={{ fontSize: "15.5px", color: "#56607A", lineHeight: "1.7", margin: "0 0 28px" }}>Not sure which service or level fits you? Send a WhatsApp message — Sinovuyo will recommend the right option for your experience and goals, no obligation.</p>
+          <p style={{ fontSize: "15.5px", color: "#56607A", lineHeight: "1.7", margin: "0 0 28px" }}>Not sure which service or level fits you? Send a WhatsApp message and Sinovuyo will recommend the right option for your experience and goals, no obligation.</p>
           <a href="https://wa.me/27710203982" style={{ background: "#C9A227", color: "#131F38", padding: "15px 30px", borderRadius: "3px", fontWeight: "600", fontSize: "15.5px", display: "inline-block" }} data-h="hv-contact-2">Start a WhatsApp chat</a>
         </div>
       </section>
