@@ -1,4 +1,3 @@
-import { PAYSTACK } from '../payments.js';
 import { useSeo } from '../seo.js';
 
 export default function Contact() {
@@ -37,7 +36,7 @@ export default function Contact() {
               <div style={{ display: "flex", justifyContent: "space-between", gap: "12px" }}><span style={{ color: "#8A94AC" }}>Account number</span><span style={{ fontWeight: "600", fontFamily: "monospace", fontSize: "15px" }}>63197182694</span></div>
               <div style={{ display: "flex", justifyContent: "space-between", gap: "12px" }}><span style={{ color: "#8A94AC" }}>Reference</span><span style={{ fontWeight: "600" }}>Your full name</span></div>
             </div>
-            <div style={{ fontSize: "13px", color: "#8A94AC" }}>XisLab Apex subscriptions are paid securely via <a href={PAYSTACK.bookService} style={{ color: "#C9A227", fontWeight: "600" }}>Paystack</a>.</div>
+            <div style={{ fontSize: "13px", color: "#8A94AC" }}>XisLab Apex is coming soon — subscriptions are not yet open.</div>
           </div>
           <div style={{ background: "#FFFFFF", border: "1px solid #E7E2D6", borderRadius: "4px", padding: "34px 30px", display: "flex", flexDirection: "column", gap: "14px" }}>
             <div style={{ fontFamily: "'Source Serif 4',serif", fontSize: "clamp(28px,4vw,40px)", fontWeight: "600", color: "#C9A227" }}>03</div>

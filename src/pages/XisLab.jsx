@@ -63,9 +63,10 @@ export default function XisLab() {
             <p style={{ fontSize: "14.5px", color: "#56607A", lineHeight: "1.6", margin: "0" }}>Research-based labour market intelligence and employability awareness.</p>
           </div>
           <div style={{ background: "linear-gradient(180deg,#131F38 0%,#26396A 100%)", color: "#F4EFE4", borderRadius: "4px", padding: "30px 28px", display: "flex", flexDirection: "column", justifyContent: "center", gap: "10px" }}>
-            <h3 style={{ fontFamily: "'Source Serif 4',serif", fontSize: "21px", fontWeight: "600", margin: "0" }}>Ready to join?</h3>
+            <h3 style={{ fontFamily: "'Source Serif 4',serif", fontSize: "21px", fontWeight: "600", margin: "0" }}>Coming soon</h3>
             <p style={{ fontSize: "14.5px", color: "#B9C0D2", lineHeight: "1.6", margin: "0 0 8px" }}>Membership guidance is advisory — you stay in control of every application.</p>
-            <a href="https://paystack.shop/pay/zzvuae8ftf" style={{ color: "#C9A227", fontWeight: "600", fontSize: "14.5px" }}>Subscribe now →</a>
+            {/* Coming soon — payments disabled. To re-enable, restore: <a href="https://paystack.shop/pay/zzvuae8ftf" style={{ color: "#C9A227", fontWeight: "600", fontSize: "14.5px" }}>Subscribe now →</a> */}
+            <span style={{ color: "#8A94AC", fontWeight: "600", fontSize: "14.5px" }}>Launching soon — check back shortly</span>
           </div>
         </div>
       </section>
