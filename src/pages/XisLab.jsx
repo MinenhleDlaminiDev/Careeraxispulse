@@ -3,7 +3,7 @@ import { useSeo } from '../seo.js';
 
 export default function XisLab() {
   useSeo({
-    title: 'XisLab Apex Membership — Ongoing Career Support | CareerPulse Axis',
+    title: 'XisLab Apex Membership | Ongoing Career Support | CareerPulse Axis',
     description: 'Join XisLab Apex (R199/mo): weekly live sessions, monthly CV reviews, and hiring insights to strengthen your employability.',
     path: '/xislab',
   });
@@ -23,7 +23,7 @@ export default function XisLab() {
               <span style={{ fontSize: "16px", color: "#56607A" }}>/month</span>
             </div>
             <div style={{ fontSize: "13.5px", color: "#8A94AC", marginBottom: "24px" }}>Cancel anytime before the next billing cycle</div>
-            {/* XisLab Apex is coming soon — payments are temporarily disabled.
+            {/* XisLab Apex is coming soon. Payments are temporarily disabled.
                 To re-enable, restore the Paystack subscribe button below (link lives in PAYSTACK.xislab, src/payments.js):
                 <a href={PAYSTACK.xislab} style={{ display: "block", background: "#C9A227", color: "#131F38", textAlign: "center", padding: "15px", borderRadius: "3px", fontWeight: "600", fontSize: "15.5px", marginBottom: "14px" }} data-h="hv-xislab-0">Subscribe with Paystack</a> */}
             <span aria-disabled="true" style={{ display: "block", background: "#E7E2D6", color: "#8A94AC", textAlign: "center", padding: "15px", borderRadius: "3px", fontWeight: "600", fontSize: "15.5px", marginBottom: "14px", cursor: "not-allowed" }} data-h="hv-xislab-0">Coming soon</span>
@@ -65,7 +65,7 @@ export default function XisLab() {
           <div style={{ background: "linear-gradient(180deg,#131F38 0%,#26396A 100%)", color: "#F4EFE4", borderRadius: "4px", padding: "30px 28px", display: "flex", flexDirection: "column", justifyContent: "center", gap: "10px" }}>
             <h3 style={{ fontFamily: "'Source Serif 4',serif", fontSize: "21px", fontWeight: "600", margin: "0" }}>Coming soon</h3>
             <p style={{ fontSize: "14.5px", color: "#B9C0D2", lineHeight: "1.6", margin: "0 0 8px" }}>Membership guidance is advisory. You stay in control of every application.</p>
-            {/* Coming soon — payments disabled. To re-enable, restore: <a href="https://paystack.shop/pay/zzvuae8ftf" style={{ color: "#C9A227", fontWeight: "600", fontSize: "14.5px" }}>Subscribe now →</a> */}
+            {/* Coming soon. Payments disabled. To re-enable, restore: <a href="https://paystack.shop/pay/zzvuae8ftf" style={{ color: "#C9A227", fontWeight: "600", fontSize: "14.5px" }}>Subscribe now →</a> */}
             <span style={{ color: "#8A94AC", fontWeight: "600", fontSize: "14.5px" }}>Launching soon. Check back shortly</span>
           </div>
         </div>
@@ -73,7 +73,7 @@ export default function XisLab() {
       <section style={{ background: "#FFFFFF", borderTop: "1px solid #E7E2D6" }}>
         <div style={{ maxWidth: "860px", margin: "0 auto", padding: "72px 32px", textAlign: "center" }}>
           <h2 style={{ fontFamily: "'Source Serif 4',serif", fontSize: "32px", fontWeight: "600", margin: "0 0 14px" }}>Good to know</h2>
-          <p style={{ fontSize: "15px", color: "#56607A", lineHeight: "1.7", margin: "0" }}>The subscription provides guidance only and is separate from CV writing services. It does not guarantee interviews or job placement — members are responsible for applying the guidance provided. Cancel anytime before your next billing cycle.</p>
+          <p style={{ fontSize: "15px", color: "#56607A", lineHeight: "1.7", margin: "0" }}>The subscription provides guidance only and is separate from CV writing services. It does not guarantee interviews or job placement. Members are responsible for applying the guidance provided. Cancel anytime before your next billing cycle.</p>
         </div>
       </section>
     </>
