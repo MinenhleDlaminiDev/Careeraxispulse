@@ -23,8 +23,11 @@ export default function XisLab() {
               <span style={{ fontSize: "16px", color: "#56607A" }}>/month</span>
             </div>
             <div style={{ fontSize: "13.5px", color: "#8A94AC", marginBottom: "24px" }}>Cancel anytime before the next billing cycle</div>
-            <a href={PAYSTACK.xislab} style={{ display: "block", background: "#C9A227", color: "#131F38", textAlign: "center", padding: "15px", borderRadius: "3px", fontWeight: "600", fontSize: "15.5px", marginBottom: "14px" }} data-h="hv-xislab-0">Subscribe with Paystack</a>
-            <div style={{ fontSize: "13px", color: "#8A94AC", textAlign: "center" }}>Secure payment · Instant access</div>
+            {/* XisLab Apex is coming soon — payments are temporarily disabled.
+                To re-enable, restore the Paystack subscribe button below (link lives in PAYSTACK.xislab, src/payments.js):
+                <a href={PAYSTACK.xislab} style={{ display: "block", background: "#C9A227", color: "#131F38", textAlign: "center", padding: "15px", borderRadius: "3px", fontWeight: "600", fontSize: "15.5px", marginBottom: "14px" }} data-h="hv-xislab-0">Subscribe with Paystack</a> */}
+            <span aria-disabled="true" style={{ display: "block", background: "#E7E2D6", color: "#8A94AC", textAlign: "center", padding: "15px", borderRadius: "3px", fontWeight: "600", fontSize: "15.5px", marginBottom: "14px", cursor: "not-allowed" }} data-h="hv-xislab-0">Coming soon</span>
+            <div style={{ fontSize: "13px", color: "#8A94AC", textAlign: "center" }}>Launching soon — check back shortly</div>
           </div>
         </div>
       </section>
