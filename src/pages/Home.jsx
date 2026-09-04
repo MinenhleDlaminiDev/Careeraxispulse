@@ -1,4 +1,3 @@
-import { PAYSTACK } from '../payments.js';
 import { useSeo } from '../seo.js';
 
 export default function Home() {
@@ -136,7 +135,7 @@ export default function Home() {
         <h2 style={{ fontFamily: "'Source Serif 4',serif", fontSize: "clamp(30px,4.5vw,46px)", fontWeight: "600", margin: "0 0 18px", textWrap: "pretty" }}>Ready to position your career?</h2>
         <p style={{ fontSize: "17px", color: "#56607A", maxWidth: "520px", margin: "0 auto 36px", lineHeight: "1.6" }}>Start with a CV revamp, book an interview session, or join XisLab Apex for ongoing support.</p>
         <div style={{ display: "flex", gap: "14px", justifyContent: "center", flexWrap: "wrap" }}>
-          <a href={PAYSTACK.bookService} style={{ background: "#C9A227", color: "#131F38", padding: "16px 32px", borderRadius: "3px", fontWeight: "600", fontSize: "15.5px" }} data-h="hv-home-5">Book a Service</a>
+          <a href="/services" style={{ background: "#C9A227", color: "#131F38", padding: "16px 32px", borderRadius: "3px", fontWeight: "600", fontSize: "15.5px" }} data-h="hv-home-5">Book a Service</a>
           <a href="/contact" style={{ border: "1px solid #C9B98A", color: "#1B2A4A", padding: "16px 32px", borderRadius: "3px", fontWeight: "600", fontSize: "15.5px" }} data-h="hv-home-6">Contact Us</a>
         </div>
       </section>
