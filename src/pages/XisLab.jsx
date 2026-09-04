@@ -27,7 +27,7 @@ export default function XisLab() {
                 To re-enable, restore the Paystack subscribe button below (link lives in PAYSTACK.xislab, src/payments.js):
                 <a href={PAYSTACK.xislab} style={{ display: "block", background: "#C9A227", color: "#131F38", textAlign: "center", padding: "15px", borderRadius: "3px", fontWeight: "600", fontSize: "15.5px", marginBottom: "14px" }} data-h="hv-xislab-0">Subscribe with Paystack</a> */}
             <span aria-disabled="true" style={{ display: "block", background: "#E7E2D6", color: "#8A94AC", textAlign: "center", padding: "15px", borderRadius: "3px", fontWeight: "600", fontSize: "15.5px", marginBottom: "14px", cursor: "not-allowed" }} data-h="hv-xislab-0">Coming soon</span>
-            <div style={{ fontSize: "13px", color: "#8A94AC", textAlign: "center" }}>Launching soon — check back shortly</div>
+            <div style={{ fontSize: "13px", color: "#8A94AC", textAlign: "center" }}>Launching soon. Check back shortly</div>
           </div>
         </div>
       </section>
@@ -66,7 +66,7 @@ export default function XisLab() {
             <h3 style={{ fontFamily: "'Source Serif 4',serif", fontSize: "21px", fontWeight: "600", margin: "0" }}>Coming soon</h3>
             <p style={{ fontSize: "14.5px", color: "#B9C0D2", lineHeight: "1.6", margin: "0 0 8px" }}>Membership guidance is advisory — you stay in control of every application.</p>
             {/* Coming soon — payments disabled. To re-enable, restore: <a href="https://paystack.shop/pay/zzvuae8ftf" style={{ color: "#C9A227", fontWeight: "600", fontSize: "14.5px" }}>Subscribe now →</a> */}
-            <span style={{ color: "#8A94AC", fontWeight: "600", fontSize: "14.5px" }}>Launching soon — check back shortly</span>
+            <span style={{ color: "#8A94AC", fontWeight: "600", fontSize: "14.5px" }}>Launching soon. Check back shortly</span>
           </div>
         </div>
       </section>
