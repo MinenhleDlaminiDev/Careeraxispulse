@@ -16,8 +16,9 @@ export default function Ebook() {
             <h1 style={{ fontFamily: "'Source Serif 4',serif", fontWeight: "600", fontSize: "clamp(32px,5vw,50px)", lineHeight: "1.1", margin: "0", textAlign: "center", textWrap: "pretty" }}><em style={{ fontStyle: "italic", color: "#C9A227" }}>8 Proven Axis Steps</em> Before You Apply</h1>
             <p style={{ fontSize: "17px", lineHeight: "1.65", color: "#B9C0D2", margin: "22px 0 34px", maxWidth: "520px" }}>A simple, structured tool that helps you align your application with the actual requirements of a role, before you submit it. Use it every time you prepare to apply.</p>
             <div style={{ display: "flex", alignItems: "center", gap: "22px", flexWrap: "wrap" }}>
-              <a href={PAYSTACK.ebook} style={{ background: "#C9A227", color: "#131F38", padding: "15px 28px", borderRadius: "3px", fontWeight: "600", fontSize: "15.5px" }} data-h="hv-ebook-0">Purchase eBook for R245</a>
-              <div style={{ fontSize: "13.5px", color: "#8A94AC" }}>One-time purchase · Digital PDF · Immediate access</div>
+              {/* eBook is coming soon. Payments disabled. To re-enable, restore: <a href={PAYSTACK.ebook} style={{ background: "#C9A227", color: "#131F38", padding: "15px 28px", borderRadius: "3px", fontWeight: "600", fontSize: "15.5px" }} data-h="hv-ebook-0">Purchase eBook for R245</a> */}
+              <span aria-disabled="true" style={{ background: "rgba(255,255,255,.12)", color: "#B9C0D2", padding: "15px 28px", borderRadius: "3px", fontWeight: "600", fontSize: "15.5px", cursor: "not-allowed" }} data-h="hv-ebook-0">Coming soon</span>
+              <div style={{ fontSize: "13.5px", color: "#8A94AC" }}>Launching soon. Check back shortly</div>
             </div>
           </div>
           <div style={{ display: "flex", justifyContent: "center" }}>
@@ -66,8 +67,9 @@ export default function Ebook() {
       <section style={{ background: "linear-gradient(180deg,#131F38 0%,#26396A 100%)", color: "#F4EFE4" }}>
         <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "72px 32px", textAlign: "center" }}>
           <h2 style={{ fontFamily: "'Source Serif 4',serif", fontSize: "clamp(26px,3.6vw,36px)", fontWeight: "600", margin: "0 0 14px" }}>Apply with intention, not hope.</h2>
-          <p style={{ fontSize: "16px", color: "#B9C0D2", margin: "0 0 30px" }}>R245 one-time purchase · Digital PDF · Immediate access after payment</p>
-          <a href={PAYSTACK.ebook} style={{ background: "#C9A227", color: "#131F38", padding: "15px 30px", borderRadius: "3px", fontWeight: "600", fontSize: "15.5px", display: "inline-block" }} data-h="hv-ebook-1">Purchase eBook</a>
+          <p style={{ fontSize: "16px", color: "#B9C0D2", margin: "0 0 30px" }}>Launching soon. Check back shortly</p>
+          {/* eBook is coming soon. Payments disabled. To re-enable, restore: <a href={PAYSTACK.ebook} style={{ background: "#C9A227", color: "#131F38", padding: "15px 30px", borderRadius: "3px", fontWeight: "600", fontSize: "15.5px", display: "inline-block" }} data-h="hv-ebook-1">Purchase eBook</a> */}
+          <span aria-disabled="true" style={{ background: "rgba(255,255,255,.12)", color: "#B9C0D2", padding: "15px 30px", borderRadius: "3px", fontWeight: "600", fontSize: "15.5px", display: "inline-block", cursor: "not-allowed" }} data-h="hv-ebook-1">Coming soon</span>
           <div style={{ fontSize: "13px", color: "#8A94AC", marginTop: "22px" }}>Digital products provide guidance only and are non-refundable once delivered or accessed.</div>
         </div>
       </section>
