@@ -80,7 +80,7 @@ export default function Home() {
               <div style={{ fontFamily: "'Source Serif 4',serif", fontSize: "clamp(48px,7vw,76px)", fontWeight: "600", color: "#1B2A4A", lineHeight: "1" }}>3–4</div>
               <div style={{ height: "3px", width: "44px", background: "#C9A227", margin: "18px 0" }}></div>
               <h3 style={{ fontSize: "17px", fontWeight: "600", margin: "0 0 8px" }}>Working day turnaround</h3>
-              <p style={{ fontSize: "14.5px", lineHeight: "1.65", color: "#56607A", margin: "0" }}>Subject to current capacity and scope of work. You'll always know before we start.</p>
+              <p style={{ fontSize: "14.5px", lineHeight: "1.65", color: "#56607A", margin: "0" }}>Monday to Friday, weekends and public holidays excluded. You'll always know before we start.</p>
             </div>
             <div>
               <div style={{ fontFamily: "'Source Serif 4',serif", fontSize: "clamp(48px,7vw,76px)", fontWeight: "600", color: "#1B2A4A", lineHeight: "1" }}>ATS</div>
