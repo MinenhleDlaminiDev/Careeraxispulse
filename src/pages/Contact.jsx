@@ -16,6 +16,9 @@ export default function Contact() {
         </div>
       </section>
       <section style={{ maxWidth: "1200px", margin: "0 auto", padding: "88px 32px 72px" }}>
+        <div style={{ background: "#C9A227", color: "#131F38", borderRadius: "6px", padding: "20px 28px", textAlign: "center", fontWeight: "700", fontSize: "clamp(15px,2vw,18px)", lineHeight: "1.5", marginBottom: "48px" }}>
+          Please note: we are closed on weekends. Our office hours are Monday to Friday, and any messages sent over the weekend are answered the next working day.
+        </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(280px,1fr))", gap: "24px" }}>
           <div style={{ background: "#FFFFFF", border: "1px solid #E7E2D6", borderRadius: "4px", padding: "34px 30px", display: "flex", flexDirection: "column", gap: "14px" }}>
             <div style={{ fontFamily: "'Source Serif 4',serif", fontSize: "clamp(28px,4vw,40px)", fontWeight: "600", color: "#C9A227" }}>01</div>
