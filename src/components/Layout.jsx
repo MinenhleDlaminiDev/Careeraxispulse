@@ -38,10 +38,12 @@ export default function Layout() {
 
   return (
     <div onClickCapture={onClick} onContextMenu={blockImage} onDragStart={blockImage}>
-      <div style={{ background: '#C9A227', color: '#131F38', textAlign: 'center', fontWeight: 700, fontSize: '13.5px', letterSpacing: '.02em', padding: '9px 16px', lineHeight: 1.4 }}>
-        We are closed on weekends · Office hours Monday to Friday
+      <div style={{ position: 'sticky', top: 0, zIndex: 50 }}>
+        <Header />
+        <div style={{ background: '#C9A227', color: '#131F38', textAlign: 'center', fontWeight: 700, fontSize: '13.5px', letterSpacing: '.02em', padding: '9px 16px', lineHeight: 1.4 }}>
+          We are closed on weekends · Office hours Monday to Friday
+        </div>
       </div>
-      <Header />
       <Outlet />
       <Footer />
     </div>
