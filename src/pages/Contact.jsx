@@ -25,6 +25,7 @@ export default function Contact() {
               <a href="https://wa.me/27710203982" style={{ background: "#C9A227", color: "#131F38", textAlign: "center", padding: "12px", borderRadius: "3px", fontWeight: "600", fontSize: "14.5px" }} data-h="hv-contact-0">WhatsApp 071 020 3982</a>
               <a href="mailto:sinovuyo.mgogo@careerpulseaxis.co.za" style={{ border: "1px solid #C9B98A", textAlign: "center", padding: "12px", borderRadius: "3px", fontWeight: "600", fontSize: "14.5px" }} data-h="hv-contact-1">Email Sinovuyo</a>
             </div>
+            <div style={{ fontSize: "13px", color: "#8A94AC" }}>Office hours: Monday to Friday. Messages sent over the weekend are answered the next working day.</div>
           </div>
           <div style={{ background: "#FFFFFF", border: "1px solid #E7E2D6", borderRadius: "4px", padding: "34px 30px", display: "flex", flexDirection: "column", gap: "14px" }}>
             <div style={{ fontFamily: "'Source Serif 4',serif", fontSize: "clamp(28px,4vw,40px)", fontWeight: "600", color: "#C9A227" }}>02</div>
@@ -48,7 +49,7 @@ export default function Contact() {
               <li>Interview date (for readiness sessions)</li>
               <li>Experience, responsibilities &amp; certifications</li>
             </ul>
-            <div style={{ fontSize: "13px", color: "#8A94AC" }}>Turnaround: 3–4 working days, subject to capacity and scope.</div>
+            <div style={{ fontSize: "13px", color: "#8A94AC" }}>Turnaround: 3–4 working days, Monday to Friday. Weekends and public holidays are not counted.</div>
           </div>
         </div>
       </section>

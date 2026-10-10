@@ -61,7 +61,7 @@ export default function Services() {
             <a href={PAYSTACK.cv.executive} style={{ border: "1px solid #C9B98A", textAlign: "center", padding: "12px", borderRadius: "3px", fontWeight: "600", fontSize: "14.5px" }} data-h="hv-services-7">Pay now</a>
           </div>
         </div>
-        <div style={{ marginTop: "22px", fontSize: "13.5px", color: "#8A94AC" }}>Returning clients receive an 11% discount. Turnaround 3–4 working days, subject to current capacity and scope of work.</div>
+        <div style={{ marginTop: "22px", fontSize: "13.5px", color: "#8A94AC" }}>Returning clients receive an 11% discount. Turnaround 3–4 working days, Monday to Friday, weekends and public holidays excluded, subject to current capacity and scope of work.</div>
       </section>
       <section style={{ background: "#FFFFFF", borderTop: "1px solid #E7E2D6", borderBottom: "1px solid #E7E2D6" }} id="interviews">
         <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "88px 32px" }}>
