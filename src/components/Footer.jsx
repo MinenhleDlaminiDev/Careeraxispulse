@@ -37,7 +37,7 @@ export default function Footer() {
           <div style={{ fontWeight: 600, color: '#F4EFE4', marginBottom: '4px' }}>Contact</div>
           <a href="mailto:sinovuyo.mgogo@careerpulseaxis.co.za" style={{ color: '#B9C0D2' }}>sinovuyo.mgogo@careerpulseaxis.co.za</a>
           <a href="https://wa.me/27710203982" style={{ color: '#B9C0D2' }}>071 020 3982 (WhatsApp)</a>
-          <div style={{ marginTop: '6px', color: '#8A94AC' }}>Office hours: Monday to Friday</div>
+          <div style={{ marginTop: '6px', color: '#C9A227', fontWeight: 700 }}>Office hours: Monday to Friday (closed weekends)</div>
         </div>
       </div>
       <div style={{ borderTop: '1px solid #1B2A4A', padding: '20px 32px', textAlign: 'center', fontSize: '13px', color: '#8A94AC' }}>© 2026 CareerPulse Axis. All rights reserved.</div>
