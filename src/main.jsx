@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Layout from './components/Layout.jsx';
+import ChunkErrorBoundary from './portal/ChunkErrorBoundary.jsx';
+// Portal (client + admin) is lazy-loaded so marketing visitors never download
+// the Supabase/auth code. Lives outside the marketing Layout — no site chrome.
+const Portal = React.lazy(() => import('./portal/Portal.jsx'));
 import Home from './pages/Home.jsx';
 import About from './pages/About.jsx';
 import Services from './pages/Services.jsx';
@@ -18,6 +22,16 @@ createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
+        <Route
+          path="/portal/*"
+          element={
+            <ChunkErrorBoundary>
+              <Suspense fallback={<div style={{ minHeight: '100vh', background: '#131F38' }} />}>
+                <Portal />
+              </Suspense>
+            </ChunkErrorBoundary>
+          }
+        />
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
