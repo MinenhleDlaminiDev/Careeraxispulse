@@ -63,7 +63,7 @@ export default function HeroCarousel() {
       </div>
 
       {/* Slide 2 — The Axis Interview Code */}
-      <a href="/interview-code" aria-hidden={i !== 1} tabIndex={i === 1 ? 0 : -1} style={{ position: 'absolute', inset: 0, opacity: i === 1 ? 1 : 0, transition: 'opacity .8s ease', pointerEvents: i === 1 ? 'auto' : 'none', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', gap: 'clamp(8px,1.6vw,18px)', padding: '0 24px', background: 'linear-gradient(135deg,#131F38 0%,#26396A 100%)', color: '#F4EFE4' }}>
+      <a href="/interview-code" aria-hidden={i !== 1} tabIndex={i === 1 ? 0 : -1} style={{ position: 'absolute', inset: 0, opacity: i === 1 ? 1 : 0, transition: 'opacity .8s ease', pointerEvents: i === 1 ? 'auto' : 'none', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', gap: 'clamp(8px,1.6vw,18px)', padding: '0 24px', background: "linear-gradient(rgba(14,24,48,.72),rgba(14,24,48,.72)), url('/assets/interview-code-slide2.jpg')", backgroundSize: 'cover', backgroundPosition: 'center', color: '#F4EFE4' }}>
         <div style={{ letterSpacing: '.22em', textTransform: 'uppercase', fontSize: 'clamp(9px,1.4vw,12.5px)', fontWeight: 600, color: '#C9A227' }}>New · Interview Readiness</div>
         <div style={{ fontFamily: "'Source Serif 4',serif", fontWeight: 600, fontSize: 'clamp(22px,4.6vw,52px)', lineHeight: 1.05 }}>The Axis <span style={{ color: '#C9A227' }}>Interview Code</span></div>
         <div style={{ fontSize: 'clamp(11px,1.8vw,17px)', color: '#B9C0D2', maxWidth: '560px', lineHeight: 1.5 }}>Our four winning pillars of interview readiness. Master the position, not just the questions.</div>
