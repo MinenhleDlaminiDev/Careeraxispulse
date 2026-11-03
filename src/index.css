@@ -7,6 +7,11 @@ a:hover{color:#C9A227}
    prevent screenshots, devtools, or direct-URL access. */
 img{-webkit-user-drag:none;-khtml-user-drag:none;-moz-user-drag:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
 
+/* Interview Code feature strip dividers (match mockup) */
+.ic-features .ic-feat{border-left:1px solid #ECE5D5}
+.ic-features .ic-feat:first-child{border-left:none}
+@media(max-width:760px){.ic-features .ic-feat{border-left:none}}
+
 @keyframes pulseDraw{0%{stroke-dashoffset:1400}55%{stroke-dashoffset:0}100%{stroke-dashoffset:0}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
 @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}

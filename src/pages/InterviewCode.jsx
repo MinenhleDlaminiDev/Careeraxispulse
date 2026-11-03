@@ -7,7 +7,7 @@ const PRICE = 'R50';
 
 function Feature({ icon, label }) {
   return (
-    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", gap: "14px", padding: "14px 18px" }}>
+    <div className="ic-feat" style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", gap: "14px", padding: "14px 18px" }}>
       <div style={{ width: "60px", height: "60px", borderRadius: "50%", background: "#F3EBD3", display: "flex", alignItems: "center", justifyContent: "center", color: "#1B2A4A" }}>{icon}</div>
       <div style={{ fontSize: "14.5px", color: "#1B2A4A", lineHeight: "1.4", fontWeight: "500", maxWidth: "150px" }}>{label}</div>
     </div>
@@ -69,7 +69,7 @@ export default function InterviewCode() {
 
       {/* ===== Feature strip ===== */}
       <section style={{ background: "#FFFFFF", borderBottom: "1px solid #E7E2D6" }}>
-        <div style={{ maxWidth: "1240px", margin: "0 auto", padding: "40px 24px", display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(170px,1fr))", gap: "8px", justifyItems: "center" }}>
+        <div className="ic-features" style={{ maxWidth: "1240px", margin: "0 auto", padding: "40px 24px", display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(170px,1fr))", gap: "8px", justifyItems: "center" }}>
           <Feature label="Proven preparation approach" icon={
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1B2A4A" strokeWidth="1.6"><circle cx="12" cy="12" r="3.2"></circle><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.2 5.2l2.1 2.1M16.7 16.7l2.1 2.1M18.8 5.2l-2.1 2.1M7.3 16.7l-2.1 2.1"></path></svg>
           } />
