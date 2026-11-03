@@ -12,6 +12,14 @@ img{-webkit-user-drag:none;-khtml-user-drag:none;-moz-user-drag:none;user-select
 .ic-features .ic-feat:first-child{border-left:none}
 @media(max-width:760px){.ic-features .ic-feat{border-left:none}}
 
+/* Hero carousel controls */
+.hc-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:40px;height:40px;border:none;border-radius:50%;background:rgba(14,24,48,.45);color:#F4EFE4;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s,color .2s}
+.hc-arrow:hover{background:rgba(201,162,39,.92);color:#131F38}
+.hc-dots{position:absolute;left:0;right:0;bottom:14px;z-index:3;display:flex;gap:9px;justify-content:center}
+.hc-dot{width:9px;height:9px;border-radius:50%;border:none;padding:0;cursor:pointer;background:rgba(244,239,228,.45);transition:background .2s,transform .2s}
+.hc-dot[aria-current="true"]{background:#C9A227;transform:scale(1.25)}
+@media(max-width:600px){.hc-arrow{width:32px;height:32px}.hc-dots{bottom:9px}}
+
 @keyframes pulseDraw{0%{stroke-dashoffset:1400}55%{stroke-dashoffset:0}100%{stroke-dashoffset:0}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
 @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}

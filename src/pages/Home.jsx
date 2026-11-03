@@ -1,4 +1,5 @@
 import { useSeo } from '../seo.js';
+import HeroCarousel from '../components/HeroCarousel.jsx';
 
 export default function Home() {
   useSeo({
@@ -8,10 +9,7 @@ export default function Home() {
   });
   return (
     <>
-      <section style={{ background: "linear-gradient(180deg,#0E1830 0%,#1E3054 100%)", position: "relative" }}>
-        <img src="/assets/banner.jpeg" alt="CareerPulse Axis. Align. Elevate. Thrive. Founder Sinovuyo Mgogo" style={{ display: "block", width: "100%", height: "auto" }} />
-        <div style={{ position: "absolute", left: "0", right: "0", bottom: "0", height: "120px", background: "linear-gradient(to bottom, rgba(14,24,48,0), #0E1830)", pointerEvents: "none" }}></div>
-      </section>
+      <HeroCarousel />
       <section style={{ background: "linear-gradient(180deg,#0E1830 0%,#1E3054 100%)", color: "#F4EFE4", position: "relative", overflow: "hidden" }}>
         <div style={{ maxWidth: "1240px", margin: "0 auto", padding: "28px 32px 84px", position: "relative", textAlign: "center", animation: "fadeUp .7s ease both" }}>
           <h1 style={{ fontFamily: "'Source Serif 4',serif", fontWeight: "600", fontSize: "clamp(34px,5.5vw,56px)", lineHeight: "1.1", margin: "0 auto", maxWidth: "820px", textWrap: "pretty" }}><span style={{ display: "inline-block", animation: "wordUp .6s cubic-bezier(.2,.7,.2,1) 0s both" }}>Position</span> <span style={{ display: "inline-block", animation: "wordUp .6s cubic-bezier(.2,.7,.2,1) 0.08s both" }}>your</span> <span style={{ display: "inline-block", animation: "wordUp .6s cubic-bezier(.2,.7,.2,1) 0.16s both" }}>career</span> <span style={{ display: "inline-block", animation: "wordUp .6s cubic-bezier(.2,.7,.2,1) 0.24s both" }}>with</span> <span style={{ display: "inline-block", fontStyle: "italic", color: "#C9A227", animation: "wordUp .6s cubic-bezier(.2,.7,.2,1) 0.32s both" }}>clarity</span> <span style={{ display: "inline-block", animation: "wordUp .6s cubic-bezier(.2,.7,.2,1) 0.4s both" }}>and</span> <span style={{ display: "inline-block", fontStyle: "italic", color: "#C9A227", animation: "wordUp .6s cubic-bezier(.2,.7,.2,1) 0.48s both" }}>intent.</span></h1>
