@@ -22,34 +22,34 @@ export default function InterviewCode() {
   });
   return (
     <>
-      {/* ===== Hero (light) ===== */}
-      <section style={{ background: "#F4EFE4", borderBottom: "1px solid #E7E2D6" }}>
+      {/* ===== Hero (navy — matches the rest of the site) ===== */}
+      <section style={{ background: "linear-gradient(180deg,#131F38 0%,#26396A 100%)", color: "#F4EFE4" }}>
         <div style={{ maxWidth: "1240px", margin: "0 auto", padding: "26px 32px 0" }}>
           {/* Breadcrumb */}
-          <nav style={{ fontSize: "13px", color: "#8A94AC", display: "flex", flexWrap: "wrap", gap: "8px", alignItems: "center" }}>
-            <a href="/" style={{ color: "#8A94AC" }}>Home</a><span>›</span>
-            <a href="/services" style={{ color: "#8A94AC" }}>Our Services</a><span>›</span>
-            <a href="/services#interviews" style={{ color: "#8A94AC" }}>Interview Readiness</a><span>›</span>
-            <span style={{ color: "#1B2A4A" }}>The Axis Interview Code</span>
+          <nav style={{ fontSize: "13px", color: "#9FB0C9", display: "flex", flexWrap: "wrap", gap: "8px", alignItems: "center" }}>
+            <a href="/" style={{ color: "#9FB0C9" }}>Home</a><span>›</span>
+            <a href="/services" style={{ color: "#9FB0C9" }}>Our Services</a><span>›</span>
+            <a href="/services#interviews" style={{ color: "#9FB0C9" }}>Interview Readiness</a><span>›</span>
+            <span style={{ color: "#F4EFE4" }}>The Axis Interview Code</span>
           </nav>
         </div>
         <div style={{ maxWidth: "1240px", margin: "0 auto", padding: "40px 32px 64px", display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(320px,1fr))", gap: "56px", alignItems: "center" }}>
           <div style={{ animation: "fadeUp .7s ease both" }}>
-            <div style={{ letterSpacing: ".22em", textTransform: "uppercase", fontSize: "12.5px", fontWeight: "600", color: "#9A7B12", marginBottom: "18px" }}>Interview readiness</div>
+            <div style={{ letterSpacing: ".22em", textTransform: "uppercase", fontSize: "12.5px", fontWeight: "600", color: "#C9A227", marginBottom: "18px" }}>Interview readiness</div>
             <h1 style={{ fontFamily: "'Source Serif 4',serif", fontWeight: "600", fontSize: "clamp(40px,6vw,68px)", lineHeight: "1.04", margin: "0", textWrap: "pretty" }}>
-              <span style={{ color: "#1B2A4A" }}>The Axis</span><br />
+              <span style={{ color: "#F4EFE4" }}>The Axis</span><br />
               <span style={{ color: "#C9A227" }}>Interview Code.</span>
             </h1>
-            <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "clamp(20px,2.6vw,26px)", color: "#1B2A4A", fontWeight: "500", margin: "18px 0 4px", lineHeight: "1.3" }}>Our Four Winning Pillars of Interview Readiness.</p>
-            <p style={{ fontSize: "17px", color: "#56607A", margin: "0 0 32px" }}>Beyond the Questions.</p>
+            <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "clamp(20px,2.6vw,26px)", color: "#F4EFE4", fontWeight: "500", margin: "18px 0 4px", lineHeight: "1.3" }}>Our Four Winning Pillars of Interview Readiness.</p>
+            <p style={{ fontSize: "17px", color: "#B9C0D2", margin: "0 0 32px" }}>Beyond the Questions.</p>
 
             {/* Price card */}
-            <div style={{ display: "inline-flex", alignItems: "center", gap: "22px", background: "#EDE6D6", border: "1px solid #E0D9C7", borderRadius: "4px", padding: "20px 28px", marginBottom: "28px" }}>
-              <div style={{ fontFamily: "'Source Serif 4',serif", fontSize: "44px", fontWeight: "600", color: "#1B2A4A", lineHeight: "1" }}>{PRICE}</div>
-              <div style={{ width: "1px", alignSelf: "stretch", background: "#C9B98A" }}></div>
+            <div style={{ display: "inline-flex", alignItems: "center", gap: "22px", background: "rgba(255,255,255,.07)", border: "1px solid rgba(255,255,255,.16)", borderRadius: "4px", padding: "20px 28px", marginBottom: "28px" }}>
+              <div style={{ fontFamily: "'Source Serif 4',serif", fontSize: "44px", fontWeight: "600", color: "#F4EFE4", lineHeight: "1" }}>{PRICE}</div>
+              <div style={{ width: "1px", alignSelf: "stretch", background: "rgba(201,162,39,.55)" }}></div>
               <div>
-                <div style={{ fontSize: "17px", fontWeight: "600", color: "#1B2A4A" }}>30-day access</div>
-                <div style={{ fontSize: "13.5px", color: "#8A94AC", marginTop: "4px" }}>One-time payment. No automatic renewal.</div>
+                <div style={{ fontSize: "17px", fontWeight: "600", color: "#F4EFE4" }}>30-day access</div>
+                <div style={{ fontSize: "13.5px", color: "#9FB0C9", marginTop: "4px" }}>One-time payment. No automatic renewal.</div>
               </div>
             </div>
 
@@ -59,7 +59,7 @@ export default function InterviewCode() {
           </div>
 
           {/* Right visual */}
-          <div style={{ aspectRatio: "4/3", borderRadius: "4px", overflow: "hidden", boxShadow: "0 16px 40px rgba(19,31,56,.28)" }}>
+          <div style={{ aspectRatio: "4/3", borderRadius: "4px", overflow: "hidden", boxShadow: "0 16px 40px rgba(0,0,0,.35)" }}>
             <img src="/assets/interview-code-hero.jpg" alt="A professional preparing for an interview at her desk" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center", display: "block" }} />
           </div>
         </div>
