@@ -58,11 +58,9 @@ export default function InterviewCode() {
             </div>
           </div>
 
-          {/* Right visual — swap this panel for the final photo (e.g. /assets/interview-code-hero.jpg) when supplied */}
-          <div style={{ aspectRatio: "4/3", borderRadius: "4px", overflow: "hidden", background: "linear-gradient(145deg,#131F38 0%,#26396A 100%)", position: "relative", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", gap: "24px", padding: "40px", boxShadow: "0 16px 40px rgba(19,31,56,.28)" }}>
-            <svg width="70" height="70" viewBox="0 0 34 34"><circle cx="17" cy="17" r="16" fill="#C9A227"></circle><polyline points="6,17 12,17 14,10 17,24 19,13 21,17 28,17" fill="none" stroke="#131F38" strokeWidth="1.8"></polyline></svg>
-            <div style={{ fontFamily: "'Source Serif 4',serif", fontSize: "clamp(22px,3vw,30px)", fontWeight: "600", color: "#F4EFE4", textAlign: "center", lineHeight: "1.2" }}>The Axis Interview Code</div>
-            <div style={{ fontSize: "12.5px", letterSpacing: ".18em", textTransform: "uppercase", color: "#C9A227", fontWeight: "600" }}>Master the position</div>
+          {/* Right visual */}
+          <div style={{ aspectRatio: "4/3", borderRadius: "4px", overflow: "hidden", boxShadow: "0 16px 40px rgba(19,31,56,.28)" }}>
+            <img src="/assets/interview-code-hero.jpg" alt="A professional preparing for an interview at her desk" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center", display: "block" }} />
           </div>
         </div>
       </section>
