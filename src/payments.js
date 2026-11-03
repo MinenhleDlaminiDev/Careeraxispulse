@@ -21,5 +21,4 @@ export const PAYSTACK = {
   cv: CV_REVAMP,             // per-tier CV Revamp product pages
   interview: PAYSTACK_URL,   // replace when you make an Interview page
   ebook: PAYSTACK_URL,       // replace when you make an eBook page
-  xislab: PAYSTACK_URL,      // XisLab Apex subscription
 };

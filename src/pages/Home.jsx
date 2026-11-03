@@ -18,7 +18,7 @@ export default function Home() {
           <p style={{ fontSize: "18px", lineHeight: "1.65", color: "#B9C0D2", maxWidth: "580px", margin: "24px auto 38px" }}>CareerPulse Axis strengthens workforce competitiveness through research-informed employability systems encompassing professional CV writing, professional readiness, strategic career development and workforce positioning. Our approach translates labour market intelligence into strategic career solutions that expand access to opportunities across national and global labour markets.</p>
           <div style={{ display: "flex", gap: "14px", flexWrap: "wrap", justifyContent: "center" }}>
             <a href="/services#cv" style={{ background: "#C9A227", color: "#131F38", padding: "16px 30px", borderRadius: "3px", fontWeight: "600", fontSize: "15.5px" }} data-h="hv-home-0">Book a CV Revamp from R150</a>
-            <a href="/xislab" style={{ border: "1px solid #3C4B6E", color: "#F4EFE4", padding: "16px 30px", borderRadius: "3px", fontWeight: "600", fontSize: "15.5px" }} data-h="hv-home-1">Join XisLab at R199/mo</a>
+            <a href="/interview-code" style={{ border: "1px solid #3C4B6E", color: "#F4EFE4", padding: "16px 30px", borderRadius: "3px", fontWeight: "600", fontSize: "15.5px" }} data-h="hv-home-1">Get the Axis Interview Code</a>
           </div>
           <svg viewBox="0 0 1200 90" style={{ width: "100%", marginTop: "56px", opacity: ".9" }} preserveAspectRatio="none">
             <polyline points="0,45 340,45 380,45 400,12 420,74 440,26 455,45 560,45 640,45 660,20 680,68 695,45 900,45 940,45 960,32 975,58 990,45 1200,45" fill="none" stroke="#C9A227" strokeWidth="2" strokeDasharray="1400" style={{ animation: "pulseDraw 3.2s ease-out both" }}></polyline>
@@ -62,13 +62,13 @@ export default function Home() {
             <p style={{ fontSize: "15px", lineHeight: "1.65", color: "#56607A", margin: "0", flex: "2 1 300px" }}>Structured 45–60 minute sessions that prepare you for graduate and professional-level interviews.</p>
             <div style={{ fontSize: "22px", color: "#C9A227", marginLeft: "auto" }}>→</div>
           </a>
-          <a href="/xislab" style={{ display: "flex", flexWrap: "wrap", gap: "24px 32px", alignItems: "center", padding: "36px 8px", borderTop: "1px solid #E0D9C7", borderBottom: "1px solid #E0D9C7" }} data-h="hv-home-4">
+          <a href="/interview-code" style={{ display: "flex", flexWrap: "wrap", gap: "24px 32px", alignItems: "center", padding: "36px 8px", borderTop: "1px solid #E0D9C7", borderBottom: "1px solid #E0D9C7" }} data-h="hv-home-4">
             <div style={{ fontFamily: "'Source Serif 4',serif", fontSize: "52px", fontWeight: "600", color: "#C9A227", flex: "0 0 90px" }}>03</div>
             <div style={{ flex: "1 1 220px" }}>
-              <h3 style={{ fontFamily: "'Source Serif 4',serif", fontSize: "26px", fontWeight: "600", margin: "0 0 6px" }}>XisLab Apex</h3>
-              <div style={{ fontSize: "13px", letterSpacing: ".14em", textTransform: "uppercase", fontWeight: "600", color: "#6B7690" }}>Membership · R199/mo</div>
+              <h3 style={{ fontFamily: "'Source Serif 4',serif", fontSize: "26px", fontWeight: "600", margin: "0 0 6px" }}>The Axis Interview Code</h3>
+              <div style={{ fontSize: "13px", letterSpacing: ".14em", textTransform: "uppercase", fontWeight: "600", color: "#6B7690" }}>Self-paced · R50</div>
             </div>
-            <p style={{ fontSize: "15px", lineHeight: "1.65", color: "#56607A", margin: "0", flex: "2 1 300px" }}>Weekly live sessions, hiring insights, and up to 5 role-specific CV alignment reviews every month.</p>
+            <p style={{ fontSize: "15px", lineHeight: "1.65", color: "#56607A", margin: "0", flex: "2 1 300px" }}>Our four winning pillars of interview readiness. Master the position, not just the questions, with 30-day access.</p>
             <div style={{ fontSize: "22px", color: "#C9A227", marginLeft: "auto" }}>→</div>
           </a>
         </div>
@@ -122,10 +122,6 @@ export default function Home() {
                 <blockquote style={{ margin: "0", fontSize: "15px", lineHeight: "1.65", color: "#D9DEEA" }}>"The interview readiness session gave me a clear framework. I walked in prepared for every question."</blockquote>
                 <div style={{ marginTop: "10px", fontSize: "13px", color: "#8A94AC" }}>Interview Readiness, Graduate</div>
               </div>
-              <div style={{ borderLeft: "2px solid #C9A227", paddingLeft: "22px" }}>
-                <blockquote style={{ margin: "0", fontSize: "15px", lineHeight: "1.65", color: "#D9DEEA" }}>"XisLab's weekly sessions changed how I read job adverts. I now tailor every application, and it shows."</blockquote>
-                <div style={{ marginTop: "10px", fontSize: "13px", color: "#8A94AC" }}>XisLab Apex member</div>
-              </div>
               <div style={{ fontSize: "13.5px", color: "#8A94AC", paddingLeft: "24px" }}>All feedback from verified clients.</div>
             </div>
           </div>
@@ -133,7 +129,7 @@ export default function Home() {
       </section>
       <section style={{ maxWidth: "1240px", margin: "0 auto", padding: "100px 32px", textAlign: "center" }}>
         <h2 style={{ fontFamily: "'Source Serif 4',serif", fontSize: "clamp(30px,4.5vw,46px)", fontWeight: "600", margin: "0 0 18px", textWrap: "pretty" }}>Ready to position your career?</h2>
-        <p style={{ fontSize: "17px", color: "#56607A", maxWidth: "520px", margin: "0 auto 36px", lineHeight: "1.6" }}>Start with a CV revamp, book an interview session, or join XisLab Apex for ongoing support.</p>
+        <p style={{ fontSize: "17px", color: "#56607A", maxWidth: "520px", margin: "0 auto 36px", lineHeight: "1.6" }}>Start with a CV revamp, book an interview session, or get the Axis Interview Code.</p>
         <div style={{ display: "flex", gap: "14px", justifyContent: "center", flexWrap: "wrap" }}>
           <a href="/services" style={{ background: "#C9A227", color: "#131F38", padding: "16px 32px", borderRadius: "3px", fontWeight: "600", fontSize: "15.5px" }} data-h="hv-home-5">Book a Service</a>
           <a href="/contact" style={{ border: "1px solid #C9B98A", color: "#1B2A4A", padding: "16px 32px", borderRadius: "3px", fontWeight: "600", fontSize: "15.5px" }} data-h="hv-home-6">Contact Us</a>

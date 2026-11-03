@@ -90,6 +90,14 @@ export default function Services() {
               <a href="/contact" style={{ border: "1px solid #C9B98A", textAlign: "center", padding: "12px", borderRadius: "3px", fontWeight: "600", fontSize: "14.5px" }} data-h="hv-services-11">Enquire now</a>
             </div>
           </div>
+          <a href="/interview-code" style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "20px 32px", maxWidth: "800px", margin: "24px auto 0", background: "linear-gradient(180deg,#131F38 0%,#26396A 100%)", color: "#F4EFE4", borderRadius: "4px", padding: "28px 32px", transition: "transform .25s ease, box-shadow .25s ease" }} data-h="hv-services-13">
+            <div style={{ flex: "1 1 320px" }}>
+              <div style={{ fontSize: "12px", letterSpacing: ".14em", textTransform: "uppercase", fontWeight: "600", color: "#C9A227", marginBottom: "8px" }}>Self-paced · 30-day access</div>
+              <h3 style={{ fontFamily: "'Source Serif 4',serif", fontSize: "22px", fontWeight: "600", margin: "0 0 6px" }}>The Axis Interview Code</h3>
+              <p style={{ fontSize: "14.5px", color: "#B9C0D2", margin: "0", lineHeight: "1.6" }}>Our four winning pillars of interview readiness. Master the position, not just the questions.</p>
+            </div>
+            <span style={{ background: "#C9A227", color: "#131F38", padding: "13px 26px", borderRadius: "3px", fontWeight: "600", fontSize: "14.5px", whiteSpace: "nowrap" }}>Learn more →</span>
+          </a>
         </div>
       </section>
       <section style={{ maxWidth: "1200px", margin: "0 auto", padding: "88px 32px" }}>

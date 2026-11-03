@@ -28,7 +28,7 @@ export default function Footer() {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '14px' }}>
           <div style={{ fontWeight: 600, color: '#F4EFE4', marginBottom: '4px' }}>Quick links</div>
           <Link to="/services" style={{ color: '#B9C0D2' }}>Services</Link>
-          <Link to="/xislab" style={{ color: '#B9C0D2' }}>XisLab Apex</Link>
+          <Link to="/interview-code" style={{ color: '#B9C0D2' }}>The Axis Interview Code</Link>
           <Link to="/ebook" style={{ color: '#B9C0D2' }}>eBook</Link>
           <Link to="/about" style={{ color: '#B9C0D2' }}>About</Link>
           <Link to="/refund-policy" style={{ color: '#B9C0D2' }}>Refund Policy</Link>

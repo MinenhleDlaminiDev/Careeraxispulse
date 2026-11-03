@@ -4,7 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 const LINKS = [
   { to: '/', label: 'Home' },
   { to: '/services', label: 'Services' },
-  { to: '/xislab', label: 'XisLab' },
+  { to: '/interview-code', label: 'Interview Code' },
   { to: '/ebook', label: 'eBook' },
   { to: '/testimonials', label: 'Testimonials' },
   { to: '/about', label: 'About' },
