@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 
 // Infinite hero carousel: slide 1 is the existing banner, slide 2 promotes
-// The Axis Interview Code. Cross-fades, auto-advances, pauses on hover, honours
+// The Axis Interview Code. Cross-fades, auto-advances continuously, honours
 // reduced-motion, and supports swipe. Swap slide 2's inner block for a real
 // Interview Code banner image when one is supplied (same aspect ratio).
 const SLIDES = 2;
@@ -17,7 +17,6 @@ function Chevron({ dir }) {
 
 export default function HeroCarousel() {
   const [i, setI] = useState(0);
-  const [paused, setPaused] = useState(false);
   // Reduced-motion users still get rotation, just without the cross-fade.
   const [reduced] = useState(() => typeof window !== 'undefined' && !!window.matchMedia
     && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
@@ -26,13 +25,13 @@ export default function HeroCarousel() {
   const next = useCallback(() => setI(p => (p + 1) % SLIDES), []);
   const prev = useCallback(() => setI(p => (p - 1 + SLIDES) % SLIDES), []);
 
-  // Auto-advance; re-arms on manual change (dep on i), pauses on hover/focus,
-  // and stays still for reduced-motion users.
+  // Auto-advance continuously; re-arms on manual change (dep on i). No hover/focus
+  // pause — the hero sits where the cursor and window focus rest, so pausing there
+  // froze it until the user left the window.
   useEffect(() => {
-    if (paused) return undefined;
     const t = setInterval(() => setI(p => (p + 1) % SLIDES), INTERVAL);
     return () => clearInterval(t);
-  }, [paused, i]);
+  }, [i]);
 
   const onTouchStart = e => { touchX.current = e.touches[0].clientX; };
   const onTouchEnd = e => {
@@ -46,10 +45,6 @@ export default function HeroCarousel() {
     <section
       aria-roledescription="carousel"
       aria-label="Highlights"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-      onFocusCapture={() => setPaused(true)}
-      onBlurCapture={() => setPaused(false)}
       onTouchStart={onTouchStart}
       onTouchEnd={onTouchEnd}
       style={{ position: 'relative', width: '100%', aspectRatio: '1600 / 853', overflow: 'hidden', background: 'linear-gradient(180deg,#0E1830 0%,#1E3054 100%)' }}
