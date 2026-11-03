@@ -24,16 +24,7 @@ export default function InterviewCode() {
     <>
       {/* ===== Hero (navy — matches the rest of the site) ===== */}
       <section style={{ background: "linear-gradient(180deg,#131F38 0%,#26396A 100%)", color: "#F4EFE4" }}>
-        <div style={{ maxWidth: "1240px", margin: "0 auto", padding: "26px 32px 0" }}>
-          {/* Breadcrumb */}
-          <nav style={{ fontSize: "13px", color: "#9FB0C9", display: "flex", flexWrap: "wrap", gap: "8px", alignItems: "center" }}>
-            <a href="/" style={{ color: "#9FB0C9" }}>Home</a><span>›</span>
-            <a href="/services" style={{ color: "#9FB0C9" }}>Our Services</a><span>›</span>
-            <a href="/services#interviews" style={{ color: "#9FB0C9" }}>Interview Readiness</a><span>›</span>
-            <span style={{ color: "#F4EFE4" }}>The Axis Interview Code</span>
-          </nav>
-        </div>
-        <div style={{ maxWidth: "1240px", margin: "0 auto", padding: "40px 32px 64px", display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(320px,1fr))", gap: "56px", alignItems: "center" }}>
+        <div style={{ maxWidth: "1240px", margin: "0 auto", padding: "72px 32px", display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(320px,1fr))", gap: "56px", alignItems: "center" }}>
           <div style={{ animation: "fadeUp .7s ease both" }}>
             <div style={{ letterSpacing: ".22em", textTransform: "uppercase", fontSize: "12.5px", fontWeight: "600", color: "#C9A227", marginBottom: "18px" }}>Interview readiness</div>
             <h1 style={{ fontFamily: "'Source Serif 4',serif", fontWeight: "600", fontSize: "clamp(40px,6vw,68px)", lineHeight: "1.04", margin: "0", textWrap: "pretty" }}>
