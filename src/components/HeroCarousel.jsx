@@ -5,7 +5,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 // reduced-motion, and supports swipe. Swap slide 2's inner block for a real
 // Interview Code banner image when one is supplied (same aspect ratio).
 const SLIDES = 2;
-const INTERVAL = 6000;
+const INTERVAL = 4000;
 
 function Chevron({ dir }) {
   return (
