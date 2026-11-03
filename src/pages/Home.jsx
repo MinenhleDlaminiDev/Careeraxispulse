@@ -64,7 +64,7 @@ export default function Home() {
             <div style={{ fontFamily: "'Source Serif 4',serif", fontSize: "52px", fontWeight: "600", color: "#C9A227", flex: "0 0 90px" }}>03</div>
             <div style={{ flex: "1 1 220px" }}>
               <h3 style={{ fontFamily: "'Source Serif 4',serif", fontSize: "26px", fontWeight: "600", margin: "0 0 6px" }}>The Axis Interview Code</h3>
-              <div style={{ fontSize: "13px", letterSpacing: ".14em", textTransform: "uppercase", fontWeight: "600", color: "#6B7690" }}>Self-paced · R50</div>
+              <div style={{ fontSize: "13px", letterSpacing: ".14em", textTransform: "uppercase", fontWeight: "600", color: "#6B7690" }}>Self-paced · R90</div>
             </div>
             <p style={{ fontSize: "15px", lineHeight: "1.65", color: "#56607A", margin: "0", flex: "2 1 300px" }}>Our four winning pillars of interview readiness. Master the position, not just the questions, with 30-day access.</p>
             <div style={{ fontSize: "22px", color: "#C9A227", marginLeft: "auto" }}>→</div>

@@ -66,7 +66,7 @@ export default function HeroCarousel() {
         <div style={{ fontSize: 'clamp(11px,1.8vw,17px)', color: '#B9C0D2', maxWidth: '560px', lineHeight: 1.5 }}>Our four winning pillars of interview readiness. Master the position, not just the questions.</div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '14px', flexWrap: 'wrap', justifyContent: 'center', marginTop: 'clamp(2px,0.6vw,6px)' }}>
           <span style={{ background: '#C9A227', color: '#131F38', padding: 'clamp(8px,1.2vw,14px) clamp(16px,2.4vw,30px)', borderRadius: '3px', fontWeight: 600, fontSize: 'clamp(12px,1.6vw,15.5px)' }}>Get Access →</span>
-          <span style={{ fontSize: 'clamp(10px,1.4vw,13.5px)', color: '#8A94AC' }}>R50 · 30-day access</span>
+          <span style={{ fontSize: 'clamp(10px,1.4vw,13.5px)', color: '#8A94AC' }}>R90 · 30-day access</span>
         </div>
       </a>
 

@@ -3,7 +3,7 @@ import { useSeo } from '../seo.js';
 
 // Price is a placeholder until the Paystack link is finalised. Change PRICE here
 // and the button labels pick it up. PAYSTACK.interview holds the checkout link.
-const PRICE = 'R50';
+const PRICE = 'R90';
 
 function Feature({ icon, label }) {
   return (
