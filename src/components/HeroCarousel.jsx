@@ -7,14 +7,6 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 const SLIDES = 2;
 const INTERVAL = 4000;
 
-function Chevron({ dir }) {
-  return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      {dir === 'left' ? <polyline points="15 18 9 12 15 6" /> : <polyline points="9 18 15 12 9 6" />}
-    </svg>
-  );
-}
-
 export default function HeroCarousel() {
   const [i, setI] = useState(0);
   // Reduced-motion users still get rotation, just without the cross-fade.
@@ -67,9 +59,6 @@ export default function HeroCarousel() {
 
       {/* bottom fade (matches the original hero) */}
       <div style={{ position: 'absolute', left: 0, right: 0, bottom: 0, height: '18%', background: 'linear-gradient(to bottom, rgba(14,24,48,0), #0E1830)', pointerEvents: 'none' }} />
-
-      <button type="button" className="hc-arrow" style={{ left: '14px' }} aria-label="Previous slide" onClick={prev}><Chevron dir="left" /></button>
-      <button type="button" className="hc-arrow" style={{ right: '14px' }} aria-label="Next slide" onClick={next}><Chevron dir="right" /></button>
 
       <div className="hc-dots" role="tablist" aria-label="Choose slide">
         {Array.from({ length: SLIDES }).map((_, n) => (
