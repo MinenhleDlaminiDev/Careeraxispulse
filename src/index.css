@@ -17,6 +17,8 @@ img{-webkit-user-drag:none;-khtml-user-drag:none;-moz-user-drag:none;user-select
 .hc-dot{width:9px;height:9px;border-radius:50%;border:none;padding:0;cursor:pointer;background:rgba(244,239,228,.45);transition:background .2s,transform .2s}
 .hc-dot[aria-current="true"]{background:#C9A227;transform:scale(1.25)}
 @media(max-width:600px){.hc-dots{bottom:9px}}
+/* On desktop, fill the screen (minus the ~66px sticky header) so the hero is one screen tall */
+@media(min-width:1024px){.hc-section{height:calc(100vh - 66px)}}
 
 @keyframes pulseDraw{0%{stroke-dashoffset:1400}55%{stroke-dashoffset:0}100%{stroke-dashoffset:0}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}

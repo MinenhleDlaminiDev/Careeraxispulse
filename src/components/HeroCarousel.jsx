@@ -35,6 +35,7 @@ export default function HeroCarousel() {
 
   return (
     <section
+      className="hc-section"
       aria-roledescription="carousel"
       aria-label="Highlights"
       onTouchStart={onTouchStart}
