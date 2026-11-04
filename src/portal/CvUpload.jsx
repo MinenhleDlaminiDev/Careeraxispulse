@@ -1,7 +1,9 @@
 import { useEffect, useState, useCallback, useRef } from 'react';
 import { useAuth } from './AuthContext';
 import { supabase } from '../supabase';
-import { GOLD, CREAM, MUTED, SERIF } from './theme';
+import { GOLD, CREAM, MUTED, SURFACE, BORDER, ON_GOLD, DANGER } from './theme';
+import Banner from './Banner';
+import PageHeader from './PageHeader';
 
 const MAX_BYTES = 5 * 1024 * 1024; // 5 MB
 const ALLOWED = ['pdf', 'doc', 'docx'];
@@ -115,53 +117,47 @@ export default function CvUpload() {
   const hasCurrent = Boolean(state.current);
 
   return (
-    <section style={{ marginTop: 34, background: 'rgba(255,255,255,.05)', border: '1px solid rgba(255,255,255,.12)', borderRadius: 10, padding: '22px 22px' }}>
-      <h2 style={{ fontFamily: SERIF, fontWeight: 700, fontSize: 20, margin: '0 0 4px', color: CREAM }}>Your CV</h2>
-      <p style={{ color: MUTED, fontSize: 13.5, margin: '0 0 18px', lineHeight: 1.6 }}>
+    <div>
+      <PageHeader eyebrow="My CV" title="Your CV">
         Upload your CV so we can prepare your interview readiness alongside the job description. PDF, DOC or DOCX, up to 5 MB.
-      </p>
+      </PageHeader>
 
-      {message && (
-        <div style={{ marginBottom: 14, padding: '9px 12px', borderRadius: 4, fontSize: 13,
-          background: message.kind === 'error' ? 'rgba(242,184,181,.12)' : 'rgba(201,162,39,.12)',
-          border: `1px solid ${message.kind === 'error' ? 'rgba(242,184,181,.4)' : 'rgba(201,162,39,.4)'}`,
-          color: message.kind === 'error' ? '#F2B8B5' : GOLD }}>
-          {message.text}
-        </div>
-      )}
+      <section style={{ background: SURFACE, border: `1px solid ${BORDER}`, borderRadius: 12, padding: '22px 22px' }}>
+        <Banner kind={message?.kind} style={{ marginBottom: 16 }}>{message?.text}</Banner>
 
-      {state.loading ? (
-        <div style={{ color: MUTED, fontSize: 14 }}>Loading…</div>
-      ) : state.error ? (
-        <div style={{ color: '#F2B8B5', fontSize: 14 }}>Couldn’t load your CV. Refresh to try again.</div>
-      ) : (
-        <>
-          {hasCurrent ? (
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 14, flexWrap: 'wrap', background: 'rgba(255,255,255,.05)', border: '1px solid rgba(255,255,255,.12)', borderRadius: 8, padding: '13px 15px', marginBottom: 16 }}>
-              <div style={{ minWidth: 0 }}>
-                <div style={{ fontSize: 14.5, color: CREAM, fontWeight: 600, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                  {displayName(state.current.storage_path)}
+        {state.loading ? (
+          <div style={{ color: MUTED, fontSize: 14 }}>Loading…</div>
+        ) : state.error ? (
+          <div style={{ color: DANGER, fontSize: 14 }}>Couldn’t load your CV. Refresh to try again.</div>
+        ) : (
+          <>
+            {hasCurrent ? (
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 14, flexWrap: 'wrap', background: SURFACE, border: `1px solid ${BORDER}`, borderRadius: 10, padding: '14px 16px', marginBottom: 16 }}>
+                <div style={{ minWidth: 0 }}>
+                  <div style={{ fontSize: 14.5, color: CREAM, fontWeight: 600, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                    {displayName(state.current.storage_path)}
+                  </div>
+                  <div style={{ fontSize: 12.5, color: MUTED, marginTop: 3 }}>
+                    Uploaded {new Date(state.current.created_at).toLocaleDateString()}
+                  </div>
                 </div>
-                <div style={{ fontSize: 12.5, color: MUTED, marginTop: 3 }}>
-                  Uploaded {new Date(state.current.created_at).toLocaleDateString()}
-                </div>
+                <button type="button" onClick={download}
+                  style={{ background: 'transparent', color: CREAM, border: `1px solid ${BORDER}`, borderRadius: 6, padding: '9px 16px', fontSize: 13, cursor: 'pointer' }}>
+                  Download
+                </button>
               </div>
-              <button type="button" onClick={download}
-                style={{ background: 'transparent', color: CREAM, border: '1px solid rgba(255,255,255,.3)', borderRadius: 3, padding: '8px 14px', fontSize: 13, cursor: 'pointer' }}>
-                Download
-              </button>
-            </div>
-          ) : (
-            <div style={{ color: MUTED, fontSize: 14, marginBottom: 16 }}>No CV uploaded yet.</div>
-          )}
+            ) : (
+              <div style={{ color: MUTED, fontSize: 14, marginBottom: 16 }}>No CV uploaded yet.</div>
+            )}
 
-          <input ref={inputRef} type="file" accept=".pdf,.doc,.docx" onChange={onPick} style={{ display: 'none' }} id="cv-file" />
-          <label htmlFor="cv-file"
-            style={{ display: 'inline-block', background: GOLD, color: '#131F38', borderRadius: 3, padding: '9px 16px', fontSize: 13.5, fontWeight: 600, cursor: uploading ? 'default' : 'pointer', opacity: uploading ? 0.6 : 1, pointerEvents: uploading ? 'none' : 'auto' }}>
-            {uploading ? 'Uploading…' : hasCurrent ? 'Replace CV' : 'Upload CV'}
-          </label>
-        </>
-      )}
-    </section>
+            <input ref={inputRef} type="file" accept=".pdf,.doc,.docx" onChange={onPick} style={{ display: 'none' }} id="cv-file" />
+            <label htmlFor="cv-file"
+              style={{ display: 'inline-block', background: GOLD, color: ON_GOLD, borderRadius: 7, padding: '11px 18px', fontSize: 14, fontWeight: 600, cursor: uploading ? 'default' : 'pointer', opacity: uploading ? 0.6 : 1, pointerEvents: uploading ? 'none' : 'auto' }}>
+              {uploading ? 'Uploading…' : hasCurrent ? 'Replace CV' : 'Upload CV'}
+            </label>
+          </>
+        )}
+      </section>
+    </div>
   );
 }

@@ -3,7 +3,7 @@ import { useAuth } from './AuthContext';
 import { supabase } from '../supabase';
 import Loading from './Loading';
 import Reveal from './Reveal';
-import { GOLD, CREAM, MUTED, SERIF as serif } from './theme';
+import { GOLD, CREAM, MUTED, SERIF as serif, NAVY, SURFACE, BORDER, GOLD_SOFT, GOLD_BORDER } from './theme';
 
 // The gated four-pillar content, shown as the "Axis Journey" — a vertical
 // timeline. Clients with live access see the content (read from interview_content,
@@ -40,7 +40,7 @@ export default function InterviewAccess() {
 function WaitingScreen({ expiry }) {
   const expired = expiry && new Date(expiry) <= new Date();
   return (
-    <div style={{ maxWidth: 560, margin: '10px auto', background: 'rgba(255,255,255,.06)', border: '1px solid rgba(255,255,255,.12)', borderRadius: 10, padding: '30px 28px', textAlign: 'center' }}>
+    <div style={{ maxWidth: 560, margin: '10px auto', background: SURFACE, border: `1px solid ${BORDER}`, borderRadius: 12, padding: '30px 28px', textAlign: 'center' }}>
       <div style={{ fontSize: 30, marginBottom: 10 }} aria-hidden="true">🔒</div>
       <div style={{ letterSpacing: '.18em', textTransform: 'uppercase', fontSize: 11, color: GOLD, marginBottom: 10 }}>
         Interview Code Access
@@ -92,7 +92,7 @@ function Journey({ c }) {
         <Reveal>
           <div style={{ display: 'grid', gap: 14, marginBottom: 40 }}>
             {c.philosophy && (
-              <div style={{ background: 'rgba(201,162,39,.08)', border: '1px solid rgba(201,162,39,.25)', borderRadius: 10, padding: '18px 20px' }}>
+              <div style={{ background: GOLD_SOFT, border: `1px solid ${GOLD_BORDER}`, borderRadius: 10, padding: '18px 20px' }}>
                 <div style={{ letterSpacing: '.16em', textTransform: 'uppercase', fontSize: 10.5, color: GOLD, marginBottom: 7 }}>Our Philosophy</div>
                 <p style={{ margin: 0, fontSize: 14.5, color: CREAM, lineHeight: 1.6 }}>{c.philosophy}</p>
               </div>
@@ -119,7 +119,7 @@ function Journey({ c }) {
       {/* The Axis Standard — closer */}
       {c.standard && (
         <Reveal>
-          <div style={{ marginTop: 20, background: 'linear-gradient(180deg, rgba(201,162,39,.14), rgba(201,162,39,.05))', border: '1px solid rgba(201,162,39,.35)', borderRadius: 12, padding: '30px 28px', textAlign: 'center' }}>
+          <div style={{ marginTop: 20, background: GOLD_SOFT, border: `1px solid ${GOLD_BORDER}`, borderRadius: 12, padding: '30px 28px', textAlign: 'center' }}>
             <div style={{ letterSpacing: '.2em', textTransform: 'uppercase', fontSize: 11, color: GOLD, fontWeight: 600, marginBottom: 12 }}>The Axis Standard</div>
             <p style={{ fontFamily: serif, fontSize: 'clamp(16px,2.4vw,19px)', lineHeight: 1.55, color: CREAM, margin: 0 }}>{c.standard}</p>
           </div>
@@ -136,9 +136,9 @@ function Pillar({ p, isLast }) {
       {/* Rail: connecting line + numbered node */}
       <div style={{ position: 'relative', display: 'flex', justifyContent: 'center' }}>
         {!isLast && (
-          <div style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)', top: 26, bottom: -34, width: 2, background: 'rgba(201,162,39,.3)' }} />
+          <div style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)', top: 26, bottom: -34, width: 2, background: GOLD_BORDER }} />
         )}
-        <div style={{ position: 'relative', zIndex: 1, width: 46, height: 46, borderRadius: '50%', border: `2px solid ${GOLD}`, background: '#131F38', color: GOLD, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: serif, fontWeight: 700, fontSize: 16 }}>
+        <div style={{ position: 'relative', zIndex: 1, width: 46, height: 46, borderRadius: '50%', border: `2px solid ${GOLD}`, background: NAVY, color: GOLD, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: serif, fontWeight: 700, fontSize: 16 }}>
           {p.number || ''}
         </div>
       </div>
@@ -164,7 +164,7 @@ function Pillar({ p, isLast }) {
         )}
 
         {p.principle && (
-          <blockquote style={{ margin: 0, borderLeft: `3px solid ${GOLD}`, background: 'rgba(255,255,255,.04)', borderRadius: '0 6px 6px 0', padding: '12px 16px' }}>
+          <blockquote style={{ margin: 0, borderLeft: `3px solid ${GOLD}`, background: SURFACE, borderRadius: '0 6px 6px 0', padding: '12px 16px' }}>
             <div style={{ letterSpacing: '.16em', textTransform: 'uppercase', fontSize: 10, color: GOLD, marginBottom: 5 }}>The Axis Principle</div>
             <p style={{ margin: 0, fontFamily: serif, fontStyle: 'italic', fontSize: 15.5, color: CREAM, lineHeight: 1.5 }}>{p.principle}</p>
           </blockquote>

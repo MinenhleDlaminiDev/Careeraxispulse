@@ -1,11 +1,13 @@
 import { useEffect, useState, useCallback, useRef } from 'react';
 import { supabase } from '../supabase';
-import { GOLD, CREAM, MUTED, SERIF } from './theme';
+import { GOLD, GOLD_INK, CREAM, MUTED, SERIF, SURFACE, SURFACE2, BORDER, ON_GOLD, DANGER, DANGER_BORDER, GOLD_SOFT, GOLD_BORDER } from './theme';
 import Loading from './Loading';
+import Banner from './Banner';
+import PageHeader from './PageHeader';
 
-const labelStyle = { display: 'block', fontSize: 12, letterSpacing: '.08em', textTransform: 'uppercase', color: GOLD, margin: '0 0 6px' };
-const fieldBase = { width: '100%', boxSizing: 'border-box', background: 'rgba(0,0,0,.25)', border: '1px solid rgba(255,255,255,.18)', borderRadius: 4, color: CREAM, fontSize: 14, padding: '9px 11px', fontFamily: 'inherit' };
-const ghostBtn = { background: 'transparent', color: CREAM, border: '1px solid rgba(255,255,255,.3)', borderRadius: 3, padding: '6px 12px', fontSize: 12.5, cursor: 'pointer' };
+const labelStyle = { display: 'block', fontSize: 12, letterSpacing: '.08em', textTransform: 'uppercase', color: GOLD_INK, margin: '0 0 6px' };
+const fieldBase = { width: '100%', boxSizing: 'border-box', background: SURFACE2, border: `1px solid ${BORDER}`, borderRadius: 6, color: CREAM, fontSize: 14, padding: '10px 12px', fontFamily: 'inherit' };
+const ghostBtn = { background: 'transparent', color: CREAM, border: `1px solid ${BORDER}`, borderRadius: 6, padding: '7px 13px', fontSize: 12.5, cursor: 'pointer' };
 
 function Field({ label, value, onChange, rows }) {
   const common = { style: rows ? { ...fieldBase, resize: 'vertical', lineHeight: 1.55 } : fieldBase, value: value ?? '', onChange: (e) => onChange(e.target.value) };
@@ -74,26 +76,18 @@ export default function ContentEditor() {
 
   if (load.loading) return <Loading label="Loading content…" />;
   if (load.error || !draft) {
-    return <div style={{ color: '#F2B8B5', fontSize: 14 }}>Couldn’t load the content. Refresh to try again.</div>;
+    return <div style={{ color: DANGER, fontSize: 14 }}>Couldn’t load the content. Refresh to try again.</div>;
   }
 
   return (
-    <section style={{ marginTop: 40 }}>
-      <h2 style={{ fontFamily: SERIF, fontWeight: 700, fontSize: 20, margin: '0 0 4px', color: CREAM }}>Interview Code Content</h2>
-      <p style={{ color: MUTED, fontSize: 13.5, margin: '0 0 18px' }}>
+    <section>
+      <PageHeader eyebrow="Content" title="Interview Code Content">
         Edit the four-pillar content clients see. Changes go live on their next page load.
-      </p>
+      </PageHeader>
 
-      {message && (
-        <div style={{ marginBottom: 16, padding: '9px 12px', borderRadius: 4, fontSize: 13,
-          background: message.kind === 'error' ? 'rgba(242,184,181,.12)' : 'rgba(201,162,39,.12)',
-          border: `1px solid ${message.kind === 'error' ? 'rgba(242,184,181,.4)' : 'rgba(201,162,39,.4)'}`,
-          color: message.kind === 'error' ? '#F2B8B5' : GOLD }}>
-          {message.text}
-        </div>
-      )}
+      <Banner kind={message?.kind} style={{ marginBottom: 16 }}>{message?.text}</Banner>
 
-      <div style={{ background: 'rgba(255,255,255,.05)', border: '1px solid rgba(255,255,255,.12)', borderRadius: 10, padding: '20px 20px', marginBottom: 22 }}>
+      <div style={{ background: SURFACE, border: `1px solid ${BORDER}`, borderRadius: 12, padding: '20px 20px', marginBottom: 22 }}>
         <Field label="Tagline" value={draft.tagline} onChange={(v) => setTop('tagline', v)} />
         <Field label="Title" value={draft.title} onChange={(v) => setTop('title', v)} />
         <Field label="Subtitle" value={draft.subtitle} onChange={(v) => setTop('subtitle', v)} />
@@ -104,10 +98,10 @@ export default function ContentEditor() {
       </div>
 
       {draft.pillars.map((p, i) => (
-        <div key={p.__key} style={{ background: 'rgba(201,162,39,.06)', border: '1px solid rgba(201,162,39,.22)', borderRadius: 10, padding: '18px 20px', marginBottom: 16 }}>
+        <div key={p.__key} style={{ background: GOLD_SOFT, border: `1px solid ${GOLD_BORDER}`, borderRadius: 12, padding: '18px 20px', marginBottom: 16 }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 14 }}>
-            <div style={{ fontFamily: SERIF, fontWeight: 700, fontSize: 16, color: GOLD }}>Pillar {p.number || i + 1}</div>
-            <button type="button" onClick={() => removePillar(i)} style={{ ...ghostBtn, color: '#F2B8B5', borderColor: 'rgba(242,184,181,.4)' }}>Remove pillar</button>
+            <div style={{ fontFamily: SERIF, fontWeight: 700, fontSize: 16, color: GOLD_INK }}>Pillar {p.number || i + 1}</div>
+            <button type="button" onClick={() => removePillar(i)} style={{ ...ghostBtn, color: DANGER, borderColor: DANGER_BORDER }}>Remove pillar</button>
           </div>
           <Field label="Number" value={p.number} onChange={(v) => setPillar(i, 'number', v)} />
           <Field label="Title" value={p.title} onChange={(v) => setPillar(i, 'title', v)} />
@@ -119,7 +113,7 @@ export default function ContentEditor() {
             {(p.focus || []).map((f, j) => (
               <div key={j} style={{ display: 'flex', gap: 8, marginBottom: 8 }}>
                 <input type="text" value={f} onChange={(e) => setFocus(i, j, e.target.value)} style={fieldBase} />
-                <button type="button" onClick={() => removeFocus(i, j)} aria-label="Remove focus point" style={{ ...ghostBtn, flexShrink: 0, color: '#F2B8B5', borderColor: 'rgba(242,184,181,.4)' }}>×</button>
+                <button type="button" onClick={() => removeFocus(i, j)} aria-label="Remove focus point" style={{ ...ghostBtn, flexShrink: 0, color: DANGER, borderColor: DANGER_BORDER }}>×</button>
               </div>
             ))}
             <button type="button" onClick={() => addFocus(i)} style={ghostBtn}>+ Add focus point</button>
@@ -133,7 +127,7 @@ export default function ContentEditor() {
 
       <div>
         <button type="button" onClick={save} disabled={saving}
-          style={{ background: GOLD, color: '#131F38', border: 'none', borderRadius: 3, padding: '11px 22px', fontSize: 14, fontWeight: 700, cursor: saving ? 'default' : 'pointer', opacity: saving ? 0.6 : 1 }}>
+          style={{ background: GOLD, color: ON_GOLD, border: 'none', borderRadius: 7, padding: '12px 24px', fontSize: 14, fontWeight: 700, cursor: saving ? 'default' : 'pointer', opacity: saving ? 0.6 : 1 }}>
           {saving ? 'Saving…' : 'Save content'}
         </button>
       </div>

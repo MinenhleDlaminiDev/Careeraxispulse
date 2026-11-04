@@ -1,3 +1,97 @@
+/* ============================================================================
+   Portal theming (AXIS-19). Tokens scoped to .ax-portal so the marketing site
+   is untouched. Dark is the default; [data-theme="light"] swaps to the cream
+   palette. Components read these via the var() constants in portal/theme.js.
+   ============================================================================ */
+.ax-portal{
+  --ax-navy:#131F38;            /* brand navy — constant in both themes */
+  --ax-gold:#C9A227;            /* brand gold — fills, borders, accents */
+  --ax-gold-ink:#D8B544;        /* gold used as TEXT (readable per theme) */
+  --ax-on-gold:#131F38;         /* text on a gold button */
+
+  --ax-bg:linear-gradient(180deg,#131F38 0%,#1B2A52 100%);
+  --ax-bg-solid:#131F38;
+  --ax-surface:rgba(255,255,255,.055);
+  --ax-surface-2:rgba(255,255,255,.09);
+  --ax-border:rgba(255,255,255,.12);
+  --ax-text:#F4EFE4;
+  --ax-muted:#B9C0D2;
+  --ax-danger:#F2B8B5;
+  --ax-danger-soft:rgba(242,184,181,.12);
+  --ax-danger-border:rgba(242,184,181,.4);
+  --ax-gold-soft:rgba(201,162,39,.12);
+  --ax-gold-border:rgba(201,162,39,.32);
+  --ax-sidebar:rgba(9,16,34,.55);
+  --ax-sidebar-border:rgba(201,162,39,.22);
+  --ax-shadow:0 14px 40px rgba(0,0,0,.34);
+
+  background:var(--ax-bg);
+  color:var(--ax-text);
+  font-family:'Public Sans',sans-serif;
+}
+.ax-portal[data-theme="light"]{
+  --ax-gold-ink:#8A6D12;
+  --ax-bg:linear-gradient(180deg,#FDFBF6 0%,#F4ECDC 100%);
+  --ax-bg-solid:#FBF8F1;
+  --ax-surface:#FFFFFF;
+  --ax-surface-2:#F7F1E6;
+  --ax-border:rgba(19,31,56,.14);
+  --ax-text:#17233E;
+  --ax-muted:#5B6680;
+  --ax-danger:#B5544C;
+  --ax-danger-soft:rgba(181,84,76,.08);
+  --ax-danger-border:rgba(181,84,76,.35);
+  --ax-gold-soft:rgba(201,162,39,.14);
+  --ax-gold-border:rgba(201,162,39,.4);
+  --ax-sidebar:#FFFFFF;
+  --ax-sidebar-border:rgba(19,31,56,.1);
+  --ax-shadow:0 14px 40px rgba(19,31,56,.1);
+}
+/* Smooth cross-fade on theme switch, scoped to the portal. Colour only — not
+   motion — but still disabled under reduced-motion so it stays instant and
+   correct for those users (e.g. a browser with animations off). */
+.ax-portal, .ax-portal *{transition:background-color .35s ease, color .35s ease, border-color .35s ease, fill .35s ease, box-shadow .35s ease}
+@media (prefers-reduced-motion: reduce){.ax-portal, .ax-portal *{transition:none}}
+
+/* Portal inputs get a gold focus ring in both themes */
+.ax-portal input:focus,.ax-portal textarea:focus{outline:none;border-color:var(--ax-gold) !important;box-shadow:0 0 0 3px var(--ax-gold-soft)}
+
+/* Auth split layout (login / signup) */
+.ax-auth{flex:1;display:flex;min-height:100vh}
+.ax-auth-brand{flex:1.05;position:relative;display:flex;flex-direction:column;justify-content:space-between;padding:42px 46px;background:linear-gradient(150deg,#101A33 0%,#1C2B52 58%,#26396A 100%);color:#F4EFE4;overflow:hidden}
+.ax-auth-brand::after{content:"";position:absolute;right:-120px;bottom:-120px;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(201,162,39,.28),transparent 70%)}
+.ax-auth-form{flex:1;display:flex;align-items:center;justify-content:center;padding:34px 24px;position:relative}
+.ax-auth-toggle{position:absolute;top:18px;right:18px;z-index:2}
+@media(max-width:860px){.ax-auth-brand{display:none}}
+
+/* Theme toggle pill */
+.ax-toggle{position:relative;width:60px;height:30px;border-radius:999px;border:1px solid var(--ax-gold-border);background:var(--ax-surface-2);cursor:pointer;padding:0;flex-shrink:0;display:inline-flex;align-items:center}
+.ax-toggle-knob{position:absolute;top:2px;left:2px;width:24px;height:24px;border-radius:50%;background:var(--ax-gold);display:flex;align-items:center;justify-content:center;transition:left .3s cubic-bezier(.2,.7,.2,1)}
+.ax-toggle[data-on="light"] .ax-toggle-knob{left:32px}
+.ax-toggle-knob svg{width:14px;height:14px;display:block}
+@media (prefers-reduced-motion: reduce){.ax-toggle-knob{transition:none}}
+
+/* Portal sidebar shell + responsive drawer */
+.ax-shell{display:flex;min-height:100vh}
+.ax-side{position:sticky;top:0;align-self:flex-start;height:100vh;width:248px;flex-shrink:0;box-sizing:border-box;display:flex;flex-direction:column;gap:6px;padding:22px 16px;background:var(--ax-sidebar);border-right:1px solid var(--ax-sidebar-border);backdrop-filter:blur(8px)}
+.ax-main{flex:1;min-width:0;display:flex;flex-direction:column}
+.ax-navlink{display:flex;align-items:center;gap:11px;padding:10px 12px;border-radius:7px;color:var(--ax-muted);font-size:14.5px;font-weight:500;cursor:pointer;border:1px solid transparent}
+.ax-navlink:hover{background:var(--ax-surface);color:var(--ax-text)}
+.ax-navlink.active{background:var(--ax-gold-soft);border-color:var(--ax-gold-border);color:var(--ax-gold-ink);font-weight:600}
+.ax-content{padding:30px 34px;max-width:980px;width:100%;margin:0 auto;box-sizing:border-box}
+.ax-topbar{display:none}
+.ax-scrim{display:none}
+.ax-burger{display:none;background:var(--ax-surface);border:1px solid var(--ax-border);border-radius:8px;width:40px;height:40px;color:var(--ax-text);cursor:pointer}
+@media (max-width:820px){
+  .ax-side{position:fixed;top:0;left:0;z-index:70;transform:translateX(-100%);transition:transform .32s cubic-bezier(.2,.7,.2,1);box-shadow:var(--ax-shadow)}
+  .ax-side.open{transform:translateX(0)}
+  .ax-scrim.show{display:block;position:fixed;inset:0;z-index:65;background:rgba(5,10,22,.5)}
+  .ax-burger{display:inline-flex;align-items:center;justify-content:center}
+  .ax-topbar{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--ax-border);position:sticky;top:0;z-index:40;background:var(--ax-bg-solid)}
+  .ax-content{padding:22px 16px}
+  @media (prefers-reduced-motion: reduce){.ax-side{transition:none}}
+}
+
 /* ---- Global styles (ported from the original site's <helmet>) ---- */
 body{margin:0;min-height:100vh;background-color:#FAF7F0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E"),linear-gradient(180deg,#FDFBF6 0%,#FAF7F0 38%,#F4ECDC 100%);background-attachment:scroll,fixed;color:#1B2A4A;font-family:'Public Sans',sans-serif;-webkit-font-smoothing:antialiased}
 a{color:#1B2A4A;text-decoration:none}

@@ -1,22 +1,26 @@
-import { useAuth } from './AuthContext';
-import Shell from './Shell';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import PortalLayout from './PortalLayout';
+import ClientOverview from './ClientOverview';
 import InterviewAccess from './InterviewAccess';
 import CvUpload from './CvUpload';
 
-// Client landing. A slim greeting, the gated Interview Code content (AXIS-07,
-// which handles both the has-access and waiting states), then CV upload
-// (AXIS-08).
-export default function ClientHome() {
-  const { profile } = useAuth();
-  const firstName = profile?.full_name ? profile.full_name.split(' ')[0] : '';
+const NAV = [
+  { to: '/portal/client', end: true, label: 'Overview', icon: 'home' },
+  { to: '/portal/client/interview', label: 'Interview Code', icon: 'book' },
+  { to: '/portal/client/cv', label: 'My CV', icon: 'file' },
+];
 
+// Client area (AXIS-19): the sidebar shell plus the client sub-pages, each on
+// its own route instead of one long scroll.
+export default function ClientHome() {
   return (
-    <Shell area="Client">
-      <div style={{ color: '#B9C0D2', fontSize: 13.5, marginBottom: 20 }}>
-        Welcome{firstName ? `, ${firstName}` : ''}.
-      </div>
-      <InterviewAccess />
-      <CvUpload />
-    </Shell>
+    <PortalLayout area="Client" nav={NAV}>
+      <Routes>
+        <Route index element={<ClientOverview />} />
+        <Route path="interview" element={<InterviewAccess />} />
+        <Route path="cv" element={<CvUpload />} />
+        <Route path="*" element={<Navigate to="/portal/client" replace />} />
+      </Routes>
+    </PortalLayout>
   );
 }

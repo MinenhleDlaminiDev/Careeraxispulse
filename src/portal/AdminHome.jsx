@@ -1,22 +1,26 @@
-import { useAuth } from './AuthContext';
-import Shell from './Shell';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import PortalLayout from './PortalLayout';
 import AccessManagement from './AccessManagement';
 import ContentEditor from './ContentEditor';
+import AdminCvs from './AdminCvs';
 
-// Admin landing. Client access management (AXIS-09) and the content editor
-// (AXIS-10) live here; the CV tools (AXIS-11/12) will join them.
+const NAV = [
+  { to: '/portal/admin', end: true, label: 'Clients', icon: 'users' },
+  { to: '/portal/admin/content', label: 'Content', icon: 'edit' },
+  { to: '/portal/admin/cvs', label: 'CVs', icon: 'file' },
+];
+
+// Admin area (AXIS-19): the sidebar shell plus the admin sub-pages, each on its
+// own route.
 export default function AdminHome() {
-  const { profile } = useAuth();
-
   return (
-    <Shell area="Admin">
-      <h1 style={{ fontFamily: "'Source Serif 4',serif", fontWeight: 700, fontSize: 28, margin: '0 0 8px' }}>
-        Admin{profile?.full_name ? ` · ${profile.full_name}` : ''}
-      </h1>
-      <p style={{ color: '#B9C0D2', margin: '0 0 24px' }}>Manage access, content and CVs.</p>
-
-      <AccessManagement />
-      <ContentEditor />
-    </Shell>
+    <PortalLayout area="Admin" nav={NAV}>
+      <Routes>
+        <Route index element={<AccessManagement />} />
+        <Route path="content" element={<ContentEditor />} />
+        <Route path="cvs" element={<AdminCvs />} />
+        <Route path="*" element={<Navigate to="/portal/admin" replace />} />
+      </Routes>
+    </PortalLayout>
   );
 }

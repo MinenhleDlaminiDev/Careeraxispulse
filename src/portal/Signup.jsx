@@ -4,6 +4,7 @@ import { useAuth } from './AuthContext';
 import { isConfigured } from '../supabase';
 import Loading from './Loading';
 import AuthCard, { fieldStyle, labelStyle, primaryBtnStyle } from './AuthCard';
+import { DANGER, GOLD_INK, CREAM, MUTED } from './theme';
 
 // Client registration. The handle_new_user trigger creates the profiles row
 // (role 'client', no access) from the metadata here. Handles both email modes:
@@ -37,9 +38,9 @@ export default function Signup() {
   return (
     <AuthCard eyebrow="Create Account" showConfigWarning={!awaitConfirm}>
       {awaitConfirm ? (
-        <div style={{ color: '#B9C0D2', fontSize: 14.5, lineHeight: 1.6 }}>
-          Almost there — we’ve sent a confirmation link to <strong style={{ color: '#F4EFE4' }}>{email.trim()}</strong>.
-          Confirm your email, then <Link to="/portal/login" style={{ color: '#C9A227' }}>sign in</Link>.
+        <div style={{ color: MUTED, fontSize: 14.5, lineHeight: 1.6 }}>
+          Almost there — we’ve sent a confirmation link to <strong style={{ color: CREAM }}>{email.trim()}</strong>.
+          Confirm your email, then <Link to="/portal/login" style={{ color: GOLD_INK, fontWeight: 600 }}>sign in</Link>.
         </div>
       ) : (
         <form onSubmit={onSubmit}>
@@ -56,14 +57,14 @@ export default function Signup() {
             <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required minLength={6} autoComplete="new-password" style={fieldStyle} />
           </label>
 
-          {error && <div style={{ marginTop: 16, color: '#F2B8B5', fontSize: 13 }}>{error}</div>}
+          {error && <div style={{ marginTop: 16, color: DANGER, fontSize: 13 }}>{error}</div>}
 
           <button type="submit" disabled={disabled} style={primaryBtnStyle(disabled)}>
             {busy ? 'Creating account…' : 'Create account'}
           </button>
 
-          <div style={{ marginTop: 18, fontSize: 13.5, color: '#B9C0D2', textAlign: 'center' }}>
-            Already have an account? <Link to="/portal/login" style={{ color: '#C9A227' }}>Sign in</Link>
+          <div style={{ marginTop: 18, fontSize: 13.5, color: MUTED, textAlign: 'center' }}>
+            Already have an account? <Link to="/portal/login" style={{ color: GOLD_INK, fontWeight: 600 }}>Sign in</Link>
           </div>
         </form>
       )}

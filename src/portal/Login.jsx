@@ -4,6 +4,7 @@ import { useAuth } from './AuthContext';
 import { isConfigured } from '../supabase';
 import Loading from './Loading';
 import AuthCard, { fieldStyle, labelStyle, primaryBtnStyle } from './AuthCard';
+import { DANGER, GOLD_INK, MUTED } from './theme';
 
 // Email + password sign-in. On success the auth listener sets the session and
 // the <Navigate> below redirects by role.
@@ -41,14 +42,14 @@ export default function Login() {
           <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required autoComplete="current-password" style={fieldStyle} />
         </label>
 
-        {error && <div style={{ marginTop: 16, color: '#F2B8B5', fontSize: 13 }}>{error}</div>}
+        {error && <div style={{ marginTop: 16, color: DANGER, fontSize: 13 }}>{error}</div>}
 
         <button type="submit" disabled={disabled} style={primaryBtnStyle(disabled)}>
           {busy ? 'Signing in…' : 'Sign in'}
         </button>
 
-        <div style={{ marginTop: 18, fontSize: 13.5, color: '#B9C0D2', textAlign: 'center' }}>
-          Need an account? <Link to="/portal/signup" style={{ color: '#C9A227' }}>Sign up</Link>
+        <div style={{ marginTop: 18, fontSize: 13.5, color: MUTED, textAlign: 'center' }}>
+          Need an account? <Link to="/portal/signup" style={{ color: GOLD_INK, fontWeight: 600 }}>Sign up</Link>
         </div>
       </form>
     </AuthCard>

@@ -1,6 +1,7 @@
 import { Navigate, useLocation } from 'react-router-dom';
 import { useAuth } from './AuthContext';
 import Loading from './Loading';
+import { GOLD, CREAM, ON_GOLD, BORDER, DANGER } from './theme';
 
 // Gate for authenticated portal routes. Security is enforced by RLS on the
 // server; this only decides what the UI shows. requireAdmin keeps clients out
@@ -18,10 +19,10 @@ export default function ProtectedRoute({ requireAdmin = false, children }) {
   if (!profile) {
     return (
       <div style={{ minHeight: '60vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 14, textAlign: 'center', padding: 22 }}>
-        <div style={{ color: '#F2B8B5', fontSize: 15 }}>We couldn’t load your account.</div>
+        <div style={{ color: DANGER, fontSize: 15 }}>We couldn’t load your account.</div>
         <div style={{ display: 'flex', gap: 10 }}>
-          <button type="button" onClick={() => window.location.reload()} style={{ background: '#C9A227', color: '#131F38', border: 'none', borderRadius: 3, padding: '8px 16px', fontWeight: 600, cursor: 'pointer' }}>Retry</button>
-          <button type="button" onClick={() => signOut()} style={{ background: 'transparent', color: '#F4EFE4', border: '1px solid rgba(255,255,255,.25)', borderRadius: 3, padding: '8px 16px', cursor: 'pointer' }}>Sign out</button>
+          <button type="button" onClick={() => window.location.reload()} style={{ background: GOLD, color: ON_GOLD, border: 'none', borderRadius: 6, padding: '9px 16px', fontWeight: 600, cursor: 'pointer' }}>Retry</button>
+          <button type="button" onClick={() => signOut()} style={{ background: 'transparent', color: CREAM, border: `1px solid ${BORDER}`, borderRadius: 6, padding: '9px 16px', cursor: 'pointer' }}>Sign out</button>
         </div>
       </div>
     );
