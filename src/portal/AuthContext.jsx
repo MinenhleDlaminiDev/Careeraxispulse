@@ -59,6 +59,13 @@ export function AuthProvider({ children }) {
     return supabase.auth.signInWithPassword({ email, password });
   }, []);
 
+  const signUp = useCallback((email, password, fullName) => {
+    if (!supabase) return Promise.resolve({ error: { message: 'Portal is not configured yet.' } });
+    // full_name lands in raw_user_meta_data; the handle_new_user trigger reads
+    // it when it creates the profiles row (role 'client', no access).
+    return supabase.auth.signUp({ email, password, options: { data: { full_name: fullName } } });
+  }, []);
+
   const signOut = useCallback(() => {
     if (!supabase) return Promise.resolve({ error: null });
     return supabase.auth.signOut();
@@ -78,6 +85,7 @@ export function AuthProvider({ children }) {
     isAdmin,
     hasInterviewAccess,
     signIn,
+    signUp,
     signOut,
   };
 

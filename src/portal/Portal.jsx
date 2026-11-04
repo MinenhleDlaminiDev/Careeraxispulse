@@ -2,6 +2,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './AuthContext';
 import ProtectedRoute from './ProtectedRoute';
 import Login from './Login';
+import Signup from './Signup';
 import ClientHome from './ClientHome';
 import AdminHome from './AdminHome';
 
@@ -20,6 +21,7 @@ export default function Portal() {
       <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', background: 'linear-gradient(180deg,#131F38 0%,#26396A 100%)', color: '#F4EFE4', fontFamily: "'Public Sans', sans-serif" }}>
         <Routes>
           <Route path="login" element={<Login />} />
+          <Route path="signup" element={<Signup />} />
           <Route index element={<ProtectedRoute><RoleLanding /></ProtectedRoute>} />
           <Route path="client/*" element={<ProtectedRoute><ClientHome /></ProtectedRoute>} />
           <Route path="admin/*" element={<ProtectedRoute requireAdmin><AdminHome /></ProtectedRoute>} />
