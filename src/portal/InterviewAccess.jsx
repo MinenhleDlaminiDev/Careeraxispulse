@@ -3,11 +3,7 @@ import { useAuth } from './AuthContext';
 import { supabase } from '../supabase';
 import Loading from './Loading';
 import Reveal from './Reveal';
-
-const GOLD = '#C9A227';
-const CREAM = '#F4EFE4';
-const MUTED = '#B9C0D2';
-const serif = "'Source Serif 4', serif";
+import { GOLD, CREAM, MUTED, SERIF as serif } from './theme';
 
 // The gated four-pillar content, shown as the "Axis Journey" — a vertical
 // timeline. Clients with live access see the content (read from interview_content,
