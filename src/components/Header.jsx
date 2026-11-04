@@ -53,7 +53,7 @@ export default function Header() {
               </Link>
             );
           })}
-          <Link to="/portal/login" onClick={close} style={{ color: '#F4EFE4', border: '1px solid rgba(201,162,39,.6)', padding: '9px 18px', borderRadius: '3px', fontWeight: 600 }}>Client Login</Link>
+          <Link to="/portal/login" onClick={close} style={{ color: '#F4EFE4', border: '1px solid rgba(201,162,39,.6)', padding: '9px 18px', borderRadius: '3px', fontWeight: 600 }}>Login</Link>
           <Link to="/services" onClick={close} className="btn-book" style={{ background: '#C9A227', color: '#131F38', padding: '10px 20px', borderRadius: '3px', fontWeight: 600 }}>Book a Service</Link>
         </nav>
       </div>
