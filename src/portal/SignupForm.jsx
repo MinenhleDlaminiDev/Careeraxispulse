@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useAuth } from './AuthContext';
 import { isConfigured } from '../supabase';
 import { fieldStyle, labelStyle, primaryBtnStyle } from './AuthCard';
+import PasswordInput from './PasswordInput';
 import { DANGER, GOLD_INK, CREAM, MUTED, SERIF, DANGER_SOFT, DANGER_BORDER } from './theme';
 
 const SENIORITY = ['Entry level', 'Mid level', 'Senior', 'Management', 'Executive'];
@@ -106,7 +107,7 @@ export default function SignupForm({ onDone }) {
         </label>
         <label style={{ ...labelStyle, marginTop: 16 }}>
           Password
-          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required minLength={6} autoComplete="new-password" style={fieldStyle} />
+          <PasswordInput value={password} onChange={(e) => setPassword(e.target.value)} required minLength={6} autoComplete="new-password" />
         </label>
 
         <div style={sectionStyle}>Contact</div>

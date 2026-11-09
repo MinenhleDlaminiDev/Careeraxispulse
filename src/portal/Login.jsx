@@ -6,6 +6,7 @@ import Loading from './Loading';
 import AuthCard, { fieldStyle, labelStyle, primaryBtnStyle } from './AuthCard';
 import Modal from './Modal';
 import SignupForm from './SignupForm';
+import PasswordInput from './PasswordInput';
 import { DANGER, GOLD_INK, MUTED } from './theme';
 
 // Email + password sign-in. On success the auth listener sets the session and
@@ -47,7 +48,7 @@ export default function Login() {
         </label>
         <label style={{ ...labelStyle, marginTop: 16 }}>
           Password
-          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required autoComplete="current-password" style={fieldStyle} />
+          <PasswordInput value={password} onChange={(e) => setPassword(e.target.value)} required autoComplete="current-password" />
         </label>
 
         {error && <div style={{ marginTop: 16, color: DANGER, fontSize: 13 }}>{error}</div>}
