@@ -47,7 +47,11 @@ create table if not exists public.cv_uploads (
   id           uuid primary key default gen_random_uuid(),
   user_id      uuid not null references auth.users (id) on delete cascade,
   storage_path text not null,
+  -- source = WHO uploaded it; stage = original (to work from) vs revised
+  -- (the finished version the admin delivers). Two separate questions, two
+  -- columns — never fold stage into source (the client page filters on source).
   source       text not null check (source in ('client', 'admin')),
+  stage        text not null default 'original' check (stage in ('original', 'revised')),
   created_at   timestamptz not null default now()
 );
 
