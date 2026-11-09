@@ -23,6 +23,16 @@ create table if not exists public.profiles (
   role                        text not null default 'client' check (role in ('client', 'admin')),
   -- Access is its own field, NEVER overloaded onto role. Null = no access.
   interview_access_expires_at timestamptz,
+  -- Non-CV profile fields captured at signup (AXIS-21). All nullable.
+  phone                       text,
+  location                    text,
+  linkedin_url                text,
+  target_role                 text,
+  target_industry             text,
+  seniority_level             text,
+  target_companies            text,
+  employment_status           text,
+  change_driver               text,
   created_at                  timestamptz not null default now()
 );
 
@@ -94,12 +104,26 @@ security definer
 set search_path = public
 as $$
 begin
-  insert into public.profiles (id, full_name, email, role)
+  insert into public.profiles (
+    id, full_name, email, role,
+    phone, location, linkedin_url,
+    target_role, target_industry, seniority_level, target_companies,
+    employment_status, change_driver
+  )
   values (
     new.id,
     new.raw_user_meta_data ->> 'full_name',
     new.email,
-    'client'
+    'client',
+    new.raw_user_meta_data ->> 'phone',
+    new.raw_user_meta_data ->> 'location',
+    new.raw_user_meta_data ->> 'linkedin_url',
+    new.raw_user_meta_data ->> 'target_role',
+    new.raw_user_meta_data ->> 'target_industry',
+    new.raw_user_meta_data ->> 'seniority_level',
+    new.raw_user_meta_data ->> 'target_companies',
+    new.raw_user_meta_data ->> 'employment_status',
+    new.raw_user_meta_data ->> 'change_driver'
   )
   on conflict (id) do nothing;
   return new;

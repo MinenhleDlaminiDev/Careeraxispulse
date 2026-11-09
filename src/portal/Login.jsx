@@ -1,19 +1,24 @@
 import { useState } from 'react';
-import { Navigate, Link } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 import { useAuth } from './AuthContext';
 import { isConfigured } from '../supabase';
 import Loading from './Loading';
 import AuthCard, { fieldStyle, labelStyle, primaryBtnStyle } from './AuthCard';
+import Modal from './Modal';
+import SignupForm from './SignupForm';
 import { DANGER, GOLD_INK, MUTED } from './theme';
 
 // Email + password sign-in. On success the auth listener sets the session and
 // the <Navigate> below redirects to /portal, where RoleLanding routes by role.
 export default function Login() {
   const { session, loading, signIn } = useAuth();
+  const location = useLocation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
+  // Opens automatically when arriving from the /portal/signup redirect.
+  const [showSignup, setShowSignup] = useState(Boolean(location.state?.signup));
 
   if (loading) return <Loading />;
   // Always land at /portal and let RoleLanding pick the dashboard by the current
@@ -52,9 +57,18 @@ export default function Login() {
         </button>
 
         <div style={{ marginTop: 18, fontSize: 13.5, color: MUTED, textAlign: 'center' }}>
-          Need an account? <Link to="/portal/signup" style={{ color: GOLD_INK, fontWeight: 600 }}>Sign up</Link>
+          Need an account?{' '}
+          <button type="button" onClick={() => setShowSignup(true)} style={{ background: 'none', border: 'none', padding: 0, font: 'inherit', color: GOLD_INK, fontWeight: 600, cursor: 'pointer' }}>
+            Sign up
+          </button>
         </div>
       </form>
+
+      {showSignup && (
+        <Modal onClose={() => setShowSignup(false)} label="Create your account">
+          <SignupForm onDone={() => setShowSignup(false)} />
+        </Modal>
+      )}
     </AuthCard>
   );
 }

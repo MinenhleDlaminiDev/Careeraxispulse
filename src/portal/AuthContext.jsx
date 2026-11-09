@@ -66,11 +66,17 @@ export function AuthProvider({ children }) {
     return supabase.auth.signInWithPassword({ email, password });
   }, []);
 
-  const signUp = useCallback((email, password, fullName) => {
+  const signUp = useCallback((email, password, fullName, profile = {}) => {
     if (!supabase) return Promise.resolve({ error: { message: 'Portal is not configured yet.' } });
-    // full_name lands in raw_user_meta_data; the handle_new_user trigger reads
-    // it when it creates the profiles row (role 'client', no access).
-    return supabase.auth.signUp({ email, password, options: { data: { full_name: fullName } } });
+    // full_name plus the extra profile fields (AXIS-21) land in
+    // raw_user_meta_data; the handle_new_user trigger reads them when it creates
+    // the profiles row (role 'client', no access). Blank optional fields arrive
+    // as null from the form, so they store as null, not ''.
+    return supabase.auth.signUp({
+      email,
+      password,
+      options: { data: { full_name: fullName, ...profile } },
+    });
   }, []);
 
   const signOut = useCallback(() => {

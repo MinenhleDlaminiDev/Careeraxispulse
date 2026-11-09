@@ -64,6 +64,12 @@
 .ax-auth-toggle{position:absolute;top:18px;right:18px;z-index:2}
 @media(max-width:860px){.ax-auth-brand{display:none}}
 
+/* Signup modal (AXIS-22) — dialog over the login screen, scrolls on small screens */
+.ax-modal-backdrop{position:fixed;inset:0;z-index:1000;background:rgba(8,13,25,.66);display:flex;align-items:flex-start;justify-content:center;padding:40px 16px;overflow-y:auto}
+.ax-modal-card{position:relative;margin:auto;width:100%;max-width:440px;background:var(--ax-surface);border:1px solid var(--ax-border);border-radius:14px;padding:30px 28px;box-shadow:var(--ax-shadow)}
+.ax-modal-close{position:absolute;top:10px;right:12px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;background:transparent;border:none;border-radius:8px;color:var(--ax-muted);font-size:22px;line-height:1;cursor:pointer}
+.ax-modal-close:hover{background:var(--ax-surface-2);color:var(--ax-text)}
+
 /* Theme toggle pill */
 .ax-toggle{position:relative;width:60px;height:30px;border-radius:999px;border:1px solid var(--ax-gold-border);background:var(--ax-surface-2);cursor:pointer;padding:0;flex-shrink:0;display:inline-flex;align-items:center}
 .ax-toggle-knob{position:absolute;top:2px;left:2px;width:24px;height:24px;border-radius:50%;background:var(--ax-gold);display:flex;align-items:center;justify-content:center;transition:left .3s cubic-bezier(.2,.7,.2,1)}
