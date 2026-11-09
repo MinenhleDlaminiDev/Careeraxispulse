@@ -1,35 +1,23 @@
 import { useEffect, useState, useCallback, useRef } from 'react';
 import { useAuth } from './AuthContext';
 import { supabase } from '../supabase';
-import { GOLD, CREAM, MUTED, SURFACE, BORDER, ON_GOLD, DANGER } from './theme';
+import { GOLD, CREAM, MUTED, SURFACE, BORDER, ON_GOLD, DANGER, GOLD_INK } from './theme';
 import Banner from './Banner';
 import PageHeader from './PageHeader';
+import { ACCEPT, validateCvFile, uploadCv, downloadCv, displayName } from './cvStorage';
 
-const MAX_BYTES = 5 * 1024 * 1024; // 5 MB
-const ALLOWED = ['pdf', 'doc', 'docx'];
-
-const ext = (name) => (name.split('.').pop() || '').toLowerCase();
-
-// Turn a stored path ("<uid>/<timestamp>-<name>") back into the friendly file
-// name we showed on upload, by stripping the folder and the timestamp prefix.
-const displayName = (path) => (path || '').split('/').pop().replace(/^\d+-/, '');
-
-// Make a file name safe for a storage key: keep letters, numbers, dot, dash,
-// underscore; collapse everything else to a single underscore.
-const safeName = (name) => name.replace(/[^a-zA-Z0-9._-]+/g, '_').replace(/_+/g, '_');
-
-// AXIS-08: the client uploads their own CV so the admin can work from it. Files
-// go to the private "cvs" bucket under "<user_id>/…" (the storage policy keys
-// off that first folder), and each upload adds a cv_uploads row (source
-// 'client'). We show the most recent one with a signed download link.
+// AXIS-08: the client uploads their own CV so the admin can work from it. The
+// file goes to the private "cvs" bucket and a cv_uploads row (source 'client').
+// AXIS-12: the admin delivers a finished CV back (stage 'revised'); we show the
+// latest one here in a "Your finished CV" section so it reaches the client.
 export default function CvUpload() {
   const { user } = useAuth();
-  const [state, setState] = useState({ loading: true, current: null, error: false });
+  const [state, setState] = useState({ loading: true, current: null, finished: null, error: false });
   const [uploading, setUploading] = useState(false);
   const [message, setMessage] = useState(null); // { kind: 'error' | 'ok', text }
   const inputRef = useRef(null);
-  // Guards the post-await state writes so leaving the page mid-fetch doesn't
-  // set state on an unmounted component. Reset to true on every mount — under
+  // Guards the post-await state writes so leaving the page mid-fetch doesn't set
+  // state on an unmounted component. Reset to true on every mount — under
   // StrictMode the cleanup runs once on the throwaway first mount, and the ref
   // would otherwise stay false and trap load() before it can set state.
   const mountedRef = useRef(true);
@@ -39,19 +27,22 @@ export default function CvUpload() {
   }, []);
 
   const load = useCallback(async () => {
-    if (!supabase || !user) { setState({ loading: false, current: null, error: !supabase }); return; }
+    if (!supabase || !user) { setState({ loading: false, current: null, finished: null, error: !supabase }); return; }
     setState((s) => ({ ...s, loading: true, error: false }));
+    // Fetch the client's CVs newest-first, then pick their own latest upload
+    // (source 'client') and the latest finished CV the admin delivered
+    // (stage 'revised'). One round-trip instead of two.
     const { data, error } = await supabase
       .from('cv_uploads')
-      .select('id, storage_path, created_at')
+      .select('id, storage_path, source, stage, created_at')
       .eq('user_id', user.id)
-      .eq('source', 'client')
-      .order('created_at', { ascending: false })
-      .limit(1)
-      .maybeSingle();
+      .order('created_at', { ascending: false });
     if (!mountedRef.current) return;
-    if (error) setState({ loading: false, current: null, error: true });
-    else setState({ loading: false, current: data || null, error: false });
+    if (error) { setState({ loading: false, current: null, finished: null, error: true }); return; }
+    const rows = data || [];
+    const current = rows.find((r) => r.source === 'client') || null;
+    const finished = rows.find((r) => r.stage === 'revised') || null;
+    setState({ loading: false, current, finished, error: false });
   }, [user]);
 
   useEffect(() => { load(); }, [load]);
@@ -63,55 +54,22 @@ export default function CvUpload() {
     if (!file || !supabase || !user) return;
     setMessage(null);
 
-    if (!ALLOWED.includes(ext(file.name))) {
-      setMessage({ kind: 'error', text: 'Please upload a PDF, DOC or DOCX file.' });
-      return;
-    }
-    if (file.size > MAX_BYTES) {
-      setMessage({ kind: 'error', text: 'That file is over 5 MB. Please upload a smaller file.' });
-      return;
-    }
+    const invalid = validateCvFile(file);
+    if (invalid) { setMessage({ kind: 'error', text: invalid }); return; }
 
     setUploading(true);
-    const path = `${user.id}/${Date.now()}-${safeName(file.name)}`;
-    const up = await supabase.storage.from('cvs').upload(path, file, {
-      contentType: file.type || undefined,
-      upsert: false,
-    });
-    if (up.error) {
-      setUploading(false);
-      setMessage({ kind: 'error', text: 'Upload failed — please try again.' });
-      return;
-    }
-    // Record the upload. If this row insert fails, remove the orphaned object
-    // so storage and the table don't drift.
-    const ins = await supabase.from('cv_uploads').insert({ user_id: user.id, storage_path: path, source: 'client' });
+    const { error } = await uploadCv({ userId: user.id, file, source: 'client', stage: 'original' });
     setUploading(false);
-    if (ins.error) {
-      await supabase.storage.from('cvs').remove([path]);
-      setMessage({ kind: 'error', text: 'Upload failed — please try again.' });
-      return;
-    }
+    if (error) { setMessage({ kind: 'error', text: 'Upload failed — please try again.' }); return; }
     setMessage({ kind: 'ok', text: 'CV uploaded.' });
     load();
   };
 
-  const download = async () => {
-    if (!supabase || !state.current) return;
+  const download = async (cv) => {
+    if (!cv) return;
     setMessage(null);
-    const name = displayName(state.current.storage_path);
-    // Ask Supabase to serve the file as an attachment, then trigger it with a
-    // temporary <a download>. A download isn't a pop-up, so blockers (Brave,
-    // Safari) don't suppress it the way they do window.open after an await.
-    const { data, error } = await supabase.storage.from('cvs').createSignedUrl(state.current.storage_path, 60, { download: name });
-    if (error || !data?.signedUrl) { setMessage({ kind: 'error', text: 'Couldn’t open your CV right now. Please try again.' }); return; }
-    const a = document.createElement('a');
-    a.href = data.signedUrl;
-    a.download = name;
-    a.rel = 'noopener';
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
+    const { ok } = await downloadCv(cv.storage_path);
+    if (!ok) setMessage({ kind: 'error', text: 'Couldn’t open your CV right now. Please try again.' });
   };
 
   const hasCurrent = Boolean(state.current);
@@ -121,6 +79,27 @@ export default function CvUpload() {
       <PageHeader eyebrow="My CV" title="Your CV">
         Upload your CV so we can prepare your interview readiness alongside the job description. PDF, DOC or DOCX, up to 5 MB.
       </PageHeader>
+
+      {/* AXIS-12: the finished CV the admin delivered back, shown first when present. */}
+      {state.finished && (
+        <section className="ax-card" style={{ padding: '18px 20px 20px', marginBottom: 16, borderColor: 'var(--ax-gold-border)' }}>
+          <div style={{ letterSpacing: '.12em', textTransform: 'uppercase', fontSize: 11, color: GOLD_INK, fontWeight: 700, marginBottom: 12 }}>Your finished CV</div>
+          <div className="ax-cv-item">
+            <div className="ax-file-ic" style={{ color: GOLD_INK }}>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={{ width: 19, height: 19 }}>
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><path d="M14 2v6h6M9 13h6M9 17h4" />
+              </svg>
+            </div>
+            <div style={{ minWidth: 0, flex: '1 1 150px' }}>
+              <div style={{ fontSize: 14, fontWeight: 600, color: CREAM, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{displayName(state.finished.storage_path)}</div>
+              <div style={{ fontSize: 12.5, color: MUTED, marginTop: 2 }}>Delivered {new Date(state.finished.created_at).toLocaleDateString()}</div>
+            </div>
+            <button type="button" onClick={() => download(state.finished)} style={{ background: GOLD, color: ON_GOLD, border: 'none', borderRadius: 8, padding: '9px 16px', fontSize: 13, fontWeight: 600, cursor: 'pointer' }}>
+              Download
+            </button>
+          </div>
+        </section>
+      )}
 
       <section style={{ background: SURFACE, border: `1px solid ${BORDER}`, borderRadius: 12, padding: '22px 22px' }}>
         <Banner kind={message?.kind} style={{ marginBottom: 16 }}>{message?.text}</Banner>
@@ -141,7 +120,7 @@ export default function CvUpload() {
                     Uploaded {new Date(state.current.created_at).toLocaleDateString()}
                   </div>
                 </div>
-                <button type="button" onClick={download}
+                <button type="button" onClick={() => download(state.current)}
                   style={{ background: 'transparent', color: CREAM, border: `1px solid ${BORDER}`, borderRadius: 6, padding: '9px 16px', fontSize: 13, cursor: 'pointer' }}>
                   Download
                 </button>
@@ -150,7 +129,7 @@ export default function CvUpload() {
               <div style={{ color: MUTED, fontSize: 14, marginBottom: 16 }}>No CV uploaded yet.</div>
             )}
 
-            <input ref={inputRef} type="file" accept=".pdf,.doc,.docx" onChange={onPick} style={{ display: 'none' }} id="cv-file" />
+            <input ref={inputRef} type="file" accept={ACCEPT} onChange={onPick} style={{ display: 'none' }} id="cv-file" />
             <label htmlFor="cv-file"
               style={{ display: 'inline-block', background: GOLD, color: ON_GOLD, borderRadius: 7, padding: '11px 18px', fontSize: 14, fontWeight: 600, cursor: uploading ? 'default' : 'pointer', opacity: uploading ? 0.6 : 1, pointerEvents: uploading ? 'none' : 'auto' }}>
               {uploading ? 'Uploading…' : hasCurrent ? 'Replace CV' : 'Upload CV'}
