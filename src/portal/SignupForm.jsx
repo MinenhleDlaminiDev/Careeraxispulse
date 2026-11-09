@@ -9,7 +9,7 @@ const SENIORITY = ['Entry level', 'Mid level', 'Senior', 'Management', 'Executiv
 const EMPLOYMENT = ['Employed & looking', 'Unemployed', 'Student', 'Career-changer'];
 
 const sectionStyle = {
-  marginTop: 26, marginBottom: 4, fontSize: 11, fontWeight: 700,
+  marginTop: 20, marginBottom: 4, fontSize: 11, fontWeight: 700,
   letterSpacing: '0.12em', textTransform: 'uppercase', color: GOLD_INK,
 };
 const optionalHint = { color: MUTED, fontWeight: 400, textTransform: 'none', letterSpacing: 0 };
