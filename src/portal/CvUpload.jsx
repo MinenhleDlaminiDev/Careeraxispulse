@@ -1,10 +1,17 @@
 import { useEffect, useState, useCallback, useRef } from 'react';
 import { useAuth } from './AuthContext';
 import { supabase } from '../supabase';
-import { GOLD, CREAM, MUTED, SURFACE, BORDER, ON_GOLD, DANGER, GOLD_INK } from './theme';
+import { GOLD, CREAM, MUTED, ON_GOLD, DANGER, GOLD_INK } from './theme';
 import Banner from './Banner';
 import PageHeader from './PageHeader';
 import { ACCEPT, validateCvFile, uploadCv, downloadCv, displayName } from './cvStorage';
+
+// Shared document glyph for the CV rows.
+const FileSvg = (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={{ width: 19, height: 19 }}>
+    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><path d="M14 2v6h6M9 13h6M9 17h4" />
+  </svg>
+);
 
 // AXIS-08: the client uploads their own CV so the admin can work from it. The
 // file goes to the private "cvs" bucket and a cv_uploads row (source 'client').
@@ -85,11 +92,7 @@ export default function CvUpload() {
         <section className="ax-card" style={{ padding: '18px 20px 20px', marginBottom: 16, borderColor: 'var(--ax-gold-border)' }}>
           <div style={{ letterSpacing: '.12em', textTransform: 'uppercase', fontSize: 11, color: GOLD_INK, fontWeight: 700, marginBottom: 12 }}>Your finished CV</div>
           <div className="ax-cv-item">
-            <div className="ax-file-ic" style={{ color: GOLD_INK }}>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={{ width: 19, height: 19 }}>
-                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><path d="M14 2v6h6M9 13h6M9 17h4" />
-              </svg>
-            </div>
+            <div className="ax-file-ic" style={{ color: GOLD_INK }}>{FileSvg}</div>
             <div style={{ minWidth: 0, flex: '1 1 150px' }}>
               <div style={{ fontSize: 14, fontWeight: 600, color: CREAM, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{displayName(state.finished.storage_path)}</div>
               <div style={{ fontSize: 12.5, color: MUTED, marginTop: 2 }}>Delivered {new Date(state.finished.created_at).toLocaleDateString()}</div>
@@ -101,7 +104,8 @@ export default function CvUpload() {
         </section>
       )}
 
-      <section style={{ background: SURFACE, border: `1px solid ${BORDER}`, borderRadius: 12, padding: '22px 22px' }}>
+      <section className="ax-card" style={{ padding: '22px 22px' }}>
+        <div style={{ letterSpacing: '.12em', textTransform: 'uppercase', fontSize: 11, color: MUTED, fontWeight: 700, marginBottom: 12 }}>Your uploaded CV</div>
         <Banner kind={message?.kind} style={{ marginBottom: 16 }}>{message?.text}</Banner>
 
         {state.loading ? (
@@ -111,19 +115,17 @@ export default function CvUpload() {
         ) : (
           <>
             {hasCurrent ? (
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 14, flexWrap: 'wrap', background: SURFACE, border: `1px solid ${BORDER}`, borderRadius: 10, padding: '14px 16px', marginBottom: 16 }}>
-                <div style={{ minWidth: 0 }}>
-                  <div style={{ fontSize: 14.5, color: CREAM, fontWeight: 600, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+              <div className="ax-cv-item" style={{ marginBottom: 16 }}>
+                <div className="ax-file-ic">{FileSvg}</div>
+                <div style={{ minWidth: 0, flex: '1 1 150px' }}>
+                  <div style={{ fontSize: 14, color: CREAM, fontWeight: 600, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                     {displayName(state.current.storage_path)}
                   </div>
-                  <div style={{ fontSize: 12.5, color: MUTED, marginTop: 3 }}>
+                  <div style={{ fontSize: 12.5, color: MUTED, marginTop: 2 }}>
                     Uploaded {new Date(state.current.created_at).toLocaleDateString()}
                   </div>
                 </div>
-                <button type="button" onClick={() => download(state.current)}
-                  style={{ background: 'transparent', color: CREAM, border: `1px solid ${BORDER}`, borderRadius: 6, padding: '9px 16px', fontSize: 13, cursor: 'pointer' }}>
-                  Download
-                </button>
+                <button type="button" className="ax-iconbtn" onClick={() => download(state.current)}>Download</button>
               </div>
             ) : (
               <div style={{ color: MUTED, fontSize: 14, marginBottom: 16 }}>No CV uploaded yet.</div>

@@ -90,11 +90,19 @@
 .ax-badge{display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:3px 9px;border-radius:999px;border:1px solid transparent;white-space:nowrap}
 .ax-badge-original{background:var(--ax-surface);color:var(--ax-muted);border-color:var(--ax-border)}
 .ax-badge-revised{background:var(--ax-gold-soft);color:var(--ax-gold-ink);border-color:var(--ax-gold-border)}
+/* Semantic status variants (reused for access state, etc.) */
+.ax-badge-gold{background:var(--ax-gold-soft);color:var(--ax-gold-ink);border-color:var(--ax-gold-border)}
+.ax-badge-neutral{background:var(--ax-surface);color:var(--ax-muted);border-color:var(--ax-border)}
+.ax-badge-danger{background:var(--ax-danger-soft);color:var(--ax-danger);border-color:var(--ax-danger-border)}
 .ax-iconbtn{display:inline-flex;align-items:center;justify-content:center;gap:7px;background:transparent;border:1px solid var(--ax-border);border-radius:8px;color:var(--ax-text);cursor:pointer;font-size:13px;font-weight:600;padding:8px 13px}
 .ax-iconbtn:hover{background:var(--ax-surface);border-color:var(--ax-gold-border)}
 .ax-iconbtn:disabled{opacity:.55;cursor:default}
 .ax-iconbtn svg{width:16px;height:16px;flex-shrink:0}
 .ax-grouplabel{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ax-muted);margin:0 0 9px}
+/* Quick-link cards lift slightly on hover */
+.ax-quick{transition:transform .2s ease, border-color .2s ease, box-shadow .2s ease}
+.ax-quick:hover{border-color:var(--ax-gold-border);transform:translateY(-2px)}
+@media (prefers-reduced-motion: reduce){.ax-quick:hover{transform:none}}
 
 /* Theme toggle pill */
 .ax-toggle{position:relative;width:60px;height:30px;border-radius:999px;border:1px solid var(--ax-gold-border);background:var(--ax-surface-2);cursor:pointer;padding:0;flex-shrink:0;display:inline-flex;align-items:center}

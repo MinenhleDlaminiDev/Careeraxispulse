@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback, useRef } from 'react';
 import { supabase } from '../supabase';
-import { GOLD, GOLD_INK, CREAM, MUTED, SERIF, SURFACE, SURFACE2, BORDER, ON_GOLD, DANGER, DANGER_BORDER, GOLD_SOFT, GOLD_BORDER } from './theme';
+import { GOLD, GOLD_INK, CREAM, MUTED, SERIF, SURFACE2, BORDER, ON_GOLD, DANGER, DANGER_BORDER, GOLD_SOFT, GOLD_BORDER } from './theme';
 import Loading from './Loading';
 import Banner from './Banner';
 import PageHeader from './PageHeader';
@@ -87,7 +87,7 @@ export default function ContentEditor() {
 
       <Banner kind={message?.kind} style={{ marginBottom: 16 }}>{message?.text}</Banner>
 
-      <div style={{ background: SURFACE, border: `1px solid ${BORDER}`, borderRadius: 12, padding: '20px 20px', marginBottom: 22 }}>
+      <div className="ax-card" style={{ padding: '20px 20px', marginBottom: 22 }}>
         <Field label="Tagline" value={draft.tagline} onChange={(v) => setTop('tagline', v)} />
         <Field label="Title" value={draft.title} onChange={(v) => setTop('title', v)} />
         <Field label="Subtitle" value={draft.subtitle} onChange={(v) => setTop('subtitle', v)} />
@@ -98,7 +98,7 @@ export default function ContentEditor() {
       </div>
 
       {draft.pillars.map((p, i) => (
-        <div key={p.__key} style={{ background: GOLD_SOFT, border: `1px solid ${GOLD_BORDER}`, borderRadius: 12, padding: '18px 20px', marginBottom: 16 }}>
+        <div key={p.__key} style={{ background: GOLD_SOFT, border: `1px solid ${GOLD_BORDER}`, borderRadius: 14, padding: '18px 20px', marginBottom: 16, boxShadow: 'var(--ax-card-shadow)' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 14 }}>
             <div style={{ fontFamily: SERIF, fontWeight: 700, fontSize: 16, color: GOLD_INK }}>Pillar {p.number || i + 1}</div>
             <button type="button" onClick={() => removePillar(i)} style={{ ...ghostBtn, color: DANGER, borderColor: DANGER_BORDER }}>Remove pillar</button>
