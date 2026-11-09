@@ -69,7 +69,14 @@
 .ax-modal-card{position:relative;box-sizing:border-box;margin:0 auto;width:100%;max-width:460px;background:var(--ax-surface);border:1px solid var(--ax-border);border-radius:16px;padding:30px 30px 34px;box-shadow:var(--ax-shadow)}
 .ax-modal-close{position:absolute;top:12px;right:14px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;background:transparent;border:none;border-radius:8px;color:var(--ax-muted);font-size:22px;line-height:1;cursor:pointer}
 .ax-modal-close:hover{background:var(--ax-surface-2);color:var(--ax-text)}
+/* In dark mode the card is the brand navy (the dark overlay provides the separation) */
+.ax-portal[data-theme="dark"] .ax-modal-card{background:linear-gradient(168deg,#15213b 0%,#1b2a4c 100%)}
 @media(max-width:520px){.ax-modal-backdrop{padding:24px 14px}.ax-modal-card{padding:26px 22px 30px}}
+
+/* Signup wizard progress bar (AXIS-22) */
+.ax-steps-track{height:6px;border-radius:999px;background:var(--ax-surface-2);overflow:hidden}
+.ax-steps-fill{height:100%;border-radius:999px;background:var(--ax-gold);transition:width .4s cubic-bezier(.4,0,.2,1)}
+.ax-steps-label{margin-top:8px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ax-muted);font-weight:600}
 
 /* Theme toggle pill */
 .ax-toggle{position:relative;width:60px;height:30px;border-radius:999px;border:1px solid var(--ax-gold-border);background:var(--ax-surface-2);cursor:pointer;padding:0;flex-shrink:0;display:inline-flex;align-items:center}
