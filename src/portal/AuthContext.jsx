@@ -47,8 +47,15 @@ export function AuthProvider({ children }) {
     // "no profile" state, during the fetch.
     const { data: sub } = supabase.auth.onAuthStateChange((_event, newSession) => {
       setSession(newSession);
-      if (newSession?.user?.id) setProfileReady(false);
-      setTimeout(() => { if (active) loadProfile(newSession?.user?.id); }, 0);
+      if (newSession?.user?.id) {
+        setProfileReady(false);
+        setTimeout(() => { if (active) loadProfile(newSession.user.id); }, 0);
+      } else {
+        // Signed out (or session lost): drop the previous user's profile now so
+        // no stale role lingers into the next sign-in (AXIS-20).
+        setProfile(null);
+        setProfileReady(true);
+      }
     });
 
     return () => { active = false; sub.subscription.unsubscribe(); };

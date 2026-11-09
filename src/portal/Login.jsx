@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Navigate, Link, useLocation } from 'react-router-dom';
+import { Navigate, Link } from 'react-router-dom';
 import { useAuth } from './AuthContext';
 import { isConfigured } from '../supabase';
 import Loading from './Loading';
@@ -7,17 +7,20 @@ import AuthCard, { fieldStyle, labelStyle, primaryBtnStyle } from './AuthCard';
 import { DANGER, GOLD_INK, MUTED } from './theme';
 
 // Email + password sign-in. On success the auth listener sets the session and
-// the <Navigate> below redirects by role.
+// the <Navigate> below redirects to /portal, where RoleLanding routes by role.
 export default function Login() {
   const { session, loading, signIn } = useAuth();
-  const location = useLocation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
 
   if (loading) return <Loading />;
-  if (session) return <Navigate to={location.state?.from?.pathname || '/portal'} replace />;
+  // Always land at /portal and let RoleLanding pick the dashboard by the current
+  // user's role. We deliberately ignore any saved `from` path: after a client
+  // signs out from /portal/client and an admin signs in, honouring `from` would
+  // strand the admin on the client screen (AXIS-20).
+  if (session) return <Navigate to="/portal" replace />;
 
   const onSubmit = async (e) => {
     e.preventDefault();
