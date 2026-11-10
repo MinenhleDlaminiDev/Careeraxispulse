@@ -118,6 +118,30 @@
 .ax-portal[data-theme="dark"] .ax-hub-card{background:linear-gradient(168deg,#15213b 0%,#1b2a4c 100%)}
 @media(max-width:560px){.ax-hub{padding:68px 16px 40px}.ax-hub-grid{grid-template-columns:1fr;max-width:420px !important}.ax-hub-card{min-height:0}}
 
+/* Interview Code presentation (AXIS-26) — one pillar at a time, inline or full-screen */
+.ax-present{width:100%;max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+.ax-present-full{position:fixed;inset:0;z-index:200;background:var(--ax-bg);overflow-y:auto;box-sizing:border-box;padding:22px 20px 28px}
+.ax-present-full .ax-present{min-height:calc(100vh - 50px);justify-content:flex-start}
+.ax-present-top{display:flex;align-items:center;gap:14px}
+.ax-present-bar{flex:1;height:6px;border-radius:999px;background:var(--ax-surface-2);overflow:hidden}
+.ax-present-bar-fill{height:100%;border-radius:999px;background:var(--ax-gold);transition:width .5s cubic-bezier(.4,0,.2,1)}
+.ax-present-step{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ax-gold-ink);font-weight:700;white-space:nowrap}
+.ax-present-mode{display:inline-flex;align-items:center;gap:7px;background:transparent;border:1px solid var(--ax-border);border-radius:8px;padding:7px 12px;font-size:12.5px;font-weight:600;color:var(--ax-text);cursor:pointer;white-space:nowrap}
+.ax-present-mode:hover{border-color:var(--ax-gold-border);color:var(--ax-gold-ink)}
+.ax-present-dots{display:flex;gap:8px;align-items:center;justify-content:center;flex-wrap:wrap}
+.ax-present-dot{width:11px;height:11px;border-radius:50%;border:1.5px solid var(--ax-gold-border);background:transparent;padding:0;cursor:pointer;transition:background .2s,transform .2s,border-color .2s}
+.ax-present-dot:hover{border-color:var(--ax-gold)}
+.ax-present-dot.viewed{background:var(--ax-gold-border);border-color:var(--ax-gold-border)}
+.ax-present-dot.active{background:var(--ax-gold);border-color:var(--ax-gold);transform:scale(1.25)}
+.ax-present-stage{position:relative;overflow:hidden;min-height:430px;display:flex}
+.ax-present-full .ax-present-stage{flex:1}
+.ax-present-nav{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.ax-present-btn{display:inline-flex;align-items:center;gap:8px;background:var(--ax-gold);color:var(--ax-on-gold);border:none;border-radius:9px;padding:11px 22px;font-size:14px;font-weight:600;cursor:pointer}
+.ax-present-btn.ghost{background:transparent;color:var(--ax-text);border:1px solid var(--ax-border)}
+.ax-present-btn.ghost:hover{border-color:var(--ax-gold-border);color:var(--ax-gold-ink)}
+.ax-present-btn:disabled{opacity:.35;cursor:default;pointer-events:none}
+@media(max-width:560px){.ax-present-stage{min-height:460px}.ax-present-btn{padding:11px 16px}.ax-present-mode{padding:7px 10px}}
+
 /* Theme toggle pill */
 .ax-toggle{position:relative;width:60px;height:30px;border-radius:999px;border:1px solid var(--ax-gold-border);background:var(--ax-surface-2);cursor:pointer;padding:0;flex-shrink:0;display:inline-flex;align-items:center}
 .ax-toggle-knob{position:absolute;top:2px;left:2px;width:24px;height:24px;border-radius:50%;background:var(--ax-gold);display:flex;align-items:center;justify-content:center;transition:left .3s cubic-bezier(.2,.7,.2,1)}
