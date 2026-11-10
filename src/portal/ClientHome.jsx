@@ -1,26 +1,22 @@
-import { Routes, Route, Navigate } from 'react-router-dom';
-import PortalLayout from './PortalLayout';
+import PortalArea from './PortalArea';
 import ClientOverview from './ClientOverview';
 import InterviewAccess from './InterviewAccess';
 import CvUpload from './CvUpload';
 
 const NAV = [
-  { to: '/portal/client', end: true, label: 'Overview', icon: 'home' },
-  { to: '/portal/client/interview', label: 'Interview Code', icon: 'book' },
-  { to: '/portal/client/cv', label: 'My CV', icon: 'file' },
+  { to: '/portal/client/overview', label: 'Overview', icon: 'home', desc: 'Your access status and quick links at a glance.' },
+  { to: '/portal/client/interview', label: 'Interview Code', icon: 'book', desc: 'The four winning pillars of interview readiness.' },
+  { to: '/portal/client/cv', label: 'My CV', icon: 'file', desc: 'Upload your CV and collect the finished version.' },
 ];
 
-// Client area (AXIS-19): the sidebar shell plus the client sub-pages, each on
-// its own route instead of one long scroll.
+const SECTIONS = [
+  { path: 'overview', element: <ClientOverview /> },
+  { path: 'interview', element: <InterviewAccess /> },
+  { path: 'cv', element: <CvUpload /> },
+];
+
+// Client area (AXIS-19, hub added AXIS-24): a hub overlay on the index plus the
+// sidebar shell and sections, wired together by PortalArea.
 export default function ClientHome() {
-  return (
-    <PortalLayout area="Client" nav={NAV}>
-      <Routes>
-        <Route index element={<ClientOverview />} />
-        <Route path="interview" element={<InterviewAccess />} />
-        <Route path="cv" element={<CvUpload />} />
-        <Route path="*" element={<Navigate to="/portal/client" replace />} />
-      </Routes>
-    </PortalLayout>
-  );
+  return <PortalArea area="Client" nav={NAV} base="/portal/client" sections={SECTIONS} />;
 }
