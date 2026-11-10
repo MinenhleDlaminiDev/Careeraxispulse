@@ -5,6 +5,7 @@ import Loading from './Loading';
 import Banner from './Banner';
 import PageHeader from './PageHeader';
 import { initials } from './format';
+import { Stagger, Item } from '../components/Reveal.jsx';
 
 const THIRTY_DAYS_MS = 30 * 24 * 60 * 60 * 1000;
 
@@ -91,13 +92,13 @@ export default function AccessManagement() {
           <div style={{ fontSize: 14, color: MUTED, marginTop: 6 }}>Clients appear here once they sign up.</div>
         </div>
       ) : (
-        <div style={{ display: 'grid', gap: 16 }}>
+        <Stagger style={{ display: 'grid', gap: 16 }}>
           {state.clients.map((c) => {
             const s = accessState(c.interview_access_expires_at);
             const isBusy = busy.has(c.id);
             const active = s.tone === 'gold';
             return (
-              <section key={c.id} className="ax-card" style={{ padding: '20px 20px 22px' }}>
+              <Item as="section" key={c.id} className="ax-card" style={{ padding: '20px 20px 22px' }}>
                 <header style={{ display: 'flex', alignItems: 'center', gap: 13 }}>
                   <div className="ax-avatar">{initials(c.full_name, c.email)}</div>
                   <div style={{ minWidth: 0, flex: 1 }}>
@@ -127,10 +128,10 @@ export default function AccessManagement() {
                     </button>
                   )}
                 </div>
-              </section>
+              </Item>
             );
           })}
-        </div>
+        </Stagger>
       )}
     </div>
   );

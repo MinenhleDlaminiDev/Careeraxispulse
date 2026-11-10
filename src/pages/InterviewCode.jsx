@@ -1,5 +1,6 @@
 import { PAYSTACK } from '../payments.js';
 import { useSeo } from '../seo.js';
+import Reveal, { Stagger, Item } from '../components/Reveal.jsx';
 
 // Price is a placeholder until the Paystack link is finalised. Change PRICE here
 // and the button labels pick it up. PAYSTACK.interview holds the checkout link.
@@ -58,34 +59,34 @@ export default function InterviewCode() {
 
       {/* ===== Feature strip ===== */}
       <section style={{ background: "#FFFFFF", borderBottom: "1px solid #E7E2D6" }}>
-        <div className="ic-features" style={{ maxWidth: "1240px", margin: "0 auto", padding: "40px 24px", display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(170px,1fr))", gap: "8px", justifyItems: "center" }}>
-          <Feature label="Proven preparation approach" icon={
+        <Stagger className="ic-features" style={{ maxWidth: "1240px", margin: "0 auto", padding: "40px 24px", display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(170px,1fr))", gap: "8px", justifyItems: "center" }}>
+          <Item><Feature label="Proven preparation approach" icon={
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1B2A4A" strokeWidth="1.6"><circle cx="12" cy="12" r="3.2"></circle><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.2 5.2l2.1 2.1M16.7 16.7l2.1 2.1M18.8 5.2l-2.1 2.1M7.3 16.7l-2.1 2.1"></path></svg>
-          } />
-          <Feature label="Online access for 30 days" icon={
+          } /></Item>
+          <Item><Feature label="Online access for 30 days" icon={
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1B2A4A" strokeWidth="1.6"><rect x="5" y="11" width="14" height="9" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg>
-          } />
-          <Feature label="Access from your phone or computer" icon={
+          } /></Item>
+          <Item><Feature label="Access from your phone or computer" icon={
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1B2A4A" strokeWidth="1.6"><rect x="3" y="5" width="18" height="11" rx="1.5"></rect><path d="M2 20h20"></path></svg>
-          } />
-          <Feature label="Based on real interview expectations" icon={
+          } /></Item>
+          <Item><Feature label="Based on real interview expectations" icon={
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1B2A4A" strokeWidth="1.6"><circle cx="12" cy="8" r="3.6"></circle><path d="M5.5 20a6.5 6.5 0 0 1 13 0"></path></svg>
-          } />
-          <Feature label="Return anytime during your 30 days" icon={
+          } /></Item>
+          <Item><Feature label="Return anytime during your 30 days" icon={
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1B2A4A" strokeWidth="1.6"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3.5 2"></path></svg>
-          } />
-        </div>
+          } /></Item>
+        </Stagger>
       </section>
 
       {/* ===== Prepare with Purpose band ===== */}
       <section style={{ background: "linear-gradient(180deg,#131F38 0%,#1B2A4A 100%)", color: "#F4EFE4" }}>
-        <div style={{ maxWidth: "1240px", margin: "0 auto", padding: "56px 32px", display: "flex", flexWrap: "wrap", gap: "28px 48px", alignItems: "center", justifyContent: "space-between" }}>
+        <Reveal style={{ maxWidth: "1240px", margin: "0 auto", padding: "56px 32px", display: "flex", flexWrap: "wrap", gap: "28px 48px", alignItems: "center", justifyContent: "space-between" }}>
           <div style={{ borderLeft: "3px solid #C9A227", paddingLeft: "24px", maxWidth: "640px" }}>
             <h2 style={{ fontFamily: "'Source Serif 4',serif", fontSize: "clamp(26px,3.6vw,38px)", fontWeight: "600", margin: "0 0 10px" }}>Prepare with Purpose.</h2>
             <p style={{ fontSize: "16px", color: "#B9C0D2", margin: "0", lineHeight: "1.6" }}>Get access to The Axis Interview Code and build your interview readiness the right way.</p>
           </div>
           <a href={PAYSTACK.interview} style={{ display: "inline-block", background: "#C9A227", color: "#131F38", padding: "16px 36px", borderRadius: "3px", fontWeight: "600", fontSize: "16px", whiteSpace: "nowrap" }} data-h="hv-interview-1">Get Access for {PRICE} →</a>
-        </div>
+        </Reveal>
       </section>
     </>
   );

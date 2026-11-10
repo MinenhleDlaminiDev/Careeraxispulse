@@ -1,5 +1,6 @@
 import { useSeo } from '../seo.js';
 import HeroCarousel from '../components/HeroCarousel.jsx';
+import Reveal, { Stagger, Item } from '../components/Reveal.jsx';
 
 export default function Home() {
   useSeo({
@@ -34,15 +35,15 @@ export default function Home() {
         </div>
       </section>
       <section style={{ maxWidth: "1240px", margin: "0 auto", padding: "100px 32px 90px" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(280px,1fr))", gap: "32px 64px", marginBottom: "64px", alignItems: "end" }}>
+        <Reveal style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(280px,1fr))", gap: "32px 64px", marginBottom: "64px", alignItems: "end" }}>
           <div>
             <div style={{ letterSpacing: ".2em", textTransform: "uppercase", fontSize: "12px", fontWeight: "600", color: "#9A7B12", marginBottom: "14px" }}>What we offer</div>
             <h2 style={{ fontFamily: "'Source Serif 4',serif", fontSize: "clamp(28px,4vw,42px)", fontWeight: "600", margin: "0", lineHeight: "1.15" }}>Three ways to strengthen your position</h2>
           </div>
           <p style={{ fontSize: "16px", color: "#56607A", lineHeight: "1.7", margin: "0", maxWidth: "520px", justifySelf: "end" }}>Every service follows a clear, intentional process, with no templates and no guesswork. Priced for the South African market, from graduate to executive.</p>
-        </div>
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          <a href="/services" style={{ display: "flex", flexWrap: "wrap", gap: "24px 32px", alignItems: "center", padding: "36px 8px", borderTop: "1px solid #E0D9C7" }} data-h="hv-home-2">
+        </Reveal>
+        <Stagger style={{ display: "flex", flexDirection: "column" }}>
+          <Item as="a" href="/services" style={{ display: "flex", flexWrap: "wrap", gap: "24px 32px", alignItems: "center", padding: "36px 8px", borderTop: "1px solid #E0D9C7" }} data-h="hv-home-2">
             <div style={{ fontFamily: "'Source Serif 4',serif", fontSize: "52px", fontWeight: "600", color: "#C9A227", flex: "0 0 90px" }}>01</div>
             <div style={{ flex: "1 1 220px" }}>
               <h3 style={{ fontFamily: "'Source Serif 4',serif", fontSize: "26px", fontWeight: "600", margin: "0 0 6px" }}>CV Revamp</h3>
@@ -50,8 +51,8 @@ export default function Home() {
             </div>
             <p style={{ fontSize: "15px", lineHeight: "1.65", color: "#56607A", margin: "0", flex: "2 1 300px" }}>Full restructuring, content refinement, and ATS-aligned formatting, priced by your experience level, from entry to executive.</p>
             <div style={{ fontSize: "22px", color: "#C9A227", marginLeft: "auto" }}>→</div>
-          </a>
-          <a href="/services#interviews" style={{ display: "flex", flexWrap: "wrap", gap: "24px 32px", alignItems: "center", padding: "36px 8px", borderTop: "1px solid #E0D9C7" }} data-h="hv-home-3">
+          </Item>
+          <Item as="a" href="/services#interviews" style={{ display: "flex", flexWrap: "wrap", gap: "24px 32px", alignItems: "center", padding: "36px 8px", borderTop: "1px solid #E0D9C7" }} data-h="hv-home-3">
             <div style={{ fontFamily: "'Source Serif 4',serif", fontSize: "52px", fontWeight: "600", color: "#C9A227", flex: "0 0 90px" }}>02</div>
             <div style={{ flex: "1 1 220px" }}>
               <h3 style={{ fontFamily: "'Source Serif 4',serif", fontSize: "26px", fontWeight: "600", margin: "0 0 6px" }}>Interview Readiness</h3>
@@ -59,8 +60,8 @@ export default function Home() {
             </div>
             <p style={{ fontSize: "15px", lineHeight: "1.65", color: "#56607A", margin: "0", flex: "2 1 300px" }}>Structured 45–60 minute sessions that prepare you for graduate and professional-level interviews.</p>
             <div style={{ fontSize: "22px", color: "#C9A227", marginLeft: "auto" }}>→</div>
-          </a>
-          <a href="/interview-code" style={{ display: "flex", flexWrap: "wrap", gap: "24px 32px", alignItems: "center", padding: "36px 8px", borderTop: "1px solid #E0D9C7", borderBottom: "1px solid #E0D9C7" }} data-h="hv-home-4">
+          </Item>
+          <Item as="a" href="/interview-code" style={{ display: "flex", flexWrap: "wrap", gap: "24px 32px", alignItems: "center", padding: "36px 8px", borderTop: "1px solid #E0D9C7", borderBottom: "1px solid #E0D9C7" }} data-h="hv-home-4">
             <div style={{ fontFamily: "'Source Serif 4',serif", fontSize: "52px", fontWeight: "600", color: "#C9A227", flex: "0 0 90px" }}>03</div>
             <div style={{ flex: "1 1 220px" }}>
               <h3 style={{ fontFamily: "'Source Serif 4',serif", fontSize: "26px", fontWeight: "600", margin: "0 0 6px" }}>The Axis Interview Code</h3>
@@ -68,48 +69,48 @@ export default function Home() {
             </div>
             <p style={{ fontSize: "15px", lineHeight: "1.65", color: "#56607A", margin: "0", flex: "2 1 300px" }}>Our four winning pillars of interview readiness. Master the position, not just the questions, with 30-day access.</p>
             <div style={{ fontSize: "22px", color: "#C9A227", marginLeft: "auto" }}>→</div>
-          </a>
-        </div>
+          </Item>
+        </Stagger>
       </section>
       <section style={{ background: "#FFFFFF", borderTop: "1px solid #E7E2D6", borderBottom: "1px solid #E7E2D6" }}>
         <div style={{ maxWidth: "1240px", margin: "0 auto", padding: "92px 32px" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(280px,1fr))", gap: "56px" }}>
-            <div>
+          <Stagger style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(280px,1fr))", gap: "56px" }}>
+            <Item>
               <div style={{ fontFamily: "'Source Serif 4',serif", fontSize: "clamp(48px,7vw,76px)", fontWeight: "600", color: "#1B2A4A", lineHeight: "1" }}>3–4</div>
               <div style={{ height: "3px", width: "44px", background: "#C9A227", margin: "18px 0" }}></div>
               <h3 style={{ fontSize: "17px", fontWeight: "600", margin: "0 0 8px" }}>Working day turnaround</h3>
               <p style={{ fontSize: "14.5px", lineHeight: "1.65", color: "#56607A", margin: "0" }}>Subject to current capacity and scope of work. You'll always know before we start.</p>
-            </div>
-            <div>
+            </Item>
+            <Item>
               <div style={{ fontFamily: "'Source Serif 4',serif", fontSize: "clamp(48px,7vw,76px)", fontWeight: "600", color: "#1B2A4A", lineHeight: "1" }}>ATS</div>
               <div style={{ height: "3px", width: "44px", background: "#C9A227", margin: "18px 0" }}></div>
               <h3 style={{ fontSize: "17px", fontWeight: "600", margin: "0 0 8px" }}>Aligned on every CV</h3>
               <p style={{ fontSize: "14.5px", lineHeight: "1.65", color: "#56607A", margin: "0" }}>Formatted to pass applicant tracking systems before a human ever reads it.</p>
-            </div>
-            <div>
+            </Item>
+            <Item>
               <div style={{ fontFamily: "'Source Serif 4',serif", fontSize: "clamp(48px,7vw,76px)", fontWeight: "600", color: "#1B2A4A", lineHeight: "1" }}>11%</div>
               <div style={{ height: "3px", width: "44px", background: "#C9A227", margin: "18px 0" }}></div>
               <h3 style={{ fontSize: "17px", fontWeight: "600", margin: "0 0 8px" }}>Returning client discount</h3>
               <p style={{ fontSize: "14.5px", lineHeight: "1.65", color: "#56607A", margin: "0" }}>Career positioning is ongoing, so loyal clients pay less every time they come back.</p>
-            </div>
-          </div>
+            </Item>
+          </Stagger>
         </div>
       </section>
       <section style={{ maxWidth: "1240px", margin: "0 auto", padding: "92px 32px", display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(300px,1fr))", gap: "64px", alignItems: "center" }}>
-        <div style={{ width: "100%", maxWidth: "380px", aspectRatio: "4/5", position: "relative", justifySelf: "center" }}>
+        <Reveal style={{ width: "100%", maxWidth: "380px", aspectRatio: "4/5", position: "relative", justifySelf: "center" }}>
           <img src="/assets/Sino-Founder.jpg" alt="Sinovuyo Mgogo, Founder of CareerPulse Axis" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", borderRadius: "4px", display: "block" }} />
-        </div>
-        <div>
+        </Reveal>
+        <Reveal delay={0.12}>
           <div style={{ letterSpacing: ".2em", textTransform: "uppercase", fontSize: "12px", fontWeight: "600", color: "#9A7B12", marginBottom: "14px" }}>Meet the founder</div>
           <h2 style={{ fontFamily: "'Source Serif 4',serif", fontSize: "clamp(26px,3.8vw,38px)", fontWeight: "600", margin: "0 0 20px", textWrap: "pretty" }}>Guidance from someone who reads the market, not just the CV.</h2>
           <p style={{ fontSize: "16px", lineHeight: "1.7", color: "#56607A", margin: "0 0 16px" }}>Sinovuyo Mgogo founded CareerPulse Axis on a simple conviction: most applications fail before they're read, because they aren't aligned with what the role actually asks for.</p>
           <p style={{ fontSize: "16px", lineHeight: "1.7", color: "#56607A", margin: "0 0 28px" }}>Every service follows a structured, intentional process designed to strengthen your position, whether you're a graduate entering the market or an executive repositioning your career.</p>
           <a href="/about" style={{ color: "#C9A227", fontWeight: "600", fontSize: "15px" }}>Read the full story →</a>
-        </div>
+        </Reveal>
       </section>
       <section style={{ background: "linear-gradient(180deg,#131F38 0%,#26396A 100%)", color: "#F4EFE4" }}>
         <div style={{ maxWidth: "1240px", margin: "0 auto", padding: "92px 32px" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(320px,1fr))", gap: "56px", alignItems: "start" }}>
+          <Reveal style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(320px,1fr))", gap: "56px", alignItems: "start" }}>
             <div>
               <div style={{ fontFamily: "'Source Serif 4',serif", fontSize: "130px", fontWeight: "600", color: "#C9A227", lineHeight: ".6", marginBottom: "8px" }}>“</div>
               <blockquote style={{ margin: "0", fontFamily: "'Source Serif 4',serif", fontSize: "31px", lineHeight: "1.4", fontWeight: "400", color: "#F4EFE4", textWrap: "pretty" }}>My CV went from being ignored to landing me three interviews in two weeks. The structure and wording made all the difference.</blockquote>
@@ -122,16 +123,18 @@ export default function Home() {
               </div>
               <div style={{ fontSize: "13.5px", color: "#8A94AC", paddingLeft: "24px" }}>All feedback from verified clients.</div>
             </div>
-          </div>
+          </Reveal>
         </div>
       </section>
       <section style={{ maxWidth: "1240px", margin: "0 auto", padding: "100px 32px", textAlign: "center" }}>
+        <Reveal>
         <h2 style={{ fontFamily: "'Source Serif 4',serif", fontSize: "clamp(30px,4.5vw,46px)", fontWeight: "600", margin: "0 0 18px", textWrap: "pretty" }}>Ready to position your career?</h2>
         <p style={{ fontSize: "17px", color: "#56607A", maxWidth: "520px", margin: "0 auto 36px", lineHeight: "1.6" }}>Start with a CV revamp, book an interview session, or get the Axis Interview Code.</p>
         <div style={{ display: "flex", gap: "14px", justifyContent: "center", flexWrap: "wrap" }}>
           <a href="/services" style={{ background: "#C9A227", color: "#131F38", padding: "16px 32px", borderRadius: "3px", fontWeight: "600", fontSize: "15.5px" }} data-h="hv-home-5">Book a Service</a>
           <a href="/contact" style={{ border: "1px solid #C9B98A", color: "#1B2A4A", padding: "16px 32px", borderRadius: "3px", fontWeight: "600", fontSize: "15.5px" }} data-h="hv-home-6">Contact Us</a>
         </div>
+        </Reveal>
       </section>
     </>
   );

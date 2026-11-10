@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { useAuth } from './AuthContext';
 import PageHeader from './PageHeader';
 import { GOLD, GOLD_INK, CREAM, MUTED, SERIF, ON_GOLD } from './theme';
+import { Stagger, Item } from '../components/Reveal.jsx';
 
 // Client landing page (AXIS-19, restyled AXIS-23): a greeting, access status at a
 // glance, and quick links into the two things a client does here.
@@ -31,10 +32,10 @@ export default function ClientOverview() {
         </Link>
       </section>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(220px,1fr))', gap: 14 }}>
-        <QuickCard to="/portal/client/interview" title="Interview Code" body="The four winning pillars of interview readiness." />
-        <QuickCard to="/portal/client/cv" title="My CV" body="Upload your CV so we can prepare alongside the job description." />
-      </div>
+      <Stagger style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(220px,1fr))', gap: 14 }}>
+        <Item><QuickCard to="/portal/client/interview" title="Interview Code" body="The four winning pillars of interview readiness." /></Item>
+        <Item><QuickCard to="/portal/client/cv" title="My CV" body="Upload your CV so we can prepare alongside the job description." /></Item>
+      </Stagger>
     </div>
   );
 }

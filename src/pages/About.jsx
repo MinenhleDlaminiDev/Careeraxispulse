@@ -1,4 +1,5 @@
 import { useSeo } from '../seo.js';
+import Reveal, { Stagger, Item } from '../components/Reveal.jsx';
 
 export default function About() {
   useSeo({
@@ -9,46 +10,46 @@ export default function About() {
   return (
     <>
       <section style={{ background: "linear-gradient(180deg,#131F38 0%,#26396A 100%)", color: "#F4EFE4" }}>
-        <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "72px 32px 64px" }}>
+        <Reveal style={{ maxWidth: "1200px", margin: "0 auto", padding: "72px 32px 64px" }}>
           <div style={{ letterSpacing: ".22em", textTransform: "uppercase", fontSize: "12.5px", fontWeight: "600", color: "#C9A227", marginBottom: "16px", textAlign: "center" }}>About CareerPulse Axis</div>
           <h1 style={{ fontFamily: "'Source Serif 4',serif", fontWeight: "600", fontSize: "clamp(32px,5vw,50px)", lineHeight: "1.1", margin: "0", textAlign: "center", maxWidth: "720px", marginLeft: "auto", marginRight: "auto", textWrap: "pretty" }}>Career-aligned. Structured. <em style={{ fontStyle: "italic", color: "#C9A227" }}>Intentional.</em></h1>
           <p style={{ fontSize: "17px", lineHeight: "1.65", color: "#B9C0D2", maxWidth: "560px", margin: "22px 0 0", marginLeft: "auto", marginRight: "auto", textAlign: "center" }}>We help you approach every opportunity with purpose, not by promising outcomes, but by equipping you with clarity, structure, and confidence.</p>
-        </div>
+        </Reveal>
       </section>
       <section style={{ maxWidth: "1200px", margin: "0 auto", padding: "88px 32px" }}>
-        <div style={{ textAlign: "center" }}>
+        <Reveal style={{ textAlign: "center" }}>
           <div style={{ letterSpacing: ".22em", textTransform: "uppercase", fontSize: "12px", fontWeight: "600", color: "#9A7B12", marginBottom: "16px" }}>Who we are</div>
           <h2 style={{ fontFamily: "'Source Serif 4',serif", fontSize: "clamp(28px,4.4vw,46px)", fontWeight: "600", lineHeight: "1.12", margin: "0 auto", maxWidth: "760px", textWrap: "pretty" }}>A resilient bridge between talent and opportunity</h2>
           <div style={{ width: "56px", height: "3px", background: "#C9A227", margin: "24px auto 32px" }}></div>
           <p style={{ fontSize: "16.5px", lineHeight: "1.75", color: "#56607A", margin: "0 auto 20px", maxWidth: "720px" }}><strong style={{ color: "#131F38" }}>CareerPulse Axis</strong> intentionally redefines career mobility by building a resilient bridge between talent and the global employability infrastructure. Grounded in rigorous research and measurable outcomes, we engineer structured employability systems that connect individuals to opportunity across industries, professional stages, and international workforce markets.</p>
           <p style={{ fontSize: "16.5px", lineHeight: "1.75", color: "#56607A", margin: "0 auto", maxWidth: "720px" }}>By aligning labour market intelligence, institutional ecosystems, and strategic positioning at scale, Axis constructs a transnational bridge between human potential and the world's evolving workforce infrastructure. This expands access, elevates competitiveness, and ensures neither talent nor skill is left behind.</p>
-        </div>
-        <div style={{ background: "linear-gradient(180deg,#131F38 0%,#26396A 100%)", color: "#F4EFE4", borderRadius: "6px", padding: "52px 44px", textAlign: "center", margin: "56px 0 40px" }}>
+        </Reveal>
+        <Reveal style={{ background: "linear-gradient(180deg,#131F38 0%,#26396A 100%)", color: "#F4EFE4", borderRadius: "6px", padding: "52px 44px", textAlign: "center", margin: "56px 0 40px" }}>
           <div style={{ letterSpacing: ".22em", textTransform: "uppercase", fontSize: "12px", fontWeight: "600", color: "#C9A227", marginBottom: "18px" }}>The Axis</div>
           <h3 style={{ fontFamily: "'Source Serif 4',serif", fontSize: "clamp(24px,3.4vw,34px)", fontWeight: "600", lineHeight: "1.22", margin: "0 auto 18px", maxWidth: "740px", textWrap: "pretty" }}>The point of intersection and alignment, where skills, experience, and opportunity converge.</h3>
           <p style={{ fontSize: "16px", lineHeight: "1.7", color: "#B9C0D2", margin: "0 auto", maxWidth: "640px" }}>It reflects our commitment to refining professional identity and positioning that identity within workforce systems across industries and labour markets.</p>
-        </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(240px,1fr))", gap: "24px" }}>
-          <div style={{ background: "#FFFFFF", border: "1px solid #E7E2D6", borderTop: "3px solid #C9A227", borderRadius: "4px", padding: "28px 26px" }}>
+        </Reveal>
+        <Stagger style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(240px,1fr))", gap: "24px" }}>
+          <Item style={{ background: "#FFFFFF", border: "1px solid #E7E2D6", borderTop: "3px solid #C9A227", borderRadius: "4px", padding: "28px 26px" }}>
             <h4 style={{ fontFamily: "'Source Serif 4',serif", fontSize: "24px", fontWeight: "600", margin: "0 0 10px" }}>Research led</h4>
             <div style={{ fontSize: "12px", letterSpacing: ".14em", textTransform: "uppercase", fontWeight: "600", color: "#6B7690", lineHeight: "1.6" }}>Grounded in labour market intelligence</div>
-          </div>
-          <div style={{ background: "#FFFFFF", border: "1px solid #E7E2D6", borderTop: "3px solid #C9A227", borderRadius: "4px", padding: "28px 26px" }}>
+          </Item>
+          <Item style={{ background: "#FFFFFF", border: "1px solid #E7E2D6", borderTop: "3px solid #C9A227", borderRadius: "4px", padding: "28px 26px" }}>
             <h4 style={{ fontFamily: "'Source Serif 4',serif", fontSize: "24px", fontWeight: "600", margin: "0 0 10px" }}>Global</h4>
             <div style={{ fontSize: "12px", letterSpacing: ".14em", textTransform: "uppercase", fontWeight: "600", color: "#6B7690", lineHeight: "1.6" }}>Across international workforce markets</div>
-          </div>
-          <div style={{ background: "#FFFFFF", border: "1px solid #E7E2D6", borderTop: "3px solid #C9A227", borderRadius: "4px", padding: "28px 26px" }}>
+          </Item>
+          <Item style={{ background: "#FFFFFF", border: "1px solid #E7E2D6", borderTop: "3px solid #C9A227", borderRadius: "4px", padding: "28px 26px" }}>
             <h4 style={{ fontFamily: "'Source Serif 4',serif", fontSize: "24px", fontWeight: "600", margin: "0 0 10px" }}>Measurable</h4>
             <div style={{ fontSize: "12px", letterSpacing: ".14em", textTransform: "uppercase", fontWeight: "600", color: "#6B7690", lineHeight: "1.6" }}>Outcomes tracked at scale</div>
-          </div>
-        </div>
+          </Item>
+        </Stagger>
       </section>
       <section style={{ background: "#FFFFFF", borderTop: "1px solid #E7E2D6", borderBottom: "1px solid #E7E2D6" }}>
         <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "88px 32px", display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(300px,1fr))", gap: "64px", alignItems: "start" }}>
-          <div style={{ width: "100%", maxWidth: "380px", aspectRatio: "4/5", position: "relative", justifySelf: "center" }}>
+          <Reveal style={{ width: "100%", maxWidth: "380px", aspectRatio: "4/5", position: "relative", justifySelf: "center" }}>
             <img src="/assets/Sino-Founder.jpg" alt="Sinovuyo Mgogo, Founder of CareerPulse Axis" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", borderRadius: "4px", display: "block" }} />
-          </div>
-          <div>
+          </Reveal>
+          <Reveal delay={0.12}>
             <div style={{ letterSpacing: ".2em", textTransform: "uppercase", fontSize: "12px", fontWeight: "600", color: "#9A7B12", marginBottom: "14px" }}>The founder</div>
           <h2 style={{ fontFamily: "'Source Serif 4',serif", fontSize: "clamp(26px,3.6vw,36px)", fontWeight: "600", margin: "0 0 20px" }}>Sinovuyo Mgogo</h2>
           <p style={{ fontSize: "16px", lineHeight: "1.7", color: "#56607A", margin: "0 0 16px" }}>CareerPulse Axis was founded on a simple observation: most applications fail before they're ever read, not because candidates lack ability, but because their CVs and applications aren't aligned with what the role actually asks for.</p>
@@ -58,37 +59,37 @@ export default function About() {
             <a href="/contact" style={{ background: "#C9A227", color: "#131F38", padding: "13px 26px", borderRadius: "3px", fontWeight: "600", fontSize: "15px" }} data-h="hv-about-0">Work with us</a>
             <a href="https://wa.me/27710203982" style={{ border: "1px solid #C9B98A", padding: "13px 26px", borderRadius: "3px", fontWeight: "600", fontSize: "15px" }} data-h="hv-about-1">WhatsApp Sinovuyo</a>
           </div>
-          </div>
+          </Reveal>
         </div>
       </section>
       <section>
         <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "88px 32px" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(300px,1fr))", gap: "24px" }}>
-            <div style={{ background: "#FFFFFF", border: "1px solid #E7E2D6", borderRadius: "4px", padding: "34px 32px" }}>
+          <Stagger style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(300px,1fr))", gap: "24px" }}>
+            <Item style={{ background: "#FFFFFF", border: "1px solid #E7E2D6", borderRadius: "4px", padding: "34px 32px" }}>
               <h3 style={{ fontFamily: "'Source Serif 4',serif", fontSize: "22px", fontWeight: "600", margin: "0 0 12px" }}>Our approach</h3>
               <p style={{ fontSize: "15px", lineHeight: "1.7", color: "#56607A", margin: "0" }}>Professional CV writing, interview readiness, and structured employability guidance built to help you approach every opportunity with purpose. Every service follows a clear, intentional process designed to strengthen your position in the job market.</p>
-            </div>
-            <div style={{ background: "#FFFFFF", border: "1px solid #E7E2D6", borderRadius: "4px", padding: "34px 32px" }}>
+            </Item>
+            <Item style={{ background: "#FFFFFF", border: "1px solid #E7E2D6", borderRadius: "4px", padding: "34px 32px" }}>
               <h3 style={{ fontFamily: "'Source Serif 4',serif", fontSize: "22px", fontWeight: "600", margin: "0 0 12px" }}>What sets us apart</h3>
               <p style={{ fontSize: "15px", lineHeight: "1.7", color: "#56607A", margin: "0" }}>Our services are advisory: we equip you with the tools and guidance to navigate the job market effectively. We don't guarantee interviews or placement. We empower you to present your best self with clarity and confidence.</p>
-            </div>
-            <div style={{ background: "#FFFFFF", border: "1px solid #E7E2D6", borderRadius: "4px", padding: "34px 32px" }}>
+            </Item>
+            <Item style={{ background: "#FFFFFF", border: "1px solid #E7E2D6", borderRadius: "4px", padding: "34px 32px" }}>
               <h3 style={{ fontFamily: "'Source Serif 4',serif", fontSize: "22px", fontWeight: "600", margin: "0 0 12px" }}>Our commitment to your privacy</h3>
               <p style={{ fontSize: "15px", lineHeight: "1.7", color: "#56607A", margin: "0" }}>All information collected is used strictly for delivering services, processing payments, and communicating with you. Your data is treated as confidential and will never be shared with third parties without your consent.</p>
-            </div>
-            <div style={{ background: "#FFFFFF", border: "1px solid #E7E2D6", borderRadius: "4px", padding: "34px 32px" }}>
+            </Item>
+            <Item style={{ background: "#FFFFFF", border: "1px solid #E7E2D6", borderRadius: "4px", padding: "34px 32px" }}>
               <h3 style={{ fontFamily: "'Source Serif 4',serif", fontSize: "22px", fontWeight: "600", margin: "0 0 12px" }}>What we need from you</h3>
               <p style={{ fontSize: "15px", lineHeight: "1.7", color: "#56607A", margin: "0" }}>Please submit all relevant information, including experience, responsibilities, and certifications, before work begins. Significant new information submitted after the first draft may carry an additional fee.</p>
-            </div>
-          </div>
+            </Item>
+          </Stagger>
         </div>
       </section>
       <section style={{ background: "linear-gradient(180deg,#131F38 0%,#26396A 100%)", color: "#F4EFE4" }}>
-        <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "88px 32px", textAlign: "center" }}>
+        <Reveal style={{ maxWidth: "1200px", margin: "0 auto", padding: "88px 32px", textAlign: "center" }}>
           <h2 style={{ fontFamily: "'Source Serif 4',serif", fontSize: "clamp(26px,3.8vw,38px)", fontWeight: "600", margin: "0 0 16px" }}>Let's position your career.</h2>
           <p style={{ fontSize: "16px", color: "#B9C0D2", margin: "0 0 32px" }}>Questions about which service fits? We'll point you in the right direction.</p>
           <a href="/contact" style={{ background: "#C9A227", color: "#131F38", padding: "15px 30px", borderRadius: "3px", fontWeight: "600", fontSize: "15.5px", display: "inline-block" }} data-h="hv-about-2">Get in touch</a>
-        </div>
+        </Reveal>
       </section>
     </>
   );

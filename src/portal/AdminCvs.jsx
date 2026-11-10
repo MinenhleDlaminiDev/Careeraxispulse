@@ -5,6 +5,7 @@ import Loading from './Loading';
 import Banner from './Banner';
 import PageHeader from './PageHeader';
 import { ACCEPT, displayName, validateCvFile, uploadCv, downloadCv } from './cvStorage';
+import { Stagger, Item } from '../components/Reveal.jsx';
 
 // Initials for the client avatar — first letters of the name, else the email.
 const initials = (name, email) => {
@@ -183,12 +184,12 @@ export default function AdminCvs() {
           <div style={{ fontSize: 14, color: MUTED, marginTop: 6 }}>Client CVs will appear here once people sign up and upload.</div>
         </div>
       ) : (
-        <div style={{ display: 'grid', gap: 16 }}>
+        <Stagger style={{ display: 'grid', gap: 16 }}>
           {state.clients.map((c) => {
             const count = c.originals.length + c.revised.length;
             const isBusy = busy?.clientId === c.id;
             return (
-              <section key={c.id} className="ax-card" style={{ padding: '20px 20px 22px' }}>
+              <Item as="section" key={c.id} className="ax-card" style={{ padding: '20px 20px 22px' }}>
                 <header style={{ display: 'flex', alignItems: 'center', gap: 13 }}>
                   <div className="ax-avatar">{initials(c.full_name, c.email)}</div>
                   <div style={{ minWidth: 0, flex: 1 }}>
@@ -218,10 +219,10 @@ export default function AdminCvs() {
                     {UploadIcon}<span>{isBusy && busy.stage === 'revised' ? 'Uploading…' : 'Upload revised CV'}</span>
                   </button>
                 </div>
-              </section>
+              </Item>
             );
           })}
-        </div>
+        </Stagger>
       )}
     </div>
   );

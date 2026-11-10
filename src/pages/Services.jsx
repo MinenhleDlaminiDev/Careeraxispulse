@@ -1,5 +1,6 @@
 import { PAYSTACK } from '../payments.js';
 import { useSeo } from '../seo.js';
+import Reveal, { Stagger, Item } from '../components/Reveal.jsx';
 
 export default function Services() {
   useSeo({
@@ -10,18 +11,18 @@ export default function Services() {
   return (
     <>
       <section style={{ background: "linear-gradient(180deg,#131F38 0%,#26396A 100%)", color: "#F4EFE4" }}>
-        <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "72px 32px 64px" }}>
+        <Reveal style={{ maxWidth: "1200px", margin: "0 auto", padding: "72px 32px 64px" }}>
           <div style={{ letterSpacing: ".22em", textTransform: "uppercase", fontSize: "12.5px", fontWeight: "600", color: "#C9A227", marginBottom: "16px", textAlign: "center" }}>Services &amp; pricing</div>
           <h1 style={{ fontFamily: "'Source Serif 4',serif", fontWeight: "600", fontSize: "clamp(32px,5vw,50px)", lineHeight: "1.1", margin: "0", textAlign: "center", maxWidth: "700px", marginLeft: "auto", marginRight: "auto", textWrap: "pretty" }}>Professional services, priced by <em style={{ fontStyle: "italic", color: "#C9A227" }}>where you are</em> in your career.</h1>
           <p style={{ fontSize: "17px", lineHeight: "1.65", color: "#B9C0D2", maxWidth: "560px", margin: "22px 0 0", marginLeft: "auto", marginRight: "auto", textAlign: "center" }}>CV revamps and interview readiness sessions with a 3–4 working day turnaround, subject to current capacity and scope of work.</p>
-        </div>
+        </Reveal>
       </section>
       <section style={{ maxWidth: "1200px", margin: "0 auto", padding: "88px 32px 72px" }} id="cv">
-        <div style={{ marginBottom: "44px", textAlign: "center" }}>
+        <Reveal style={{ marginBottom: "44px", textAlign: "center" }}>
           <div style={{ letterSpacing: ".2em", textTransform: "uppercase", fontSize: "12px", fontWeight: "600", color: "#9A7B12", marginBottom: "12px" }}>CV Revamp</div>
           <h2 style={{ fontFamily: "'Source Serif 4',serif", fontSize: "clamp(26px,3.6vw,36px)", fontWeight: "600", margin: "0 0 12px" }}>Choose your level</h2>
           <p style={{ fontSize: "16px", color: "#56607A", margin: "0", maxWidth: "600px", lineHeight: "1.6", marginLeft: "auto", marginRight: "auto" }}>Every tier includes full CV restructuring, content refinement, and ATS-aligned formatting. Pricing reflects the depth and complexity of your experience.</p>
-        </div>
+        </Reveal>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(230px,1fr))", gap: "20px", alignItems: "stretch" }}>
           <div style={{ background: "#FFFFFF", border: "1px solid #E7E2D6", borderRadius: "4px", padding: "32px 26px", display: "flex", flexDirection: "column", gap: "12px", animation: "cardUp .6s ease both", transition: "transform .25s ease, box-shadow .25s ease, border-color .25s ease" }} data-h="hv-services-0">
             <div style={{ fontSize: "12px", letterSpacing: ".14em", textTransform: "uppercase", fontWeight: "600", color: "#6B7690" }}>Entry level</div>
@@ -65,11 +66,11 @@ export default function Services() {
       </section>
       <section style={{ background: "#FFFFFF", borderTop: "1px solid #E7E2D6", borderBottom: "1px solid #E7E2D6" }} id="interviews">
         <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "88px 32px" }}>
-          <div style={{ marginBottom: "44px", textAlign: "center" }}>
+          <Reveal style={{ marginBottom: "44px", textAlign: "center" }}>
             <div style={{ letterSpacing: ".2em", textTransform: "uppercase", fontSize: "12px", fontWeight: "600", color: "#9A7B12", marginBottom: "12px" }}>Interview readiness</div>
             <h2 style={{ fontFamily: "'Source Serif 4',serif", fontSize: "clamp(26px,3.6vw,36px)", fontWeight: "600", margin: "0 0 12px" }}>Walk in prepared</h2>
             <p style={{ fontSize: "16px", color: "#56607A", margin: "0", maxWidth: "600px", lineHeight: "1.6", marginLeft: "auto", marginRight: "auto" }}>Structured one-on-one preparation for graduate and professional-level interviews.</p>
-          </div>
+          </Reveal>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(280px,1fr))", gap: "20px", maxWidth: "800px", margin: "0 auto" }}>
             <div style={{ background: "#FAF7F0", border: "1px solid #E7E2D6", borderRadius: "4px", padding: "32px 28px", display: "flex", flexDirection: "column", gap: "12px", animation: "cardUp .6s ease both", transition: "transform .25s ease, box-shadow .25s ease, border-color .25s ease" }} data-h="hv-services-8">
               <div style={{ fontSize: "12px", letterSpacing: ".14em", textTransform: "uppercase", fontWeight: "600", color: "#6B7690" }}>Graduate level</div>
@@ -101,12 +102,12 @@ export default function Services() {
         </div>
       </section>
       <section style={{ maxWidth: "1200px", margin: "0 auto", padding: "88px 32px" }}>
-        <div style={{ marginBottom: "44px", textAlign: "center" }}>
+        <Reveal style={{ marginBottom: "44px", textAlign: "center" }}>
           <div style={{ letterSpacing: ".2em", textTransform: "uppercase", fontSize: "12px", fontWeight: "600", color: "#9A7B12", marginBottom: "12px" }}>Before we start</div>
           <h2 style={{ fontFamily: "'Source Serif 4',serif", fontSize: "clamp(26px,3.6vw,36px)", fontWeight: "600", margin: "0" }}>What to send us</h2>
-        </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(280px,1fr))", gap: "24px" }}>
-          <div style={{ background: "#FFFFFF", border: "1px solid #E7E2D6", borderRadius: "4px", padding: "30px 28px" }}>
+        </Reveal>
+        <Stagger style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(280px,1fr))", gap: "24px" }}>
+          <Item style={{ background: "#FFFFFF", border: "1px solid #E7E2D6", borderRadius: "4px", padding: "30px 28px" }}>
             <h3 style={{ fontSize: "17px", fontWeight: "600", margin: "0 0 14px" }}>New clients</h3>
             <ul style={{ margin: "0", padding: "0 0 0 18px", fontSize: "14.5px", color: "#56607A", lineHeight: "2" }}>
               <li>Updated CV</li>
@@ -114,31 +115,31 @@ export default function Services() {
               <li>Interview date</li>
               <li>Reference: full name and surname</li>
             </ul>
-          </div>
-          <div style={{ background: "#FFFFFF", border: "1px solid #E7E2D6", borderRadius: "4px", padding: "30px 28px" }}>
+          </Item>
+          <Item style={{ background: "#FFFFFF", border: "1px solid #E7E2D6", borderRadius: "4px", padding: "30px 28px" }}>
             <h3 style={{ fontSize: "17px", fontWeight: "600", margin: "0 0 6px" }}>Existing clients</h3>
             <div style={{ display: "inline-block", background: "#F3EBD3", color: "#8A6D14", fontSize: "12px", fontWeight: "600", padding: "4px 10px", borderRadius: "99px", marginBottom: "10px" }}>11% discount applied</div>
             <ul style={{ margin: "0", padding: "0 0 0 18px", fontSize: "14.5px", color: "#56607A", lineHeight: "2" }}>
               <li>Job description or interview invitation</li>
               <li>Interview date</li>
             </ul>
-          </div>
-          <div style={{ background: "#FFFFFF", border: "1px solid #E7E2D6", borderRadius: "4px", padding: "30px 28px" }}>
+          </Item>
+          <Item style={{ background: "#FFFFFF", border: "1px solid #E7E2D6", borderRadius: "4px", padding: "30px 28px" }}>
             <h3 style={{ fontSize: "17px", fontWeight: "600", margin: "0 0 14px" }}>Good to know</h3>
             <ul style={{ margin: "0", padding: "0 0 0 18px", fontSize: "14.5px", color: "#56607A", lineHeight: "2" }}>
               <li>Services are advisory, no placement guarantees</li>
               <li>Submit all relevant information before work begins</li>
               <li>New information after drafting may carry an additional fee</li>
             </ul>
-          </div>
-        </div>
+          </Item>
+        </Stagger>
       </section>
       <section style={{ background: "linear-gradient(180deg,#131F38 0%,#26396A 100%)", color: "#F4EFE4" }}>
-        <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "72px 32px", textAlign: "center" }}>
+        <Reveal style={{ maxWidth: "1200px", margin: "0 auto", padding: "72px 32px", textAlign: "center" }}>
           <h2 style={{ fontFamily: "'Source Serif 4',serif", fontSize: "clamp(26px,3.6vw,36px)", fontWeight: "600", margin: "0 0 14px" }}>Not sure which level fits you?</h2>
           <p style={{ fontSize: "16px", color: "#B9C0D2", margin: "0 0 30px" }}>Send us a message and we'll recommend the right service for your experience and goals.</p>
           <a href="/contact" style={{ background: "#C9A227", color: "#131F38", padding: "15px 30px", borderRadius: "3px", fontWeight: "600", fontSize: "15.5px", display: "inline-block" }} data-h="hv-services-12">Get in touch</a>
-        </div>
+        </Reveal>
       </section>
     </>
   );
