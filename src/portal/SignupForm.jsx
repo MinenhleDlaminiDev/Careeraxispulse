@@ -4,10 +4,8 @@ import { useAuth } from './AuthContext';
 import { isConfigured } from '../supabase';
 import { fieldStyle, labelStyle, primaryBtnStyle } from './AuthCard';
 import PasswordInput from './PasswordInput';
+import { SENIORITY, EMPLOYMENT, clean } from './profileFields';
 import { DANGER, GOLD_INK, CREAM, MUTED, SERIF, BORDER, DANGER_SOFT, DANGER_BORDER } from './theme';
-
-const SENIORITY = ['Entry level', 'Mid level', 'Senior', 'Management', 'Executive'];
-const EMPLOYMENT = ['Employed & looking', 'Unemployed', 'Student', 'Career-changer'];
 
 const STEPS = [
   { label: 'Your account', fun: 'First things first — let’s set up your login. 👋' },
@@ -20,12 +18,6 @@ const funStyle = { color: MUTED, fontSize: 13.5, lineHeight: 1.5, margin: '0 0 1
 const secondaryBtn = {
   padding: '13px 18px', borderRadius: 8, border: `1px solid ${BORDER}`,
   background: 'transparent', color: CREAM, fontWeight: 600, fontSize: 15, cursor: 'pointer',
-};
-
-// Blank -> null so optional fields don't store empty strings in the profile.
-const clean = (v) => {
-  const t = v.trim();
-  return t === '' ? null : t;
 };
 
 // The create-account fields (AXIS-21), as a 3-step wizard inside the signup

@@ -3,6 +3,7 @@ import { useRef, useState } from 'react';
 import { useAuth } from './AuthContext';
 import PageHeader from './PageHeader';
 import Avatar from './Avatar';
+import EditProfileForm from './EditProfileForm';
 import { AVATAR_ACCEPT, validateAvatarFile, uploadAvatar, removeAvatar } from './avatarStorage';
 import { GOLD, GOLD_INK, CREAM, MUTED, SERIF, ON_GOLD } from './theme';
 import { Stagger, Item } from '../components/Reveal.jsx';
@@ -53,6 +54,7 @@ function ProfilePhotoCard() {
   const inputRef = useRef(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
+  const [editing, setEditing] = useState(false);
   const path = profile?.avatar_path || null;
 
   const onPick = async (e) => {
@@ -88,12 +90,15 @@ function ProfilePhotoCard() {
         {error && <div style={{ fontSize: 12.5, color: 'var(--ax-danger)', marginTop: 6 }}>{error}</div>}
       </div>
       <div style={{ display: 'flex', gap: 9, flexWrap: 'wrap' }}>
+        <button type="button" className="ax-iconbtn" onClick={() => setEditing(true)}>Edit profile</button>
         <input ref={inputRef} type="file" accept={AVATAR_ACCEPT} onChange={onPick} style={{ display: 'none' }} id="avatar-file" />
         <label htmlFor="avatar-file" className="ax-iconbtn" style={{ cursor: busy ? 'default' : 'pointer', opacity: busy ? 0.6 : 1, pointerEvents: busy ? 'none' : 'auto' }}>
           {busy ? 'Working…' : path ? 'Change photo' : 'Add photo'}
         </label>
         {path && !busy && <button type="button" className="ax-iconbtn" onClick={onRemove}>Remove</button>}
       </div>
+
+      {editing && <EditProfileForm onClose={() => setEditing(false)} />}
     </section>
   );
 }
