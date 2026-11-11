@@ -119,9 +119,10 @@
 @media(max-width:560px){.ax-hub{padding:68px 16px 40px}.ax-hub-grid{grid-template-columns:1fr;max-width:420px !important}.ax-hub-card{min-height:0}}
 
 /* Interview Code presentation (AXIS-26) — one pillar at a time, inline or full-screen */
-.ax-present{width:100%;max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+.ax-present{width:100%;max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:16px;min-height:calc(100vh - 150px);justify-content:flex-start}
+.ax-present-body{flex:1;display:flex;flex-direction:column;justify-content:center;gap:16px;min-height:0}
 .ax-present-full{position:fixed;inset:0;z-index:200;background:var(--ax-bg);overflow-y:auto;box-sizing:border-box;padding:22px 20px 28px}
-.ax-present-full .ax-present{min-height:calc(100vh - 50px);justify-content:flex-start}
+.ax-present-full .ax-present{min-height:calc(100vh - 50px)}
 .ax-present-top{display:flex;align-items:center;gap:14px}
 .ax-present-bar{flex:1;height:6px;border-radius:999px;background:var(--ax-surface-2);overflow:hidden}
 .ax-present-bar-fill{height:100%;border-radius:999px;background:var(--ax-gold);transition:width .5s cubic-bezier(.4,0,.2,1)}
@@ -134,12 +135,15 @@
 .ax-present-dot.viewed{background:var(--ax-gold-border);border-color:var(--ax-gold-border)}
 .ax-present-dot.active{background:var(--ax-gold);border-color:var(--ax-gold);transform:scale(1.25)}
 .ax-present-stage{position:relative;overflow:hidden;min-height:430px;display:flex}
-.ax-present-full .ax-present-stage{flex:1}
 .ax-present-nav{display:flex;align-items:center;justify-content:space-between;gap:12px}
 .ax-present-btn{display:inline-flex;align-items:center;gap:8px;background:var(--ax-gold);color:var(--ax-on-gold);border:none;border-radius:9px;padding:11px 22px;font-size:14px;font-weight:600;cursor:pointer}
 .ax-present-btn.ghost{background:transparent;color:var(--ax-text);border:1px solid var(--ax-border)}
 .ax-present-btn.ghost:hover{border-color:var(--ax-gold-border);color:var(--ax-gold-ink)}
 .ax-present-btn:disabled{opacity:.35;cursor:default;pointer-events:none}
+/* Cover CTA: a gentle, always-on invite to tap (unguarded so it plays even with
+   reduced motion, matching the site's other signature animations). */
+@keyframes ax-cta-bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+.ax-present-cta{animation:ax-cta-bounce 1.2s ease-in-out infinite}
 @media(max-width:560px){.ax-present-stage{min-height:460px}.ax-present-btn{padding:11px 16px}.ax-present-mode{padding:7px 10px}}
 
 /* Theme toggle pill */

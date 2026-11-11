@@ -181,6 +181,7 @@ function Presentation({ c }) {
         ))}
       </div>
 
+      <div className="ax-present-body">
       <div className="ax-present-stage" onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
         <AnimatePresence initial={false} custom={dir} mode="wait">
           <motion.div key={index} custom={dir} variants={slideVariants}
@@ -200,6 +201,7 @@ function Presentation({ c }) {
           <button type="button" className="ax-present-btn" onClick={next}>{index === total ? 'Finish →' : 'Next →'}</button>
         </div>
       )}
+      </div>
     </div>
   );
 
@@ -209,31 +211,39 @@ function Presentation({ c }) {
 // ---- Slides -------------------------------------------------------------------
 
 function CoverSlide({ c, onBegin }) {
+  // A flex column with one generous gap gives an even, un-cramped rhythm; the
+  // tagline/title/subtitle are grouped so they stay tight to each other.
   return (
-    <div style={{ textAlign: 'center' }}>
-      {c.tagline && (
-        <div style={{ letterSpacing: '.2em', textTransform: 'uppercase', fontSize: 11.5, color: GOLD, fontWeight: 600, marginBottom: 14 }}>{c.tagline}</div>
-      )}
-      <h1 style={{ fontFamily: serif, fontWeight: 700, fontSize: 'clamp(28px,5vw,42px)', lineHeight: 1.08, margin: '0 0 10px', color: CREAM }}>
-        {c.title || 'The Axis Interview Code'}
-      </h1>
-      {c.subtitle && <div style={{ fontSize: 15.5, color: MUTED }}>{c.subtitle}</div>}
-      {c.intro && <p style={{ fontSize: 15, color: MUTED, lineHeight: 1.65, maxWidth: 560, margin: '18px auto 0' }}>{c.intro}</p>}
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: 32 }}>
+      <div>
+        {c.tagline && (
+          <div style={{ letterSpacing: '.2em', textTransform: 'uppercase', fontSize: 11.5, color: GOLD, fontWeight: 600, marginBottom: 16 }}>{c.tagline}</div>
+        )}
+        <h1 style={{ fontFamily: serif, fontWeight: 700, fontSize: 'clamp(28px,5vw,42px)', lineHeight: 1.1, margin: '0 0 12px', color: CREAM }}>
+          {c.title || 'The Axis Interview Code'}
+        </h1>
+        {c.subtitle && <div style={{ fontSize: 15.5, color: MUTED }}>{c.subtitle}</div>}
+      </div>
+
+      {c.intro && <p style={{ fontSize: 15, color: MUTED, lineHeight: 1.7, maxWidth: 560, margin: 0 }}>{c.intro}</p>}
 
       {c.philosophy && (
-        <div style={{ background: GOLD_SOFT, border: `1px solid ${GOLD_BORDER}`, borderRadius: 12, padding: '18px 20px', boxShadow: 'var(--ax-card-shadow)', textAlign: 'left', maxWidth: 560, margin: '26px auto 0' }}>
-          <div style={{ letterSpacing: '.16em', textTransform: 'uppercase', fontSize: 10.5, color: GOLD, marginBottom: 7 }}>Our Philosophy</div>
-          <p style={{ margin: 0, fontSize: 14.5, color: CREAM, lineHeight: 1.6 }}>{c.philosophy}</p>
+        <div style={{ background: GOLD_SOFT, border: `1px solid ${GOLD_BORDER}`, borderRadius: 12, padding: '20px 22px', boxShadow: 'var(--ax-card-shadow)', textAlign: 'left', maxWidth: 560, margin: 0 }}>
+          <div style={{ letterSpacing: '.16em', textTransform: 'uppercase', fontSize: 10.5, color: GOLD, marginBottom: 8 }}>Our Philosophy</div>
+          <p style={{ margin: 0, fontSize: 14.5, color: CREAM, lineHeight: 1.65 }}>{c.philosophy}</p>
         </div>
       )}
       {c.before_you_begin && (
-        <div style={{ fontSize: 13.5, color: MUTED, lineHeight: 1.6, display: 'flex', gap: 9, alignItems: 'baseline', maxWidth: 560, margin: '16px auto 0', textAlign: 'left' }}>
+        <div style={{ fontSize: 13.5, color: MUTED, lineHeight: 1.6, display: 'flex', gap: 9, alignItems: 'baseline', maxWidth: 560, margin: 0, textAlign: 'left' }}>
           <span style={{ color: GOLD, fontWeight: 700 }} aria-hidden="true">›</span>
           <span><strong style={{ color: CREAM, fontWeight: 600 }}>Before you begin.</strong> {c.before_you_begin}</span>
         </div>
       )}
-      <div style={{ marginTop: 28 }}>
-        <button type="button" className="ax-present-btn" onClick={onBegin} style={{ fontSize: 15 }}>Begin the journey →</button>
+
+      <div style={{ marginTop: 8 }}>
+        <button type="button" className="ax-present-btn ax-present-cta" onClick={onBegin} style={{ fontSize: 15 }}>
+          Begin the journey →
+        </button>
       </div>
     </div>
   );
