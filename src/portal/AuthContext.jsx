@@ -22,7 +22,7 @@ export function AuthProvider({ children }) {
     if (!supabase || !userId) { setProfile(null); setProfileReady(true); return; }
     const { data, error } = await supabase
       .from('profiles')
-      .select('id, full_name, email, role, interview_access_expires_at')
+      .select('id, full_name, email, role, interview_access_expires_at, avatar_path')
       .eq('id', userId)
       .single();
     if (error) { console.error('Failed to load profile:', error.message); setProfile(null); }
@@ -60,6 +60,10 @@ export function AuthProvider({ children }) {
 
     return () => { active = false; sub.subscription.unsubscribe(); };
   }, [loadProfile]);
+
+  // Re-read the current user's profile row — used after a self-edit (photo or
+  // profile fields) so the UI reflects the change without a reload.
+  const refreshProfile = useCallback(() => loadProfile(session?.user?.id), [loadProfile, session]);
 
   const signIn = useCallback((email, password) => {
     if (!supabase) return Promise.resolve({ error: { message: 'Portal is not configured yet.' } });
@@ -100,6 +104,7 @@ export function AuthProvider({ children }) {
     signIn,
     signUp,
     signOut,
+    refreshProfile,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

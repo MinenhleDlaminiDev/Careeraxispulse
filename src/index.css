@@ -83,7 +83,9 @@
 /* Reusable card + list primitives (AXIS-11/12 — the portal rework quality bar).
    Build new portal surfaces on these so the whole area shares one visual language. */
 .ax-card{background:var(--ax-surface);border:1px solid var(--ax-border);border-radius:14px;box-shadow:var(--ax-card-shadow);min-width:0}
-.ax-avatar{width:46px;height:46px;border-radius:12px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:'Source Serif 4',serif;font-weight:700;font-size:17px;background:var(--ax-gold-soft);color:var(--ax-gold-ink);border:1px solid var(--ax-gold-border)}
+.ax-avatar{width:46px;height:46px;border-radius:12px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:'Source Serif 4',serif;font-weight:700;font-size:17px;background:var(--ax-gold-soft);color:var(--ax-gold-ink);border:1px solid var(--ax-gold-border);overflow:hidden}
+.ax-avatar.has-photo{background:none}
+.ax-avatar img{width:100%;height:100%;object-fit:cover;border-radius:inherit;display:block}
 .ax-cv-item{display:flex;align-items:center;flex-wrap:wrap;gap:11px 13px;padding:11px 13px;border-radius:10px;border:1px solid var(--ax-border);background:var(--ax-surface-2);min-width:0}
 .ax-file-ic{width:38px;height:38px;border-radius:9px;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:var(--ax-surface);border:1px solid var(--ax-border);color:var(--ax-gold-ink)}
 .ax-file-ic svg{width:19px;height:19px}

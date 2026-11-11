@@ -4,7 +4,7 @@ import { GOLD, ON_GOLD, MUTED, DANGER } from './theme';
 import Loading from './Loading';
 import Banner from './Banner';
 import PageHeader from './PageHeader';
-import { initials } from './format';
+import Avatar from './Avatar';
 import { Stagger, Item } from '../components/Reveal.jsx';
 
 const THIRTY_DAYS_MS = 30 * 24 * 60 * 60 * 1000;
@@ -41,7 +41,7 @@ export default function AccessManagement() {
     setState((s) => ({ ...s, loading: true, error: false }));
     const { data, error } = await supabase
       .from('profiles')
-      .select('id, full_name, email, interview_access_expires_at')
+      .select('id, full_name, email, interview_access_expires_at, avatar_path')
       .eq('role', 'client')
       .order('email');
     if (error) setState({ loading: false, clients: [], error: true });
@@ -100,7 +100,7 @@ export default function AccessManagement() {
             return (
               <Item as="section" key={c.id} className="ax-card" style={{ padding: '20px 20px 22px' }}>
                 <header style={{ display: 'flex', alignItems: 'center', gap: 13 }}>
-                  <div className="ax-avatar">{initials(c.full_name, c.email)}</div>
+                  <Avatar path={c.avatar_path} name={c.full_name} email={c.email} />
                   <div style={{ minWidth: 0, flex: 1 }}>
                     <div style={{ fontSize: 16, fontWeight: 700, color: 'var(--ax-text)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{c.full_name || 'Unnamed client'}</div>
                     <div style={{ fontSize: 13, color: MUTED, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{c.email}</div>

@@ -33,8 +33,14 @@ create table if not exists public.profiles (
   target_companies            text,
   employment_status           text,
   change_driver               text,
+  -- Profile photo (AXIS-28): path to the object in the private 'avatars'
+  -- bucket. Null = fall back to initials.
+  avatar_path                 text,
   created_at                  timestamptz not null default now()
 );
+
+-- Idempotent migration for databases provisioned before AXIS-28.
+alter table public.profiles add column if not exists avatar_path text;
 
 create table if not exists public.interview_content (
   id         uuid primary key default gen_random_uuid(),
@@ -158,6 +164,44 @@ drop policy if exists profiles_admin_write on public.profiles;
 create policy profiles_admin_write on public.profiles
   for all using (public.is_admin()) with check (public.is_admin());
 
+-- A client may update their OWN row — profile edits (AXIS-30) and their photo
+-- (AXIS-28). The column guard below stops this policy being used to change role
+-- or access, so it can never become a self-grant.
+drop policy if exists profiles_self_update on public.profiles;
+create policy profiles_self_update on public.profiles
+  for update using (id = auth.uid()) with check (id = auth.uid());
+
+-- Escalation guard: a signed-in non-admin can never change their own role or
+-- access expiry. auth.uid() is null for the SQL editor and the service role, so
+-- the admin-bootstrap update below and any server-side job are unaffected — only
+-- authenticated end users are checked.
+create or replace function public.profiles_block_privilege_change()
+returns trigger
+language plpgsql
+security definer
+set search_path = public
+as $$
+begin
+  if auth.uid() is not null and not public.is_admin() then
+    -- Role and access can never be self-set (no privilege escalation); id and
+    -- email are the auth identity, kept in sync with auth.users, so a client
+    -- can't drift them out of band either.
+    if new.role is distinct from old.role
+       or new.interview_access_expires_at is distinct from old.interview_access_expires_at
+       or new.id is distinct from old.id
+       or new.email is distinct from old.email then
+      raise exception 'Not allowed to change role, access, id or email';
+    end if;
+  end if;
+  return new;
+end;
+$$;
+
+drop trigger if exists profiles_guard_privilege on public.profiles;
+create trigger profiles_guard_privilege
+  before update on public.profiles
+  for each row execute function public.profiles_block_privilege_change();
+
 -- interview_content: readable only with live access (or by admins); admin-only writes.
 drop policy if exists interview_content_select on public.interview_content;
 create policy interview_content_select on public.interview_content
@@ -205,6 +249,27 @@ create policy cvs_owner_rw on storage.objects
   )
   with check (
     bucket_id = 'cvs'
+    and ((storage.foldername(name))[1] = auth.uid()::text or public.is_admin())
+  );
+
+-- ---------------------------------------------------------------------------
+-- Private storage bucket for profile photos (AXIS-28). Same "<user_id>/<file>"
+-- convention as 'cvs': a client touches only their own folder, and admins can
+-- read every client's photo for the Clients screens.
+-- ---------------------------------------------------------------------------
+
+insert into storage.buckets (id, name, public)
+values ('avatars', 'avatars', false)
+on conflict (id) do nothing;
+
+drop policy if exists avatars_owner_rw on storage.objects;
+create policy avatars_owner_rw on storage.objects
+  for all using (
+    bucket_id = 'avatars'
+    and ((storage.foldername(name))[1] = auth.uid()::text or public.is_admin())
+  )
+  with check (
+    bucket_id = 'avatars'
     and ((storage.foldername(name))[1] = auth.uid()::text or public.is_admin())
   );
 
