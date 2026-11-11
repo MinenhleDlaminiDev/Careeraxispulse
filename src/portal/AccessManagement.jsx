@@ -1,21 +1,13 @@
 import { useEffect, useState, useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import { supabase } from '../supabase';
 import { GOLD, ON_GOLD, MUTED, DANGER } from './theme';
 import Loading from './Loading';
 import Banner from './Banner';
 import PageHeader from './PageHeader';
 import Avatar from './Avatar';
+import { accessState, setAccessExpiry, THIRTY_DAYS_MS } from './clientAccess';
 import { Stagger, Item } from '../components/Reveal.jsx';
-
-const THIRTY_DAYS_MS = 30 * 24 * 60 * 60 * 1000;
-
-// Access state → badge tone + label. Gold = live, danger = expired, neutral = none.
-function accessState(expiry) {
-  if (!expiry) return { tone: 'neutral', label: 'No access' };
-  const d = new Date(expiry);
-  if (d > new Date()) return { tone: 'gold', label: `Active · until ${d.toLocaleDateString()}` };
-  return { tone: 'danger', label: `Expired ${d.toLocaleDateString()}` };
-}
 
 const goldBtn = {
   background: GOLD, color: ON_GOLD, border: 'none', borderRadius: 8,
@@ -25,11 +17,25 @@ const dangerBtn = {
   background: 'var(--ax-danger)', color: 'var(--ax-bg-solid)', border: 'none', borderRadius: 8,
   padding: '8px 15px', fontSize: 13, fontWeight: 600, cursor: 'pointer',
 };
+const ellipsis = { overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' };
 
-// Admin tool: list clients and grant/revoke 30-day Interview Code access. This is
-// the manual step that ties a confirmed Paystack payment to a client's access.
-// Writes rely on the profiles admin RLS (admins only). Styled to match the CV
-// workspace — elevated cards, avatars, status badges (AXIS-23).
+// A short access word for the card badge (the full "Active · until …" lives on
+// the detail page).
+const shortAccess = (tone) => (tone === 'gold' ? 'Active' : tone === 'danger' ? 'Expired' : 'No access');
+
+function MetaRow({ label, value }) {
+  return (
+    <div style={{ display: 'flex', gap: 8, fontSize: 13 }}>
+      <span style={{ color: MUTED, minWidth: 74, flexShrink: 0 }}>{label}</span>
+      <span style={{ color: 'var(--ax-text)', ...ellipsis }}>{value || '—'}</span>
+    </div>
+  );
+}
+
+// Admin Clients (AXIS-29): a card grid of every client — photo, access badge and
+// a few key details at a glance — each card linking to its own detail page.
+// Grant/revoke 30-day Interview Code access stays here for a quick action after
+// confirming a payment; the full profile + CVs live on /clients/:id.
 export default function AccessManagement() {
   const [state, setState] = useState({ loading: true, clients: [], error: false });
   const [busy, setBusy] = useState(() => new Set());
@@ -41,25 +47,25 @@ export default function AccessManagement() {
     setState((s) => ({ ...s, loading: true, error: false }));
     const { data, error } = await supabase
       .from('profiles')
-      .select('id, full_name, email, interview_access_expires_at, avatar_path')
+      .select('id, full_name, email, interview_access_expires_at, avatar_path, target_role, location')
       .eq('role', 'client')
       .order('email');
-    if (error) setState({ loading: false, clients: [], error: true });
-    else setState({ loading: false, clients: data || [], error: false });
+    if (error) { setState({ loading: false, clients: [], error: true }); return; }
+    // CV counts per client — one query, tallied client-side (admins read all
+    // cv_uploads via RLS).
+    const { data: cvs } = await supabase.from('cv_uploads').select('user_id');
+    const counts = new Map();
+    for (const r of cvs || []) counts.set(r.user_id, (counts.get(r.user_id) || 0) + 1);
+    const clients = (data || []).map((c) => ({ ...c, cvCount: counts.get(c.id) || 0 }));
+    setState({ loading: false, clients, error: false });
   }, []);
 
   useEffect(() => { load(); }, [load]);
 
   const setExpiry = useCallback(async (id, value) => {
-    if (!supabase) return;
     setActionError('');
     setBusy((prev) => new Set(prev).add(id));
-    const { data, error } = await supabase
-      .from('profiles')
-      .update({ interview_access_expires_at: value })
-      .eq('id', id)
-      .select('interview_access_expires_at')
-      .single();
+    const { data, error } = await setAccessExpiry(id, value);
     setBusy((prev) => { const n = new Set(prev); n.delete(id); return n; });
     if (!error && data) {
       setState((s) => ({
@@ -78,8 +84,8 @@ export default function AccessManagement() {
 
   return (
     <div>
-      <PageHeader eyebrow="Clients" title="Client Access">
-        Grant or revoke 30-day Interview Code access after confirming a payment.
+      <PageHeader eyebrow="Clients" title="Clients">
+        Manage your clients — open a client for their full profile and CVs, or grant and revoke Interview Code access here.
       </PageHeader>
 
       <Banner kind="error" style={{ marginBottom: 14 }}>{actionError}</Banner>
@@ -92,23 +98,32 @@ export default function AccessManagement() {
           <div style={{ fontSize: 14, color: MUTED, marginTop: 6 }}>Clients appear here once they sign up.</div>
         </div>
       ) : (
-        <Stagger style={{ display: 'grid', gap: 16 }}>
+        <Stagger style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(290px,1fr))', gap: 16 }}>
           {state.clients.map((c) => {
             const s = accessState(c.interview_access_expires_at);
             const isBusy = busy.has(c.id);
             const active = s.tone === 'gold';
+            const to = `/portal/admin/clients/${c.id}`;
             return (
-              <Item as="section" key={c.id} className="ax-card" style={{ padding: '20px 20px 22px' }}>
-                <header style={{ display: 'flex', alignItems: 'center', gap: 13 }}>
-                  <Avatar path={c.avatar_path} name={c.full_name} email={c.email} />
-                  <div style={{ minWidth: 0, flex: 1 }}>
-                    <div style={{ fontSize: 16, fontWeight: 700, color: 'var(--ax-text)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{c.full_name || 'Unnamed client'}</div>
-                    <div style={{ fontSize: 13, color: MUTED, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{c.email}</div>
-                  </div>
-                  <span className={`ax-badge ax-badge-${s.tone}`}>{s.label}</span>
-                </header>
+              <Item as="div" key={c.id} className="ax-card" style={{ padding: '20px 20px 22px', display: 'flex', flexDirection: 'column' }}>
+                <Link to={to} style={{ display: 'block', color: 'inherit', textDecoration: 'none' }}>
+                  <header style={{ display: 'flex', alignItems: 'center', gap: 13 }}>
+                    <Avatar path={c.avatar_path} name={c.full_name} email={c.email} />
+                    <div style={{ minWidth: 0, flex: 1 }}>
+                      <div style={{ fontSize: 16, fontWeight: 700, color: 'var(--ax-text)', ...ellipsis }}>{c.full_name || 'Unnamed client'}</div>
+                      <div style={{ fontSize: 13, color: MUTED, ...ellipsis }}>{c.email}</div>
+                    </div>
+                    <span className={`ax-badge ax-badge-${s.tone}`}>{shortAccess(s.tone)}</span>
+                  </header>
 
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 9, marginTop: 18, paddingTop: 16, borderTop: '1px solid var(--ax-border)' }}>
+                  <div style={{ marginTop: 15, display: 'flex', flexDirection: 'column', gap: 7 }}>
+                    <MetaRow label="Target role" value={c.target_role} />
+                    <MetaRow label="Location" value={c.location} />
+                    <MetaRow label="CVs" value={c.cvCount ? `${c.cvCount} file${c.cvCount === 1 ? '' : 's'}` : 'None'} />
+                  </div>
+                </Link>
+
+                <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 9, marginTop: 'auto', paddingTop: 16, borderTop: '1px solid var(--ax-border)' }}>
                   {active ? (
                     confirmingId === c.id ? (
                       <>
@@ -127,6 +142,7 @@ export default function AccessManagement() {
                       {isBusy ? '…' : 'Grant 30 days'}
                     </button>
                   )}
+                  <Link to={to} className="ax-iconbtn" style={{ marginLeft: 'auto', textDecoration: 'none' }}>View →</Link>
                 </div>
               </Item>
             );

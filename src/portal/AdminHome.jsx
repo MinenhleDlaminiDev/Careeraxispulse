@@ -1,5 +1,6 @@
 import PortalArea from './PortalArea';
 import AccessManagement from './AccessManagement';
+import ClientDetail from './ClientDetail';
 import ContentEditor from './ContentEditor';
 import AdminCvs from './AdminCvs';
 
@@ -11,6 +12,7 @@ const NAV = [
 
 const SECTIONS = [
   { path: 'clients', element: <AccessManagement /> },
+  { path: 'clients/:id', element: <ClientDetail /> },
   { path: 'content', element: <ContentEditor /> },
   { path: 'cvs', element: <AdminCvs /> },
 ];
