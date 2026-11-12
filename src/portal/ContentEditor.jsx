@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback, useRef } from 'react';
 import { supabase } from '../supabase';
-import { GOLD, GOLD_INK, CREAM, MUTED, SERIF, SURFACE2, BORDER, ON_GOLD, DANGER, DANGER_BORDER, GOLD_SOFT, GOLD_BORDER } from './theme';
+import { GOLD, GOLD_INK, CREAM, MUTED, SURFACE2, BORDER, ON_GOLD, DANGER, DANGER_BORDER, GOLD_SOFT, GOLD_BORDER } from './theme';
 import Loading from './Loading';
 import Banner from './Banner';
 import PageHeader from './PageHeader';
@@ -55,7 +55,7 @@ export default function ContentEditor() {
   const [saving, setSaving] = useState(false);
   const [previewing, setPreviewing] = useState(false);
   const [message, setMessage] = useState(null); // save error only
-  const [collapsed, setCollapsed] = useState(() => new Set()); // pillar __keys collapsed
+  const [openKey, setOpenKey] = useState(null); // the one expanded pillar's __key (accordion); null = all collapsed
   const [lastSavedAt, setLastSavedAt] = useState(null);
   const mountedRef = useRef(true);
   useEffect(() => { mountedRef.current = true; return () => { mountedRef.current = false; }; }, []);
@@ -93,7 +93,12 @@ export default function ContentEditor() {
   const setFocus = (i, j, value) => setDraft((d) => ({ ...d, pillars: d.pillars.map((p, idx) => (idx === i ? { ...p, focus: (p.focus || []).map((f, fj) => (fj === j ? value : f)) } : p)) }));
   const addFocus = (i) => setDraft((d) => ({ ...d, pillars: d.pillars.map((p, idx) => (idx === i ? { ...p, focus: [...(p.focus || []), ''] } : p)) }));
   const removeFocus = (i, j) => setDraft((d) => ({ ...d, pillars: d.pillars.map((p, idx) => (idx === i ? { ...p, focus: (p.focus || []).filter((_, fj) => fj !== j) } : p)) }));
-  const addPillar = () => setDraft((d) => ({ ...d, pillars: [...d.pillars, withKey({ number: String(d.pillars.length + 1).padStart(2, '0'), title: '', subtitle: '', intro: '', focus: [], principle: '' })] }));
+  const addPillar = () => {
+    // Build the keyed pillar up front so we can open it (accordion) right away.
+    const np = withKey({ number: String(draft.pillars.length + 1).padStart(2, '0'), title: '', subtitle: '', intro: '', focus: [], principle: '' });
+    setDraft((d) => ({ ...d, pillars: [...d.pillars, np] }));
+    setOpenKey(np.__key);
+  };
   const removePillar = (i) => setDraft((d) => ({ ...d, pillars: d.pillars.filter((_, idx) => idx !== i) }));
   const movePillar = (i, dir) => setDraft((d) => {
     const j = i + dir;
@@ -102,7 +107,9 @@ export default function ContentEditor() {
     [arr[i], arr[j]] = [arr[j], arr[i]];
     return { ...d, pillars: arr };
   });
-  const toggleCollapse = (key) => setCollapsed((prev) => { const n = new Set(prev); n.has(key) ? n.delete(key) : n.add(key); return n; });
+  // Accordion: open the clicked pillar as the only open one, or close it if it's
+  // already open.
+  const toggleOpen = (key) => setOpenKey((k) => (k === key ? null : key));
 
   // Dirty = the draft differs from the last saved snapshot.
   const dirty = draft != null && savedJsonRef.current != null && JSON.stringify(stripKeys(draft)) !== savedJsonRef.current;
@@ -144,6 +151,7 @@ export default function ContentEditor() {
     const saved = savedContentRef.current || {};
     const pillars = (Array.isArray(saved.pillars) ? saved.pillars : []).map(withKey);
     setDraft({ ...saved, pillars });
+    setOpenKey(null); // back to all-collapsed
     setMessage(null);
   };
 
@@ -193,25 +201,27 @@ export default function ContentEditor() {
       </div>
 
       {draft.pillars.map((p, i) => {
-        const isCollapsed = collapsed.has(p.__key);
+        const isOpen = openKey === p.__key;
         return (
-          <div key={p.__key} style={{ background: GOLD_SOFT, border: `1px solid ${GOLD_BORDER}`, borderRadius: 14, padding: isCollapsed ? '14px 20px' : '18px 20px', marginBottom: 16, boxShadow: 'var(--ax-card-shadow)' }}>
-            <div className="ax-pillar-head" style={{ marginBottom: isCollapsed ? 0 : 14 }}>
-              <button type="button" className="ax-collapse-btn" onClick={() => toggleCollapse(p.__key)}
-                aria-expanded={!isCollapsed} aria-label={isCollapsed ? 'Expand pillar' : 'Collapse pillar'}>
-                {isCollapsed ? '▸' : '▾'}
+          <div key={p.__key} style={{ background: GOLD_SOFT, border: `1px solid ${GOLD_BORDER}`, borderRadius: 14, padding: isOpen ? '14px 18px 18px' : '10px 18px', marginBottom: 14, boxShadow: 'var(--ax-card-shadow)' }}>
+            <div className="ax-pillar-head" style={{ marginBottom: isOpen ? 16 : 0 }}>
+              <button type="button" className="ax-pillar-toggle" onClick={() => toggleOpen(p.__key)} aria-expanded={isOpen}
+                aria-label={(isOpen ? 'Collapse ' : 'Expand ') + `Pillar ${p.number || i + 1}`}>
+                <span className={'ax-pillar-chev' + (isOpen ? ' open' : '')} aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M9 6l6 6-6 6" /></svg>
+                </span>
+                <span className="ax-pillar-title">Pillar {p.number || i + 1}{p.title ? ` — ${p.title}` : ' — Untitled'}</span>
               </button>
-              <div style={{ fontFamily: SERIF, fontWeight: 700, fontSize: 16, color: GOLD_INK, flex: 1, minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                Pillar {p.number || i + 1}{isCollapsed && (p.title ? ` — ${p.title}` : ' — Untitled')}
+              <div className="ax-pillar-actions">
+                <button type="button" onClick={() => movePillar(i, -1)} disabled={i === 0} aria-label="Move pillar up"
+                  style={{ ...ghostBtn, padding: '6px 10px', opacity: i === 0 ? 0.4 : 1, cursor: i === 0 ? 'default' : 'pointer' }}>↑</button>
+                <button type="button" onClick={() => movePillar(i, 1)} disabled={i === draft.pillars.length - 1} aria-label="Move pillar down"
+                  style={{ ...ghostBtn, padding: '6px 10px', opacity: i === draft.pillars.length - 1 ? 0.4 : 1, cursor: i === draft.pillars.length - 1 ? 'default' : 'pointer' }}>↓</button>
+                <button type="button" onClick={() => removePillar(i)} style={dangerGhost}>Remove</button>
               </div>
-              <button type="button" onClick={() => movePillar(i, -1)} disabled={i === 0} aria-label="Move pillar up"
-                style={{ ...ghostBtn, padding: '6px 10px', opacity: i === 0 ? 0.4 : 1, cursor: i === 0 ? 'default' : 'pointer' }}>↑</button>
-              <button type="button" onClick={() => movePillar(i, 1)} disabled={i === draft.pillars.length - 1} aria-label="Move pillar down"
-                style={{ ...ghostBtn, padding: '6px 10px', opacity: i === draft.pillars.length - 1 ? 0.4 : 1, cursor: i === draft.pillars.length - 1 ? 'default' : 'pointer' }}>↓</button>
-              <button type="button" onClick={() => removePillar(i)} style={dangerGhost}>Remove</button>
             </div>
 
-            {!isCollapsed && (
+            {isOpen && (
               <>
                 <Field label="Number" value={p.number} onChange={(v) => setPillar(i, 'number', v)} />
                 <Field label="Title" value={p.title} onChange={(v) => setPillar(i, 'title', v)} />
