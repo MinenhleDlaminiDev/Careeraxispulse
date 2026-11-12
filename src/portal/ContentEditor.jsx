@@ -4,6 +4,7 @@ import { GOLD, GOLD_INK, CREAM, MUTED, SERIF, SURFACE2, BORDER, ON_GOLD, DANGER,
 import Loading from './Loading';
 import Banner from './Banner';
 import PageHeader from './PageHeader';
+import { Presentation } from './InterviewAccess';
 
 const labelStyle = { display: 'block', fontSize: 12, letterSpacing: '.08em', textTransform: 'uppercase', color: GOLD_INK, margin: '0 0 6px' };
 const fieldBase = { width: '100%', boxSizing: 'border-box', background: SURFACE2, border: `1px solid ${BORDER}`, borderRadius: 6, color: CREAM, fontSize: 14, padding: '10px 12px', fontFamily: 'inherit' };
@@ -27,6 +28,7 @@ export default function ContentEditor() {
   const [load, setLoad] = useState({ loading: true, id: null, error: false });
   const [draft, setDraft] = useState(null);
   const [saving, setSaving] = useState(false);
+  const [previewing, setPreviewing] = useState(false);
   const [message, setMessage] = useState(null); // { kind: 'error' | 'ok', text }
   const mountedRef = useRef(true);
   useEffect(() => { mountedRef.current = true; return () => { mountedRef.current = false; }; }, []);
@@ -59,12 +61,15 @@ export default function ContentEditor() {
   const addPillar = () => setDraft((d) => ({ ...d, pillars: [...d.pillars, withKey({ number: String(d.pillars.length + 1).padStart(2, '0'), title: '', subtitle: '', intro: '', focus: [], principle: '' })] }));
   const removePillar = (i) => setDraft((d) => ({ ...d, pillars: d.pillars.filter((_, idx) => idx !== i) }));
 
+  // Strip the UI-only __key — used both for saving and for the live preview so
+  // the preview sees exactly the shape the client renders.
+  const stripKeys = (d) => ({ ...d, pillars: d.pillars.map(({ __key, ...rest }) => rest) });
+
   const save = async () => {
     if (!supabase || !load.id || !draft) return;
     setMessage(null);
     setSaving(true);
-    // Strip the UI-only __key before persisting so the stored JSON stays clean.
-    const content = { ...draft, pillars: draft.pillars.map(({ __key, ...rest }) => rest) };
+    const content = stripKeys(draft);
     const { error } = await supabase
       .from('interview_content')
       .update({ content, updated_at: new Date().toISOString() })
@@ -125,12 +130,19 @@ export default function ContentEditor() {
 
       <button type="button" onClick={addPillar} style={{ ...ghostBtn, marginBottom: 22 }}>+ Add pillar</button>
 
-      <div>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
         <button type="button" onClick={save} disabled={saving}
           style={{ background: GOLD, color: ON_GOLD, border: 'none', borderRadius: 7, padding: '12px 24px', fontSize: 14, fontWeight: 700, cursor: saving ? 'default' : 'pointer', opacity: saving ? 0.6 : 1 }}>
           {saving ? 'Saving…' : 'Save content'}
         </button>
+        <button type="button" onClick={() => setPreviewing(true)} disabled={saving}
+          style={{ background: 'transparent', color: CREAM, border: `1px solid ${BORDER}`, borderRadius: 7, padding: '12px 20px', fontSize: 14, fontWeight: 600, cursor: saving ? 'default' : 'pointer', opacity: saving ? 0.6 : 1 }}>
+          ⤢ Preview presentation
+        </button>
       </div>
+
+      {/* Live preview of the current (unsaved) edits in the real client deck. */}
+      {previewing && <Presentation c={stripKeys(draft)} preview onClose={() => setPreviewing(false)} />}
     </section>
   );
 }

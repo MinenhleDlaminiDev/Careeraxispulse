@@ -93,14 +93,17 @@ const slideVariants = {
   exit: (dir) => ({ opacity: 0, x: dir >= 0 ? -46 : 46 }),
 };
 
-function Presentation({ c }) {
+// `preview` (AXIS-31) renders the exact same deck for the admin content editor,
+// but starts on the cover and never touches the saved client progress; `onClose`
+// backs out of the preview overlay.
+export function Presentation({ c, preview = false, onClose }) {
   const pillars = Array.isArray(c.pillars) ? c.pillars : [];
   // Slide 0 = cover, 1..N = pillars, N+1 = completion.
   const total = pillars.length;
   const doneIndex = total + 1;
   const count = total + 2;
 
-  const init = useRef(readProgress());
+  const init = useRef(preview ? { last: 0, viewed: [] } : readProgress());
   const [index, setIndex] = useState(() => {
     const last = Math.min(Math.max(init.current.last, 0), count - 1);
     return last === doneIndex ? 0 : last; // a finished deck re-opens on the cover
@@ -112,10 +115,10 @@ function Presentation({ c }) {
   // Record the slide we're on, and remember it as viewed.
   useEffect(() => {
     setViewed((prev) => {
-      if (prev.has(index)) { writeProgress(index, prev); return prev; }
-      const next = new Set(prev); next.add(index); writeProgress(index, next); return next;
+      if (prev.has(index)) { if (!preview) writeProgress(index, prev); return prev; }
+      const next = new Set(prev); next.add(index); if (!preview) writeProgress(index, next); return next;
     });
-  }, [index]);
+  }, [index, preview]);
 
   const next = useCallback(() => { if (index < count - 1) { setDir(1); setIndex(index + 1); } }, [index, count]);
   const prev = useCallback(() => { if (index > 0) { setDir(-1); setIndex(index - 1); } }, [index]);
@@ -126,19 +129,19 @@ function Presentation({ c }) {
     const onKey = (e) => {
       if (e.key === 'ArrowRight') next();
       else if (e.key === 'ArrowLeft') prev();
-      else if (e.key === 'Escape' && full) setFull(false);
+      else if (e.key === 'Escape') { if (preview) onClose?.(); else if (full) setFull(false); }
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [next, prev, full]);
+  }, [next, prev, full, preview, onClose]);
 
   // Lock body scroll while presenting full-screen.
   useEffect(() => {
-    if (!full) return;
+    if (!full && !preview) return;
     const prevOv = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
     return () => { document.body.style.overflow = prevOv; };
-  }, [full]);
+  }, [full, preview]);
 
   // Swipe (touch) across the stage.
   const touchX = useRef(null);
@@ -165,11 +168,17 @@ function Presentation({ c }) {
       <div className="ax-present-top">
         <div className="ax-present-bar"><div className="ax-present-bar-fill" style={{ width: `${pct}%` }} /></div>
         <div className="ax-present-step">{stepLabel}</div>
-        {full && <ThemeToggle />}
-        <button type="button" className="ax-present-mode" onClick={() => setFull((v) => !v)}
-          aria-label={full ? 'Exit full screen' : 'Present full screen'}>
-          {full ? <>✕ Exit</> : <>⤢ Present</>}
-        </button>
+        {(full || preview) && <ThemeToggle />}
+        {preview ? (
+          <button type="button" className="ax-present-mode" onClick={() => onClose?.()} aria-label="Close preview">
+            ✕ Close preview
+          </button>
+        ) : (
+          <button type="button" className="ax-present-mode" onClick={() => setFull((v) => !v)}
+            aria-label={full ? 'Exit full screen' : 'Present full screen'}>
+            {full ? <>✕ Exit</> : <>⤢ Present</>}
+          </button>
+        )}
       </div>
 
       <div className="ax-present-dots" role="group" aria-label="Go to slide">
@@ -205,7 +214,7 @@ function Presentation({ c }) {
     </div>
   );
 
-  return full ? <div className="ax-present-full">{body}</div> : body;
+  return (full || preview) ? <div className="ax-present-full">{body}</div> : body;
 }
 
 // ---- Slides -------------------------------------------------------------------
