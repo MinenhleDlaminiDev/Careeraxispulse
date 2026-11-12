@@ -2,11 +2,11 @@ import { useEffect, useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { supabase } from '../supabase';
 import { GOLD, ON_GOLD, MUTED, DANGER } from './theme';
-import Loading from './Loading';
 import Banner from './Banner';
 import PageHeader from './PageHeader';
 import Avatar from './Avatar';
 import { accessState, setAccessExpiry, THIRTY_DAYS_MS } from './clientAccess';
+import { ClientCardSkeleton } from './Skeleton';
 import { Stagger, Item } from '../components/Reveal.jsx';
 
 const goldBtn = {
@@ -80,7 +80,18 @@ export default function AccessManagement() {
   const grant = (id) => setExpiry(id, new Date(Date.now() + THIRTY_DAYS_MS).toISOString());
   const revoke = (id) => { setConfirmingId(null); setExpiry(id, null); };
 
-  if (state.loading) return <Loading label="Loading clients…" />;
+  if (state.loading) {
+    return (
+      <div>
+        <PageHeader eyebrow="Clients" title="Clients">
+          Manage your clients — open a client for their full profile and CVs, or grant and revoke Interview Code access here.
+        </PageHeader>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(290px,1fr))', gap: 16 }}>
+          {Array.from({ length: 6 }).map((_, i) => <ClientCardSkeleton key={i} />)}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div>

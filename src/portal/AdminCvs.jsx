@@ -1,9 +1,9 @@
 import { useEffect, useState, useCallback, useRef } from 'react';
 import { supabase } from '../supabase';
 import { MUTED, DANGER, GOLD, ON_GOLD } from './theme';
-import Loading from './Loading';
 import Banner from './Banner';
 import PageHeader from './PageHeader';
+import { CvCardSkeleton } from './Skeleton';
 import { ACCEPT, displayName, validateCvFile, uploadCv, downloadCv } from './cvStorage';
 import { Stagger, Item } from '../components/Reveal.jsx';
 
@@ -163,7 +163,18 @@ export default function AdminCvs() {
     load();
   };
 
-  if (state.loading) return <Loading label="Loading client CVs…" />;
+  if (state.loading) {
+    return (
+      <div>
+        <PageHeader eyebrow="CVs" title="Client CVs">
+          Review the CVs clients upload and deliver the finished versions back to them.
+        </PageHeader>
+        <div style={{ display: 'grid', gap: 16 }}>
+          {Array.from({ length: 3 }).map((_, i) => <CvCardSkeleton key={i} />)}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div>
