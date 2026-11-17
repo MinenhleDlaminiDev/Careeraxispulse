@@ -21,8 +21,17 @@ export default function Login() {
   const [busy, setBusy] = useState(false);
   // Opens automatically when arriving from the /portal/signup redirect.
   const [showSignup, setShowSignup] = useState(Boolean(location.state?.signup));
-  // Set when they came from a "buy" CTA, so we can say why a profile is needed.
-  const buying = location.state?.buy === 'interview-code';
+  // WHY the modal was opened, captured once at mount — not read from the router
+  // on every render. Router state sticks to the history entry (it even survives
+  // a reload), so deriving this live meant that after arriving from a "buy" CTA,
+  // every later click of the plain "Sign up" button still showed the purchase
+  // panel. Clicking Sign up is its own intent and clears the reason.
+  const [signupReason, setSignupReason] = useState(
+    location.state?.signup ? (location.state?.buy ?? null) : null
+  );
+  const buying = signupReason === 'interview-code';
+
+  const openSignup = () => { setSignupReason(null); setShowSignup(true); };
 
   if (loading) return <Loading />;
   // Always land at /portal and let RoleLanding pick the dashboard by the current
@@ -62,7 +71,7 @@ export default function Login() {
 
         <div style={{ marginTop: 18, fontSize: 13.5, color: MUTED, textAlign: 'center' }}>
           Need an account?{' '}
-          <button type="button" onClick={() => setShowSignup(true)} style={{ background: 'none', border: 'none', padding: 0, font: 'inherit', color: GOLD_INK, fontWeight: 600, cursor: 'pointer' }}>
+          <button type="button" onClick={openSignup} style={{ background: 'none', border: 'none', padding: 0, font: 'inherit', color: GOLD_INK, fontWeight: 600, cursor: 'pointer' }}>
             Sign up
           </button>
         </div>
