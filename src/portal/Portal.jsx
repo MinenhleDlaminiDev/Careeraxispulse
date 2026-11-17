@@ -1,4 +1,5 @@
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { MotionConfig } from 'framer-motion';
 import { AuthProvider, useAuth } from './AuthContext';
 import { ThemeProvider, useTheme } from './ThemeContext';
@@ -16,6 +17,16 @@ function RoleLanding() {
   return <Navigate to={isAdmin ? '/portal/admin' : '/portal/client'} replace />;
 }
 
+// Every portal page starts at the top (AXIS-35). The marketing side gets this
+// from Layout.jsx, but the portal is mounted OUTSIDE that Layout (AXIS-02), so
+// it had no scroll reset at all — leaving a long screen left you part-way down
+// the next one. Applies on every device.
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  useEffect(() => { window.scrollTo({ top: 0, behavior: 'auto' }); }, [pathname]);
+  return null;
+}
+
 // The themed root: data-theme drives the light/dark CSS tokens on .ax-portal.
 function PortalRoot() {
   const { theme } = useTheme();
@@ -26,6 +37,7 @@ function PortalRoot() {
           This is a deliberate product choice (AXIS-24) — the morph is the portal's
           signature entry and the user asked for it to always play. */}
       <MotionConfig reducedMotion="never">
+        <ScrollToTop />
         <Routes>
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<Signup />} />

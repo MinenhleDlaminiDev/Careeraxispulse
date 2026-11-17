@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import { overlayRoot } from './overlayRoot';
 import { useAuth } from './AuthContext';
 import { supabase } from '../supabase';
 import ThemeToggle from './ThemeToggle';
@@ -111,6 +113,16 @@ export function Presentation({ c, preview = false, onClose }) {
   const [dir, setDir] = useState(0);
   const [viewed, setViewed] = useState(() => new Set(init.current.viewed));
   const [full, setFull] = useState(false);
+  const fullRef = useRef(null);
+
+  // Every slide starts at the top (AXIS-35). Changing slide doesn't change the
+  // route, so nothing else resets the scroll — without this you land halfway
+  // down the next pillar after reading a long one. Full-screen scrolls its own
+  // container, inline scrolls the window.
+  useEffect(() => {
+    if (full || preview) fullRef.current?.scrollTo({ top: 0, behavior: 'auto' });
+    else window.scrollTo({ top: 0, behavior: 'auto' });
+  }, [index, full, preview]);
 
   // Record the slide we're on, and remember it as viewed.
   useEffect(() => {
@@ -214,7 +226,12 @@ export function Presentation({ c, preview = false, onClose }) {
     </div>
   );
 
-  return (full || preview) ? <div className="ax-present-full">{body}</div> : body;
+  // Portalled out of the route-transition wrapper: its transform would otherwise
+  // capture this fixed overlay and shrink it to a clipped box (see overlayRoot).
+  if (!(full || preview)) return body;
+  const overlay = <div className="ax-present-full" ref={fullRef}>{body}</div>;
+  const root = overlayRoot();
+  return root ? createPortal(overlay, root) : overlay;
 }
 
 // ---- Slides -------------------------------------------------------------------

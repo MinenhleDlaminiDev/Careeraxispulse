@@ -1,5 +1,7 @@
 import { useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { motion } from 'framer-motion';
+import { overlayRoot } from './overlayRoot';
 import { EASE } from '../motion.js';
 
 // Generic themed dialog (AXIS-22). Dimmed backdrop, centred card that scrolls
@@ -21,7 +23,10 @@ export default function Modal({ onClose, label, children }) {
     };
   }, [onClose]);
 
-  return (
+  // Portalled above the route-transition wrapper, whose transform would make it
+  // the containing block for this fixed backdrop and mis-size the dialog
+  // (see overlayRoot). Rendered into .ax-portal so the theme tokens still apply.
+  const dialog = (
     <motion.div
       className="ax-modal-backdrop"
       onMouseDown={(e) => { if (e.target === e.currentTarget) onClose(); }}
@@ -40,4 +45,7 @@ export default function Modal({ onClose, label, children }) {
       </motion.div>
     </motion.div>
   );
+
+  const root = overlayRoot();
+  return root ? createPortal(dialog, root) : dialog;
 }

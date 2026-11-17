@@ -59,7 +59,7 @@
 .ax-portal input:focus,.ax-portal textarea:focus{outline:none;border-color:var(--ax-gold) !important;box-shadow:0 0 0 3px var(--ax-gold-soft)}
 
 /* Auth split layout (login / signup) */
-.ax-auth{flex:1;display:flex;min-height:100vh}
+.ax-auth{flex:1;display:flex;min-height:100vh;min-height:100dvh}
 .ax-auth-brand{flex:1.05;position:relative;display:flex;flex-direction:column;justify-content:space-between;padding:42px 46px;background:linear-gradient(150deg,#101A33 0%,#1C2B52 58%,#26396A 100%);color:#F4EFE4;overflow:hidden}
 .ax-auth-brand::after{content:"";position:absolute;right:-120px;bottom:-120px;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(201,162,39,.28),transparent 70%)}
 .ax-auth-form{flex:1;display:flex;align-items:center;justify-content:center;padding:34px 24px;position:relative}
@@ -118,7 +118,7 @@
 @media (max-width:820px){.ax-editbar{top:66px}}
 /* Branded loader + skeletons (AXIS-33) */
 .ax-loader{position:relative;min-height:60vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px}
-.ax-loader-full{min-height:100vh;background:#131F38}
+.ax-loader-full{min-height:100vh;min-height:100dvh;background:#131F38}
 .ax-loader-ring{position:relative;width:76px;height:76px;border-radius:50%;display:flex;align-items:center;justify-content:center}
 .ax-loader-ring::before{content:"";position:absolute;inset:0;border-radius:50%;border:3px solid rgba(201,162,39,.22);border-top-color:#C9A227;animation:ax-loader-spin .9s linear infinite}
 .ax-loader-ring img{width:46px;height:46px;border-radius:11px;object-fit:cover}
@@ -132,7 +132,7 @@
 @media (prefers-reduced-motion: reduce){.ax-quick:hover{transform:none}}
 
 /* Portal hub (AXIS-24) — the centered launcher cards shown on portal entry */
-.ax-hub{position:fixed;inset:0;z-index:200;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:72px 20px 48px;background:var(--ax-bg);overflow-y:auto}
+.ax-hub{position:fixed;inset:0;z-index:200;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:72px 20px 48px;padding-top:max(72px,calc(env(safe-area-inset-top) + 56px));padding-bottom:max(48px,calc(env(safe-area-inset-bottom) + 24px));background:var(--ax-bg);overflow-y:auto}
 .ax-hub-bar{position:absolute;top:18px;right:18px;display:flex;align-items:center;gap:10px}
 .ax-hub-head{text-align:center;margin-bottom:30px;max-width:560px}
 .ax-hub-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:18px;width:100%;margin:0 auto}
@@ -146,21 +146,28 @@
 @media(max-width:560px){.ax-hub{padding:68px 16px 40px}.ax-hub-grid{grid-template-columns:1fr;max-width:420px !important}.ax-hub-card{min-height:0}}
 
 /* Interview Code presentation (AXIS-26) — one pillar at a time, inline or full-screen */
-.ax-present{width:100%;max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:16px;min-height:calc(100vh - 150px);justify-content:flex-start}
+/* dvh, not vh: on mobile browsers the toolbar shrinks the visible viewport, so
+   100vh overflows it and pushes the Back/Next controls under the browser chrome
+   (AXIS-35). vh first as the fallback for browsers without dvh. */
+.ax-present{width:100%;max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:16px;min-height:calc(100vh - 150px);min-height:calc(100dvh - 150px);justify-content:flex-start}
 .ax-present-body{flex:1;display:flex;flex-direction:column;justify-content:center;gap:16px;min-height:0}
-.ax-present-full{position:fixed;inset:0;z-index:200;background:var(--ax-bg);overflow-y:auto;box-sizing:border-box;padding:22px 20px 28px}
-.ax-present-full .ax-present{min-height:calc(100vh - 50px)}
+.ax-present-full{position:fixed;inset:0;z-index:200;background:var(--ax-bg);overflow-y:auto;box-sizing:border-box;padding:22px 20px 28px;padding-top:max(22px,env(safe-area-inset-top));padding-bottom:max(28px,calc(env(safe-area-inset-bottom) + 16px));padding-left:max(20px,env(safe-area-inset-left));padding-right:max(20px,env(safe-area-inset-right))}
+.ax-present-full .ax-present{min-height:calc(100vh - 50px);min-height:calc(100dvh - 50px)}
 .ax-present-top{display:flex;align-items:center;gap:14px}
 .ax-present-bar{flex:1;height:6px;border-radius:999px;background:var(--ax-surface-2);overflow:hidden}
 .ax-present-bar-fill{height:100%;border-radius:999px;background:var(--ax-gold);transition:width .5s cubic-bezier(.4,0,.2,1)}
 .ax-present-step{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ax-gold-ink);font-weight:700;white-space:nowrap}
 .ax-present-mode{display:inline-flex;align-items:center;gap:7px;background:transparent;border:1px solid var(--ax-border);border-radius:8px;padding:7px 12px;font-size:12.5px;font-weight:600;color:var(--ax-text);cursor:pointer;white-space:nowrap}
 .ax-present-mode:hover{border-color:var(--ax-gold-border);color:var(--ax-gold-ink)}
-.ax-present-dots{display:flex;gap:8px;align-items:center;justify-content:center;flex-wrap:wrap}
-.ax-present-dot{width:11px;height:11px;border-radius:50%;border:1.5px solid var(--ax-gold-border);background:transparent;padding:0;cursor:pointer;transition:background .2s,transform .2s,border-color .2s}
-.ax-present-dot:hover{border-color:var(--ax-gold)}
-.ax-present-dot.viewed{background:var(--ax-gold-border);border-color:var(--ax-gold-border)}
-.ax-present-dot.active{background:var(--ax-gold);border-color:var(--ax-gold);transform:scale(1.25)}
+.ax-present-dots{display:flex;gap:0;align-items:center;justify-content:center;flex-wrap:wrap}
+/* The dot stays 11px visually, but the BUTTON is a 44x44 touch target with the
+   dot drawn by ::before — an 11px tap target is unusable on a phone (AXIS-35). */
+.ax-present-dot{width:44px;height:44px;border:none;background:transparent;padding:0;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent}
+.ax-present-dot::before{content:"";width:11px;height:11px;border-radius:50%;border:1.5px solid var(--ax-gold-border);background:transparent;transition:background .2s,transform .2s,border-color .2s}
+.ax-present-dot:hover::before{border-color:var(--ax-gold)}
+.ax-present-dot.viewed::before{background:var(--ax-gold-border);border-color:var(--ax-gold-border)}
+.ax-present-dot.active::before{background:var(--ax-gold);border-color:var(--ax-gold);transform:scale(1.25)}
+.ax-present-dot:focus-visible{outline:2px solid var(--ax-gold);outline-offset:-8px;border-radius:50%}
 .ax-present-stage{position:relative;overflow:hidden;min-height:430px;display:flex}
 .ax-present-nav{display:flex;align-items:center;justify-content:space-between;gap:12px}
 .ax-present-btn{display:inline-flex;align-items:center;gap:8px;background:var(--ax-gold);color:var(--ax-on-gold);border:none;border-radius:9px;padding:11px 22px;font-size:14px;font-weight:600;cursor:pointer}
@@ -181,8 +188,8 @@
 @media (prefers-reduced-motion: reduce){.ax-toggle-knob{transition:none}}
 
 /* Portal sidebar shell + responsive drawer */
-.ax-shell{display:flex;min-height:100vh}
-.ax-side{position:sticky;top:0;align-self:flex-start;height:100vh;width:248px;flex-shrink:0;box-sizing:border-box;display:flex;flex-direction:column;gap:6px;padding:22px 16px;background:var(--ax-sidebar);border-right:1px solid var(--ax-sidebar-border);backdrop-filter:blur(8px)}
+.ax-shell{display:flex;min-height:100vh;min-height:100dvh}
+.ax-side{position:sticky;top:0;align-self:flex-start;height:100vh;height:100dvh;width:248px;flex-shrink:0;box-sizing:border-box;display:flex;flex-direction:column;gap:6px;padding:22px 16px;background:var(--ax-sidebar);border-right:1px solid var(--ax-sidebar-border);backdrop-filter:blur(8px)}
 .ax-main{flex:1;min-width:0;display:flex;flex-direction:column}
 .ax-navlink{display:flex;align-items:center;gap:11px;padding:10px 12px;border-radius:7px;color:var(--ax-muted);font-size:14.5px;font-weight:500;cursor:pointer;border:1px solid transparent}
 .ax-navlink:hover{background:var(--ax-surface);color:var(--ax-text)}
@@ -192,12 +199,30 @@
 .ax-scrim{display:none}
 .ax-burger{display:none;background:var(--ax-surface);border:1px solid var(--ax-border);border-radius:8px;width:40px;height:40px;color:var(--ax-text);cursor:pointer}
 @media (max-width:820px){
-  .ax-side{position:fixed;top:0;left:0;z-index:70;transform:translateX(-100%);transition:transform .32s cubic-bezier(.2,.7,.2,1);box-shadow:var(--ax-shadow)}
-  .ax-side.open{transform:translateX(0)}
+  /* visibility:hidden (not just the off-screen transform) so the CLOSED drawer
+     leaves the tab order and the accessibility tree. Without it the drawer's
+     links, theme toggle and Sign out stay focusable and get announced, which is
+     why "Sign out" appeared twice and the theme toggle three times (AXIS-35).
+     The visibility delay lets the slide-out animation finish before it hides. */
+  .ax-side{position:fixed;top:0;left:0;z-index:70;transform:translateX(-100%);visibility:hidden;transition:transform .32s cubic-bezier(.2,.7,.2,1),visibility 0s linear .32s;box-shadow:var(--ax-shadow);padding-top:max(22px,env(safe-area-inset-top));padding-bottom:max(22px,env(safe-area-inset-bottom));overflow-y:auto}
+  .ax-side.open{transform:translateX(0);visibility:visible;transition:transform .32s cubic-bezier(.2,.7,.2,1),visibility 0s}
   .ax-scrim.show{display:block;position:fixed;inset:0;z-index:65;background:rgba(5,10,22,.5)}
-  .ax-burger{display:inline-flex;align-items:center;justify-content:center}
-  .ax-topbar{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--ax-border);position:sticky;top:0;z-index:40;background:var(--ax-bg-solid)}
-  .ax-content{padding:22px 16px}
+  .ax-burger{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px}
+  .ax-topbar{display:flex;align-items:center;gap:12px;padding:12px 16px;padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right));border-bottom:1px solid var(--ax-border);position:sticky;top:0;z-index:40;background:var(--ax-bg-solid)}
+  .ax-content{padding:22px 16px;padding-bottom:max(22px,calc(env(safe-area-inset-bottom) + 12px))}
+  /* Phone touch targets: 44px minimum (AXIS-35). Desktop keeps its tighter sizing. */
+  .ax-navlink{min-height:44px;padding:11px 12px}
+  .ax-toggle{width:64px;height:34px}
+  .ax-toggle-knob{width:28px;height:28px}
+  .ax-toggle[data-on="light"] .ax-toggle-knob{left:34px}
+  .ax-iconbtn,.ax-present-mode,.ax-present-btn{min-height:44px}
+  .ax-side button,.ax-side a{min-height:44px}
+  .ax-content button,.ax-cta{min-height:44px}
+  .ax-cta{display:inline-flex;align-items:center;justify-content:center}
+  .ax-topbar a{min-height:44px;display:flex;align-items:center}
+  /* The toggle keeps its 64x34 pill look; this invisible overlay gives it the
+     full 44px touch height without making the control look chunky. */
+  .ax-toggle::after{content:"";position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);height:44px}
   @media (prefers-reduced-motion: reduce){.ax-side{transition:none}}
 }
 

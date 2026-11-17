@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { NavLink, Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useAuth } from './AuthContext';
@@ -37,6 +37,17 @@ export default function PortalLayout({ area, nav, home, atHub, children }) {
   const { pathname } = useLocation();
   const [open, setOpen] = useState(false);
   const close = () => setOpen(false);
+
+  // Escape closes the mobile drawer, and it never survives a route change
+  // (AXIS-35) — on a phone the drawer covers the screen, so leaving it open
+  // after navigating hides the page the user just asked for.
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e) => { if (e.key === 'Escape') setOpen(false); };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [open]);
+  useEffect(() => { setOpen(false); }, [pathname]);
   // Veto a navigation if a screen (e.g. the content editor) has unsaved edits.
   const guardedLeave = (e) => { if (!confirmNavigation()) { e.preventDefault(); return false; } return true; };
 
@@ -54,7 +65,7 @@ export default function PortalLayout({ area, nav, home, atHub, children }) {
     <div className="ax-shell">
       <div className={'ax-scrim' + (open ? ' show' : '')} onClick={close} />
 
-      <aside className={'ax-side' + (open ? ' open' : '')}>
+      <aside id="ax-portal-menu" aria-label="Portal menu" className={'ax-side' + (open ? ' open' : '')}>
         {brand}
         {/* Nav items mount only off the hub, so clicking a hub card hands its
             shared layoutId off to a NEWLY mounted nav item — that mount is what
@@ -92,7 +103,7 @@ export default function PortalLayout({ area, nav, home, atHub, children }) {
 
       <div className="ax-main">
         <div className="ax-topbar">
-          <button type="button" className="ax-burger" aria-label="Open menu" onClick={() => setOpen(true)}>
+          <button type="button" className="ax-burger" aria-label="Open menu" aria-expanded={open} aria-controls="ax-portal-menu" onClick={() => setOpen(true)}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
           </button>
           <Link to={home} onClick={guardedLeave} style={{ display: 'flex', alignItems: 'center', gap: 8, textDecoration: 'none' }}>

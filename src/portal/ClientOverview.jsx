@@ -33,7 +33,7 @@ export default function ClientOverview() {
           <div style={{ fontSize: 11.5, letterSpacing: '.1em', textTransform: 'uppercase', color: GOLD_INK, fontWeight: 700, marginBottom: 8 }}>Interview Code access</div>
           <span className={`ax-badge ax-badge-${access.tone}`}>{access.label}</span>
         </div>
-        <Link to="/portal/client/interview" style={{ background: GOLD, color: ON_GOLD, borderRadius: 8, padding: '10px 18px', fontSize: 14, fontWeight: 600 }}>
+        <Link to="/portal/client/interview" className="ax-cta" style={{ background: GOLD, color: ON_GOLD, borderRadius: 8, padding: '10px 18px', fontSize: 14, fontWeight: 600 }}>
           {hasInterviewAccess ? 'Open Interview Code' : 'View details'}
         </Link>
       </section>
