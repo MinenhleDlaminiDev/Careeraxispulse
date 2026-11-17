@@ -6,6 +6,7 @@ import { PAYSTACK, INTERVIEW_PRICE } from '../payments.js';
 import { useAuth } from './AuthContext';
 import { supabase } from '../supabase';
 import ThemeToggle from './ThemeToggle';
+import VideoPlayer from './VideoPlayer';
 import Loading from './Loading';
 import { EASE } from '../motion.js';
 import { GOLD, CREAM, MUTED, SERIF as serif, NAVY, SURFACE, GOLD_SOFT, GOLD_BORDER, ON_GOLD, BORDER } from './theme';
@@ -269,6 +270,14 @@ function CoverSlide({ c, onBegin }) {
 
       {c.intro && <p style={{ fontSize: 15, color: MUTED, lineHeight: 1.7, maxWidth: 560, margin: 0 }}>{c.intro}</p>}
 
+      {/* The intro video (AXIS-37). Constrained and left-aligned inside the
+          centred cover so the 16:9 frame doesn't dominate a wide screen. */}
+      {c.intro_video && (
+        <div style={{ width: '100%', maxWidth: 560, margin: 0, textAlign: 'left' }}>
+          <VideoPlayer path={c.intro_video} label="Introduction" />
+        </div>
+      )}
+
       {c.philosophy && (
         <div style={{ background: GOLD_SOFT, border: `1px solid ${GOLD_BORDER}`, borderRadius: 12, padding: '20px 22px', boxShadow: 'var(--ax-card-shadow)', textAlign: 'left', maxWidth: 560, margin: 0 }}>
           <div style={{ letterSpacing: '.16em', textTransform: 'uppercase', fontSize: 10.5, color: GOLD, marginBottom: 8 }}>Our Philosophy</div>
@@ -363,6 +372,12 @@ function PillarSlide({ p, index, total }) {
 
       {p.subtitle && <div style={{ fontSize: 14.5, color: GOLD, marginBottom: 10 }}>{p.subtitle}</div>}
       {p.intro && <p style={{ fontSize: 15, color: MUTED, lineHeight: 1.7, margin: '0 0 18px' }}>{p.intro}</p>}
+
+      {/* The video sits above Your Focus (AXIS-37): it introduces the pillar,
+          and the focus points and practical steps read as the detail behind it.
+          Keyed on the path so switching slides remounts rather than reusing one
+          element with a new src, which leaves some browsers on the old frame. */}
+      <VideoPlayer key={p.video || 'none'} path={p.video} label={p.title} />
 
       {focus.length > 0 && (
         <div style={{ marginBottom: 18 }}>

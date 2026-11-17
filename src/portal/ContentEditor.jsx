@@ -210,6 +210,7 @@ export default function ContentEditor() {
         <Field label="Intro" value={draft.intro} onChange={(v) => setTop('intro', v)} rows={3} />
         <Field label="Philosophy" value={draft.philosophy} onChange={(v) => setTop('philosophy', v)} rows={3} />
         <Field label="Before you begin" value={draft.before_you_begin} onChange={(v) => setTop('before_you_begin', v)} rows={2} />
+        <Field label="Intro video (file name in the 'videos' bucket, e.g. intro.mp4)" value={draft.intro_video} onChange={(v) => setTop('intro_video', v)} />
         <Field label="The Axis Standard (closer)" value={draft.standard} onChange={(v) => setTop('standard', v)} rows={3} />
       </div>
 
@@ -240,6 +241,7 @@ export default function ContentEditor() {
                 <Field label="Title" value={p.title} onChange={(v) => setPillar(i, 'title', v)} />
                 <Field label="Subtitle" value={p.subtitle} onChange={(v) => setPillar(i, 'subtitle', v)} rows={2} />
                 <Field label="Intro" value={p.intro} onChange={(v) => setPillar(i, 'intro', v)} rows={3} />
+                <Field label="Video (file name in the 'videos' bucket, e.g. pillar-1.mp4)" value={p.video} onChange={(v) => setPillar(i, 'video', v)} />
 
                 <div style={{ marginBottom: 14 }}>
                   <span style={labelStyle}>Your Focus</span>

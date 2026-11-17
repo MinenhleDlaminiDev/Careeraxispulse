@@ -286,9 +286,11 @@ select '{
   "intro": "The Axis Interview Code gives you access to the four winning pillars behind the CareerPulse Axis approach to interview preparation.",
   "philosophy": "We do not predict interview questions. We master the position by connecting the employer’s objectives and requirements with the experience reflected in our CVs, preparing us to navigate even unexpected questions.",
   "before_you_begin": "Have your CV and the full job description ready before you begin.",
+  "intro_video": "intro.mp4",
   "pillars": [
     {
       "number": "01",
+      "video": "pillar-1.mp4",
       "title": "Master the Role",
       "subtitle": "Understand what you are interviewing for before preparing what you are going to say.",
       "intro": "The job description is your starting point. Study it carefully to understand what the organisation expects from the person appointed to the position.",
@@ -307,6 +309,7 @@ select '{
     },
     {
       "number": "02",
+      "video": "pillar-2.mp4",
       "title": "Research the Organisation",
       "subtitle": "Understand the organisation behind the opportunity.",
       "intro": "A job title tells you what you are applying for. Organisational research helps you understand the environment in which you will be expected to deliver.",
@@ -325,6 +328,7 @@ select '{
     },
     {
       "number": "03",
+      "video": "pillar-3.mp4",
       "title": "Build Your Evidence",
       "subtitle": "Know what makes you relevant to the position and be prepared to explain it.",
       "intro": "Your CV may have helped secure the interview. Now you need to communicate the experience, knowledge and capabilities behind it.",
@@ -343,6 +347,7 @@ select '{
     },
     {
       "number": "04",
+      "video": "pillar-4.mp4",
       "title": "Connect, Simulate & Refine",
       "subtitle": "Bring the role, the employer’s requirements and your experience into one conversation.",
       "intro": "Use what you have learned about the position and the organisation to practise explaining your suitability, including when questions take an unexpected direction.",
@@ -369,3 +374,28 @@ where not exists (select 1 from public.interview_content);
 -- Make yourself the first admin AFTER you have signed up once in the portal:
 --   update public.profiles set role = 'admin' where email = 'you@example.com';
 -- ---------------------------------------------------------------------------
+
+-- ---------------------------------------------------------------------------
+-- Private storage bucket for the Interview Code videos (AXIS-37). These are the
+-- paid product, so the bucket is private and the app plays them through
+-- short-lived signed URLs. Unlike 'cvs' and 'avatars' there is no folder-per-
+-- user rule: it's one shared set of files, so the gate is the access flag.
+-- ---------------------------------------------------------------------------
+
+insert into storage.buckets (id, name, public)
+values ('videos', 'videos', false)
+on conflict (id) do update set public = false;
+
+drop policy if exists videos_read on storage.objects;
+create policy videos_read on storage.objects
+  for select
+  using (
+    bucket_id = 'videos'
+    and (public.has_interview_access() or public.is_admin())
+  );
+
+drop policy if exists videos_admin_write on storage.objects;
+create policy videos_admin_write on storage.objects
+  for all
+  using (bucket_id = 'videos' and public.is_admin())
+  with check (bucket_id = 'videos' and public.is_admin());
