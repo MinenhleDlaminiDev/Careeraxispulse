@@ -4,6 +4,7 @@ import { useAuth } from './AuthContext';
 import PageHeader from './PageHeader';
 import Avatar from './Avatar';
 import { AVATAR_ACCEPT, validateAvatarFile, uploadAvatar, removeAvatar } from './avatarStorage';
+import { PAYSTACK, INTERVIEW_PRICE } from '../payments.js';
 import { GOLD, GOLD_INK, CREAM, MUTED, SERIF, ON_GOLD } from './theme';
 import { Stagger, Item } from '../components/Reveal.jsx';
 
@@ -32,9 +33,24 @@ export default function ClientOverview() {
           <div style={{ fontSize: 11.5, letterSpacing: '.1em', textTransform: 'uppercase', color: GOLD_INK, fontWeight: 700, marginBottom: 8 }}>Interview Code access</div>
           <span className={`ax-badge ax-badge-${access.tone}`}>{access.label}</span>
         </div>
-        <Link to="/portal/client/interview" className="ax-cta" style={{ background: GOLD, color: ON_GOLD, borderRadius: 8, padding: '10px 18px', fontSize: 14, fontWeight: 600 }}>
-          {hasInterviewAccess ? 'Open Interview Code' : 'View details'}
-        </Link>
+        {/* With live access the banner opens the deck. Without it, the primary
+            action is buying (AXIS-39) — 'View details' sent people to a locked
+            screen with nothing to do. The secondary link still explains it. */}
+        {hasInterviewAccess ? (
+          <Link to="/portal/client/interview" className="ax-cta" style={{ background: GOLD, color: ON_GOLD, borderRadius: 8, padding: '10px 18px', fontSize: 14, fontWeight: 600 }}>
+            Open Interview Code
+          </Link>
+        ) : (
+          <div style={{ display: 'flex', alignItems: 'center', gap: 14, flexWrap: 'wrap' }}>
+            <Link to="/portal/client/interview" style={{ fontSize: 13.5, color: MUTED, fontWeight: 600 }}>
+              What’s included
+            </Link>
+            <a href={PAYSTACK.interview} target="_blank" rel="noopener noreferrer" className="ax-cta"
+              style={{ background: GOLD, color: ON_GOLD, borderRadius: 8, padding: '10px 18px', fontSize: 14, fontWeight: 600 }}>
+              Get access for {INTERVIEW_PRICE} →
+            </a>
+          </div>
+        )}
       </section>
 
       <Stagger style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(220px,1fr))', gap: 14 }}>

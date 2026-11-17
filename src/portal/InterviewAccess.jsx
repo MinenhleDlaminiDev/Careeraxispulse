@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { overlayRoot } from './overlayRoot';
+import { PAYSTACK, INTERVIEW_PRICE } from '../payments.js';
 import { useAuth } from './AuthContext';
 import { supabase } from '../supabase';
 import ThemeToggle from './ThemeToggle';
@@ -42,6 +43,11 @@ export default function InterviewAccess() {
 
 // ---- Waiting (no live access) -------------------------------------------------
 
+// A client with no live access lands here. Before AXIS-39 this screen explained
+// the 30 days but gave them no way to actually buy — the one place someone has
+// already decided they want it. The CTA goes to the real Paystack page, and the
+// copy is explicit that access is switched on by us after payment clears, so
+// the manual confirmation step isn't a surprise.
 function WaitingScreen({ expiry }) {
   const expired = expiry && new Date(expiry) <= new Date();
   return (
@@ -53,10 +59,20 @@ function WaitingScreen({ expiry }) {
       <h2 style={{ fontFamily: serif, fontWeight: 700, fontSize: 22, margin: '0 0 10px', color: CREAM }}>
         {expired ? 'Your access has ended' : 'Access not active yet'}
       </h2>
-      <p style={{ color: MUTED, fontSize: 14.5, lineHeight: 1.6, margin: 0 }}>
+      <p style={{ color: MUTED, fontSize: 14.5, lineHeight: 1.6, margin: '0 0 22px' }}>
         {expired
           ? 'Your 30-day access has expired. Renew to return to the four winning pillars of interview readiness.'
-          : 'Once your payment is confirmed, we grant 30 days of access to the four winning pillars of interview readiness.'}
+          : 'Get 30 days of access to the four winning pillars of interview readiness — master the position, not just the questions.'}
+      </p>
+
+      <a href={PAYSTACK.interview} target="_blank" rel="noopener noreferrer" className="ax-cta"
+        style={{ background: GOLD, color: ON_GOLD, borderRadius: 8, padding: '13px 26px', fontSize: 15, fontWeight: 700, display: 'inline-flex' }}>
+        {expired ? `Renew for ${INTERVIEW_PRICE}` : `Get access for ${INTERVIEW_PRICE}`} →
+      </a>
+
+      <p style={{ color: MUTED, fontSize: 12.5, lineHeight: 1.6, margin: '16px 0 0' }}>
+        One-time payment, no automatic renewal. We activate your 30 days as soon as your
+        payment is confirmed — you’ll see it here when it’s live.
       </p>
     </div>
   );

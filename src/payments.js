@@ -15,10 +15,17 @@ export const CV_REVAMP = {
   executive: 'https://paystack.com/buy/executive-level-10-years-r400-jxaapg',   // 10+ years, R400
 };
 
+// The Axis Interview Code — live product page. Price verified against the
+// Paystack page itself on 2026-11-17: ZAR 90. Keep INTERVIEW_PRICE in step with
+// it; the marketing page and the portal both read this one constant, so they
+// can never disagree.
+export const INTERVIEW_URL = 'https://paystack.com/buy/the-axis-interview-code-mxcfox';
+export const INTERVIEW_PRICE = 'R90';
+
 export const PAYSTACK = {
   bookService: PAYSTACK_URL, // general "Book a Service"
   cvRevamp: PAYSTACK_URL,    // general "Book a CV Revamp" CTA (Home hero)
   cv: CV_REVAMP,             // per-tier CV Revamp product pages
-  interview: PAYSTACK_URL,   // replace when you make an Interview page
+  interview: INTERVIEW_URL,  // The Axis Interview Code (AXIS-39)
   ebook: PAYSTACK_URL,       // replace when you make an eBook page
 };

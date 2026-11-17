@@ -1,10 +1,17 @@
-import { PAYSTACK } from '../payments.js';
+import { Link } from 'react-router-dom';
+import { INTERVIEW_PRICE } from '../payments.js';
 import { useSeo } from '../seo.js';
 import Reveal, { Stagger, Item } from '../components/Reveal.jsx';
 
-// Price is a placeholder until the Paystack link is finalised. Change PRICE here
-// and the button labels pick it up. PAYSTACK.interview holds the checkout link.
-const PRICE = 'R90';
+// Price comes from payments.js so this page and the portal can never show
+// different numbers (AXIS-39).
+const PRICE = INTERVIEW_PRICE;
+
+// These buttons deliberately do NOT go straight to Paystack. Access is granted
+// to a PROFILE, so a payment with no account behind it leaves nobody to switch
+// the 30 days on for. Buyers are sent to signup first; once they have a profile
+// the portal's own "Get access" CTA takes them to checkout (AXIS-39).
+const BUY_PATH = '/portal/signup?buy=interview-code';
 
 function Feature({ icon, label }) {
   return (
@@ -46,7 +53,12 @@ export default function InterviewCode() {
             </div>
 
             <div>
-              <a href={PAYSTACK.interview} style={{ display: "inline-block", background: "#C9A227", color: "#131F38", padding: "16px 40px", borderRadius: "3px", fontWeight: "600", fontSize: "16px" }} data-h="hv-interview-0">Get Access for {PRICE} →</a>
+              <Link to={BUY_PATH} style={{ display: "inline-block", background: "#C9A227", color: "#131F38", padding: "16px 40px", borderRadius: "3px", fontWeight: "600", fontSize: "16px" }} data-h="hv-interview-0">Get Access for {PRICE} →</Link>
+              <p style={{ fontSize: "13.5px", color: "#9FB0C9", margin: "14px 0 0", lineHeight: "1.6", maxWidth: "420px" }}>
+                You’ll create a free profile first — that’s where we switch your 30 days on
+                once payment is confirmed. Already have one?{" "}
+                <Link to="/portal/login" style={{ color: "#C9A227", fontWeight: 600 }}>Sign in</Link>.
+              </p>
             </div>
           </div>
 
@@ -85,7 +97,7 @@ export default function InterviewCode() {
             <h2 style={{ fontFamily: "'Source Serif 4',serif", fontSize: "clamp(26px,3.6vw,38px)", fontWeight: "600", margin: "0 0 10px" }}>Prepare with Purpose.</h2>
             <p style={{ fontSize: "16px", color: "#B9C0D2", margin: "0", lineHeight: "1.6" }}>Get access to The Axis Interview Code and build your interview readiness the right way.</p>
           </div>
-          <a href={PAYSTACK.interview} style={{ display: "inline-block", background: "#C9A227", color: "#131F38", padding: "16px 36px", borderRadius: "3px", fontWeight: "600", fontSize: "16px", whiteSpace: "nowrap" }} data-h="hv-interview-1">Get Access for {PRICE} →</a>
+          <Link to={BUY_PATH} style={{ display: "inline-block", background: "#C9A227", color: "#131F38", padding: "16px 36px", borderRadius: "3px", fontWeight: "600", fontSize: "16px", whiteSpace: "nowrap" }} data-h="hv-interview-1">Get Access for {PRICE} →</Link>
         </Reveal>
       </section>
     </>

@@ -7,7 +7,8 @@ import AuthCard, { fieldStyle, labelStyle, primaryBtnStyle } from './AuthCard';
 import Modal from './Modal';
 import SignupForm from './SignupForm';
 import PasswordInput from './PasswordInput';
-import { DANGER, GOLD_INK, MUTED } from './theme';
+import { INTERVIEW_PRICE } from '../payments.js';
+import { DANGER, GOLD_INK, MUTED, CREAM, GOLD_SOFT, GOLD_BORDER } from './theme';
 
 // Email + password sign-in. On success the auth listener sets the session and
 // the <Navigate> below redirects to /portal, where RoleLanding routes by role.
@@ -20,6 +21,8 @@ export default function Login() {
   const [busy, setBusy] = useState(false);
   // Opens automatically when arriving from the /portal/signup redirect.
   const [showSignup, setShowSignup] = useState(Boolean(location.state?.signup));
+  // Set when they came from a "buy" CTA, so we can say why a profile is needed.
+  const buying = location.state?.buy === 'interview-code';
 
   if (loading) return <Loading />;
   // Always land at /portal and let RoleLanding pick the dashboard by the current
@@ -67,6 +70,21 @@ export default function Login() {
 
       {showSignup && (
         <Modal onClose={() => setShowSignup(false)} label="Create your account">
+          {/* Arrived from the Interview Code "Get Access" button: they are trying
+              to BUY, not to sign in. This sits INSIDE the modal because the modal
+              auto-opens over the login card — anything behind it is unseen. */}
+          {buying && (
+            <div style={{ marginBottom: 18, padding: '13px 15px', borderRadius: 9, background: GOLD_SOFT, border: `1px solid ${GOLD_BORDER}` }}>
+              <div style={{ fontSize: 13.5, fontWeight: 700, color: CREAM, marginBottom: 5 }}>
+                Create your profile to buy the Interview Code
+              </div>
+              <div style={{ fontSize: 13, color: MUTED, lineHeight: 1.6 }}>
+                Your profile is where we switch on your 30 days, so you need one before you pay.
+                It takes a minute — then you can buy for {INTERVIEW_PRICE} straight from the portal.
+                Already registered? Close this to sign in.
+              </div>
+            </div>
+          )}
           <SignupForm onDone={() => setShowSignup(false)} />
         </Modal>
       )}
