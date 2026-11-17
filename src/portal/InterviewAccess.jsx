@@ -294,6 +294,58 @@ function CoverSlide({ c, onBegin }) {
 const focusContainer = { hidden: {}, show: { transition: { staggerChildren: 0.08, delayChildren: 0.18 } } };
 const focusItem = { hidden: { opacity: 0, y: 8 }, show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: EASE } } };
 
+// A labelled note inside Practical Application. `tone` keeps the slide from
+// becoming a wall of gold boxes: only the action is gold-filled, the example
+// and prompt sit on the plain surface, and the caution gets a gold edge bar so
+// it reads as a warning without a third gold fill next to the principle.
+function PracticalNote({ label, children, tone = 'plain', italic = false }) {
+  const gold = tone === 'gold';
+  const caution = tone === 'caution';
+  return (
+    <div style={{
+      background: gold ? GOLD_SOFT : SURFACE,
+      border: `1px solid ${gold ? GOLD_BORDER : BORDER}`,
+      ...(caution ? { borderLeft: `3px solid ${GOLD}`, borderRadius: '0 9px 9px 0' } : { borderRadius: 9 }),
+      padding: '12px 14px',
+    }}>
+      <div style={{ letterSpacing: '.14em', textTransform: 'uppercase', fontSize: 10, color: GOLD, fontWeight: 700, marginBottom: 6 }}>{label}</div>
+      <p style={{
+        margin: 0, fontSize: 14, lineHeight: 1.65,
+        color: gold || caution ? CREAM : MUTED,
+        fontFamily: italic ? serif : 'inherit',
+        fontStyle: italic ? 'italic' : 'normal',
+      }}>{children}</p>
+    </div>
+  );
+}
+
+// AXIS-38: the "Practical Application" section the official doc adds to every
+// pillar — how to actually do the pillar, a worked example, and the action to
+// take. Pillar 04 also carries a sample AI prompt and a caution about trusting
+// AI-generated questions. Every field is optional so a pillar the admin has not
+// filled in yet simply renders nothing rather than an empty heading.
+function PracticalApplication({ practical, delay }) {
+  if (!practical) return null;
+  const { lead, example, prompt, action, caution } = practical;
+  if (!lead && !example && !prompt && !action && !caution) return null;
+  return (
+    <motion.section
+      initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, ease: EASE, delay }}
+      style={{ marginBottom: 18 }}
+    >
+      <div style={{ letterSpacing: '.16em', textTransform: 'uppercase', fontSize: 10.5, color: GOLD, marginBottom: 10 }}>Practical Application</div>
+      {lead && <p style={{ fontSize: 14.5, color: CREAM, lineHeight: 1.7, margin: '0 0 12px' }}>{lead}</p>}
+      <div style={{ display: 'grid', gap: 10 }}>
+        {example && <PracticalNote label="Example">{example}</PracticalNote>}
+        {prompt && <PracticalNote label="Example AI prompt" italic>“{prompt}”</PracticalNote>}
+        {action && <PracticalNote label="Your action" tone="gold">{action}</PracticalNote>}
+        {caution && <PracticalNote label="Important" tone="caution">{caution}</PracticalNote>}
+      </div>
+    </motion.section>
+  );
+}
+
 function PillarSlide({ p, index, total }) {
   const focus = Array.isArray(p.focus) ? p.focus : [];
   return (
@@ -328,9 +380,11 @@ function PillarSlide({ p, index, total }) {
         </div>
       )}
 
+      <PracticalApplication practical={p.practical} delay={0.18 + focus.length * 0.08} />
+
       {p.principle && (
         <motion.blockquote initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: EASE, delay: 0.18 + focus.length * 0.08 }}
+          transition={{ duration: 0.5, ease: EASE, delay: 0.26 + focus.length * 0.08 }}
           style={{ margin: 0, borderLeft: `3px solid ${GOLD}`, background: GOLD_SOFT, border: `1px solid ${GOLD_BORDER}`, borderLeftWidth: 3, borderRadius: '0 10px 10px 0', padding: '16px 18px' }}>
           <div style={{ letterSpacing: '.16em', textTransform: 'uppercase', fontSize: 10, color: GOLD, marginBottom: 6 }}>The Axis Principle</div>
           <p style={{ margin: 0, fontFamily: serif, fontStyle: 'italic', fontSize: 'clamp(15px,2.3vw,17px)', color: CREAM, lineHeight: 1.5 }}>{p.principle}</p>

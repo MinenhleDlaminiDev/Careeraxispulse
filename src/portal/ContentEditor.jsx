@@ -99,6 +99,19 @@ export default function ContentEditor() {
     setDraft((d) => ({ ...d, pillars: [...d.pillars, np] }));
     setOpenKey(np.__key);
   };
+  // Practical Application (AXIS-38) is a nested object, so it gets its own
+  // setter rather than going through setPillar. An empty string is dropped
+  // instead of stored, which keeps a blank field out of the saved JSON and lets
+  // the slide skip the block entirely.
+  const setPractical = (i, key, value) => setDraft((d) => ({
+    ...d,
+    pillars: d.pillars.map((p, idx) => {
+      if (idx !== i) return p;
+      const next = { ...(p.practical || {}), [key]: value };
+      if (!value) delete next[key];
+      return { ...p, practical: next };
+    }),
+  }));
   const removePillar = (i) => setDraft((d) => ({ ...d, pillars: d.pillars.filter((_, idx) => idx !== i) }));
   const movePillar = (i, dir) => setDraft((d) => {
     const j = i + dir;
@@ -237,6 +250,18 @@ export default function ContentEditor() {
                     </div>
                   ))}
                   <button type="button" onClick={() => addFocus(i)} style={ghostBtn}>+ Add focus point</button>
+                </div>
+
+                {/* Practical Application (AXIS-38). Every field is optional:
+                    leave one blank and the slide leaves that block out. The
+                    prompt and caution are only used on the AI pillar. */}
+                <div style={{ marginBottom: 14, paddingTop: 4, borderTop: `1px solid ${BORDER}` }}>
+                  <span style={{ ...labelStyle, marginTop: 10 }}>Practical Application</span>
+                  <Field label="Lead paragraph" value={p.practical?.lead} onChange={(v) => setPractical(i, 'lead', v)} rows={3} />
+                  <Field label="Example" value={p.practical?.example} onChange={(v) => setPractical(i, 'example', v)} rows={3} />
+                  <Field label="Example AI prompt (optional)" value={p.practical?.prompt} onChange={(v) => setPractical(i, 'prompt', v)} rows={4} />
+                  <Field label="Your action" value={p.practical?.action} onChange={(v) => setPractical(i, 'action', v)} rows={3} />
+                  <Field label="Important / caution (optional)" value={p.practical?.caution} onChange={(v) => setPractical(i, 'caution', v)} rows={3} />
                 </div>
 
                 <Field label="The Axis Principle" value={p.principle} onChange={(v) => setPillar(i, 'principle', v)} rows={2} />

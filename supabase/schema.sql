@@ -298,6 +298,11 @@ select '{
         "Determine what successful performance in the role would involve.",
         "Identify the operational needs or challenges the position is intended to address, where these are clear."
       ],
+      "practical": {
+        "lead": "Break down all major responsibilities in the job description and identify the processes, tools and competencies required to perform each one.",
+        "example": "If the position requires data analysis, understand how data is collected, cleaned, analysed and interpreted. Identify how tools such as Excel, SQL or Power BI may be used to produce insights that support business decisions.",
+        "action": "Practise explaining how you would approach the major responsibilities, including the methods you would use and the expected outcomes. Use possible interview questions to test your understanding of the role."
+      },
       "principle": "You cannot communicate your suitability for a position you do not understand."
     },
     {
@@ -311,6 +316,11 @@ select '{
         "Review its values, mission and relevant recent developments.",
         "Consider how the position contributes to its broader objectives."
       ],
+      "practical": {
+        "lead": "Connect relevant findings from your organisational research to the position’s responsibilities and the employer’s objectives.",
+        "example": "If an organisation is expanding its digital services, consider how a Data Analyst could contribute through customer trend analysis, performance reporting and identifying opportunities for improvement.",
+        "action": "Practise answering possible questions about the organisation, particularly why you want to work there and how your position contributes to its objectives. Support your responses with verified information."
+      },
       "principle": "Strong preparation connects the position to the organisation’s purpose."
     },
     {
@@ -324,6 +334,11 @@ select '{
         "Recall specific responsibilities, contributions, challenges and outcomes.",
         "Prepare to explain your involvement clearly, without exaggeration."
       ],
+      "practical": {
+        "lead": "Match the major job requirements to relevant examples from your CV. Use the STAR method to structure your responses around the Situation, Task, Action and Result, where applicable.",
+        "example": "Instead of simply stating “I have data analysis skills,” explain a genuine project where you cleaned data, analysed trends using Excel or Power BI and presented findings to address a specific problem.",
+        "action": "Practise answering competency-based questions using genuine examples from your experience, academic projects or transferable skills. Explain your personal contribution and the outcome without exaggeration."
+      },
       "principle": "Don’t simply repeat your CV. Explain the value behind it."
     },
     {
@@ -337,6 +352,12 @@ select '{
         "Connect your responses to genuine evidence from your CV and experience.",
         "Refine your explanations for accuracy and relevance, rather than memorising answers."
       ],
+      "practical": {
+        "lead": "Use AI tools to generate possible interview questions based on the complete job description and your CV. Ensure the tool receives the full job description so it can identify the responsibilities, required competencies and employer expectations.",
+        "prompt": "Act as an interviewer for this position. Analyse the complete job description and my CV. Generate possible technical, behavioural and situational interview questions aligned with the employer’s requirements. Ask me one question at a time, evaluate my responses and suggest improvements based on my actual knowledge, skills and experience.",
+        "action": "Select only questions strongly aligned with the position, what the employer is looking for and your actual capabilities. Use these questions to practise applying what you learned across the first three pillars.",
+        "caution": "Do not treat every AI-generated question as relevant. Prioritise questions supported by the job description and practise responding naturally rather than memorising answers."
+      },
       "principle": "The goal is not to predict every question. It is to understand the position and your evidence well enough to respond when the questions change."
     }
   ],
