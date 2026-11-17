@@ -219,6 +219,10 @@
   .ax-side button,.ax-side a{min-height:44px}
   .ax-content button,.ax-cta{min-height:44px}
   .ax-cta{display:inline-flex;align-items:center;justify-content:center}
+  /* Form controls: the base padding lands them at 43px, one short of the bar. */
+  .ax-content input,.ax-content select,.ax-content textarea,
+  .ax-auth input,.ax-auth select,.ax-auth textarea{min-height:44px}
+  .ax-backlink{min-height:44px;display:inline-flex;align-items:center}
   .ax-topbar a{min-height:44px;display:flex;align-items:center}
   /* The toggle keeps its 64x34 pill look; this invisible overlay gives it the
      full 44px touch height without making the control look chunky. */
