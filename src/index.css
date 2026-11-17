@@ -132,10 +132,10 @@
 @media (prefers-reduced-motion: reduce){.ax-quick:hover{transform:none}}
 
 /* Portal hub (AXIS-24) — the centered launcher cards shown on portal entry */
-.ax-hub{position:fixed;inset:0;z-index:200;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:72px 20px 48px;padding-top:max(72px,calc(env(safe-area-inset-top) + 56px));padding-bottom:max(48px,calc(env(safe-area-inset-bottom) + 24px));background:var(--ax-bg);overflow-y:auto}
-.ax-hub-bar{position:absolute;top:18px;right:18px;display:flex;align-items:center;gap:10px}
-.ax-hub-head{text-align:center;margin-bottom:30px;max-width:560px}
-.ax-hub-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:18px;width:100%;margin:0 auto}
+.ax-hub{position:fixed;inset:0;z-index:200;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:72px 20px 48px;padding-top:max(72px,calc(env(safe-area-inset-top) + 56px));padding-bottom:max(48px,calc(env(safe-area-inset-bottom) + 24px));background:var(--ax-bg);overflow-y:auto}
+.ax-hub-bar{position:absolute;top:max(18px,calc(env(safe-area-inset-top) + 10px));right:max(18px,env(safe-area-inset-right));z-index:1;display:flex;align-items:center;gap:10px}
+.ax-hub-head{text-align:center;margin:auto auto 30px;max-width:560px}
+.ax-hub-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:18px;width:100%;margin:0 auto auto}
 .ax-hub-card{display:flex;flex-direction:column;align-items:flex-start;text-align:left;gap:4px;width:100%;box-sizing:border-box;min-height:184px;padding:22px 20px 20px;border-radius:16px;background:var(--ax-surface);border:1px solid var(--ax-border);box-shadow:var(--ax-card-shadow);color:var(--ax-text);font-family:inherit;cursor:pointer}
 .ax-hub-card:hover{border-color:var(--ax-gold-border)}
 .ax-hub-ic{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:var(--ax-gold-soft);color:var(--ax-gold-ink);border:1px solid var(--ax-gold-border);margin-bottom:12px}
@@ -143,7 +143,7 @@
 .ax-hub-desc{font-size:13.5px;color:var(--ax-muted);line-height:1.55;flex:1}
 .ax-hub-go{font-size:13px;font-weight:600;color:var(--ax-gold-ink);margin-top:10px}
 .ax-portal[data-theme="dark"] .ax-hub-card{background:linear-gradient(168deg,#15213b 0%,#1b2a4c 100%)}
-@media(max-width:560px){.ax-hub{padding:68px 16px 40px}.ax-hub-grid{grid-template-columns:1fr;max-width:420px !important}.ax-hub-card{min-height:0}}
+@media(max-width:560px){.ax-hub{padding:16px;padding-top:max(78px,calc(env(safe-area-inset-top) + 70px));padding-bottom:max(40px,calc(env(safe-area-inset-bottom) + 20px))}.ax-hub-grid{grid-template-columns:1fr;max-width:420px !important}.ax-hub-card{min-height:0}}
 
 /* Interview Code presentation (AXIS-26) — one pillar at a time, inline or full-screen */
 /* dvh, not vh: on mobile browsers the toolbar shrinks the visible viewport, so

@@ -98,12 +98,16 @@ function ProfilePhotoCard() {
   return (
     <section className="ax-card" style={{ padding: '18px 20px', marginBottom: 20, display: 'flex', alignItems: 'center', gap: 16, flexWrap: 'wrap' }}>
       <Avatar path={path} name={profile?.full_name} email={profile?.email} size={64} />
-      <div style={{ minWidth: 0, flex: 1 }}>
+      {/* flex:1 with minWidth:0 let this shrink to nothing: the button group has
+          no basis of its own, so on a phone it claimed the whole row and the name
+          collapsed to one letter per line. A 150px floor makes the buttons wrap
+          below instead; the children still ellipsis because they clip (AXIS-44). */}
+      <div style={{ minWidth: 150, flex: '1 1 150px' }}>
         <div style={{ fontSize: 16, fontWeight: 700, color: CREAM, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{profile?.full_name || 'Your profile'}</div>
         <div style={{ fontSize: 13, color: MUTED, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{profile?.email}</div>
         {error && <div style={{ fontSize: 12.5, color: 'var(--ax-danger)', marginTop: 6 }}>{error}</div>}
       </div>
-      <div style={{ display: 'flex', gap: 9, flexWrap: 'wrap' }}>
+      <div style={{ display: 'flex', gap: 9, flexWrap: 'wrap', flexShrink: 0 }}>
         <Link to="/portal/client/profile" className="ax-iconbtn">Edit profile</Link>
         <input ref={inputRef} type="file" accept={AVATAR_ACCEPT} onChange={onPick} style={{ display: 'none' }} id="avatar-file" />
         <label htmlFor="avatar-file" className="ax-iconbtn" style={{ cursor: busy ? 'default' : 'pointer', opacity: busy ? 0.6 : 1, pointerEvents: busy ? 'none' : 'auto' }}>
