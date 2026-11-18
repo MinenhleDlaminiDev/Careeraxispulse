@@ -55,7 +55,8 @@ export default function ClientOverview() {
 
       <Stagger style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(220px,1fr))', gap: 14 }}>
         <Item><QuickCard to="/portal/client/interview" title="Interview Code" body="The four winning pillars of interview readiness." /></Item>
-        <Item><QuickCard to="/portal/client/cv" title="My CV" body="Upload your CV so we can prepare alongside the job description." /></Item>
+        {/* AXIS-40: the CV screen now also sells the revamp, so say so here. */}
+        <Item><QuickCard to="/portal/client/cv" title="My CV" body="Upload your CV, or buy a revamp priced for your experience." /></Item>
       </Stagger>
     </div>
   );

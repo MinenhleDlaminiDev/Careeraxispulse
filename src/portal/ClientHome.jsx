@@ -7,7 +7,7 @@ import ProfilePage from './ProfilePage';
 const NAV = [
   { to: '/portal/client/overview', label: 'Overview', icon: 'home', desc: 'Your access status and quick links at a glance.' },
   { to: '/portal/client/interview', label: 'Interview Code', icon: 'book', desc: 'The four winning pillars of interview readiness.' },
-  { to: '/portal/client/cv', label: 'My CV', icon: 'file', desc: 'Upload your CV and collect the finished version.' },
+  { to: '/portal/client/cv', label: 'My CV', icon: 'file', desc: 'Upload your CV, buy a revamp, collect the finished version.' },
 ];
 
 // 'profile' is a route but deliberately NOT in NAV: it is reached from the

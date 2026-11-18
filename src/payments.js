@@ -15,6 +15,21 @@ export const CV_REVAMP = {
   executive: 'https://paystack.com/buy/executive-level-10-years-r400-jxaapg',   // 10+ years, R400
 };
 
+// AXIS-40 — the same four tiers as one list, so the portal and the marketing
+// page can never quote different prices. `seniority` holds the profile
+// seniority_level values that point at this tier; the portal uses it to suggest
+// a tier rather than to lock one in. Bands and prices verified against the live
+// Paystack pages on 2026-11-17.
+export const CV_TIERS = [
+  { key: 'entry', label: 'Entry level', band: '0–2 years', price: 'R150', url: CV_REVAMP.entry, seniority: ['Entry level'] },
+  { key: 'mid', label: 'Mid-level', band: '2–5 years', price: 'R220', url: CV_REVAMP.mid, seniority: ['Mid level'] },
+  { key: 'senior', label: 'Senior level', band: '5–10 years', price: 'R300', url: CV_REVAMP.senior, seniority: ['Senior'] },
+  { key: 'executive', label: 'Executive', band: '10+ years', price: 'R400', url: CV_REVAMP.executive, seniority: ['Management', 'Executive'] },
+];
+
+// Every tier buys the same work; only the depth of the experience differs.
+export const CV_TIER_INCLUDES = ['CV restructuring', 'Content refinement', 'ATS-aligned formatting'];
+
 // The Axis Interview Code — live product page. Price verified against the
 // Paystack page itself on 2026-11-17: ZAR 90. Keep INTERVIEW_PRICE in step with
 // it; the marketing page and the portal both read this one constant, so they

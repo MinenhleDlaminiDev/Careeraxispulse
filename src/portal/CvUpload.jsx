@@ -5,6 +5,7 @@ import { GOLD, CREAM, MUTED, ON_GOLD, DANGER, GOLD_INK } from './theme';
 import Banner from './Banner';
 import PageHeader from './PageHeader';
 import { ACCEPT, validateCvFile, uploadCv, downloadCv, displayName } from './cvStorage';
+import CvRevampTiers from './CvRevampTiers';
 
 // Shared document glyph for the CV rows.
 const FileSvg = (
@@ -139,6 +140,10 @@ export default function CvUpload() {
           </>
         )}
       </section>
+
+      {/* AXIS-40: buy the revamp here instead of going back to the marketing
+          site. It sits below the upload because step one is giving us the CV. */}
+      <CvRevampTiers />
     </div>
   );
 }
