@@ -161,6 +161,15 @@
 .ax-switch input{width:18px;height:18px;flex-shrink:0;margin:0;accent-color:var(--ax-gold);cursor:pointer}
 .ax-switch input:disabled{cursor:default}
 .ax-switch:has(input:disabled){opacity:.6}
+/* AXIS-43: "Continue with Google" + the "or" divider under it. The button is
+   white in both themes — Google's brand guidelines fix that, and a themed
+   version would read as a fake. */
+.ax-google{box-sizing:border-box;width:100%;min-height:44px;display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:12px 16px;border-radius:8px;border:1px solid #DADCE0;background:#fff;color:#1F1F1F;font-family:inherit;font-size:14.5px;font-weight:600;cursor:pointer}
+.ax-google:hover:not(:disabled){background:#F7F8F8}
+.ax-google:disabled{opacity:.6;cursor:default}
+.ax-google svg{flex-shrink:0}
+.ax-or{display:flex;align-items:center;gap:12px;margin:18px 0;font-size:12px;text-transform:uppercase;letter-spacing:.1em}
+.ax-or::before,.ax-or::after{content:"";flex:1;height:1px;background:var(--ax-border)}
 /* Content editor (AXIS-32): sticky action bar, dirty state, collapsible pillars */
 .ax-editbar{position:sticky;top:0;z-index:20;display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;justify-content:space-between;padding:12px 0;margin-bottom:18px;background:var(--ax-bg-solid);border-bottom:1px solid var(--ax-border)}
 .ax-editbar-actions{display:flex;flex-wrap:wrap;gap:9px}
@@ -292,6 +301,11 @@
   /* Form controls: the base padding lands them at 43px, one short of the bar. */
   .ax-content input,.ax-content select,.ax-content textarea,
   .ax-auth input,.ax-auth select,.ax-auth textarea{min-height:44px}
+  /* The auth card's own submit buttons were never covered: the rule above is
+     inputs only, and .ax-content button doesn't reach inside .ax-auth. Their
+     padding lands them at 43px, one short of the bar (AXIS-35). Found while
+     measuring the AXIS-43 completion screen, which uses this same card. */
+  .ax-auth button[type="submit"]{min-height:44px}
   /* AXIS-41: a Modal is portalled into .ax-portal, outside .ax-content, so the
      rule above never reaches a form inside a dialog. Give it its own. */
   .ax-modal-card input,.ax-modal-card select,.ax-modal-card textarea{min-height:44px}

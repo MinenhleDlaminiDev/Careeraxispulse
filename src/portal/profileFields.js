@@ -84,6 +84,37 @@ export const QUALIFICATION_LEVELS = [
   'Other',
 ];
 
+// AXIS-43 — the one definition of a "complete" profile, in field order.
+//
+// This list is the single source of truth: the profile editor marks its inputs
+// required from it, and the completion gate decides from it. They used to be
+// two separate declarations, which is exactly how a gate ends up demanding a
+// field the editor never asks for — an unescapable loop for the client.
+//
+// Only text/select fields belong here. skills and education stay optional
+// (AXIS-42 deliberately put them on an optional step), and linkedin_url,
+// target_companies and change_driver have always been optional.
+export const REQUIRED_PROFILE_FIELDS = [
+  'full_name',
+  'phone',
+  'location',
+  'employment_status',
+  'target_role',
+  'target_industry',
+  'seniority_level',
+];
+
+// Is every required field filled in? A null profile is NOT complete, but it is
+// also not the gate's problem — ProtectedRoute handles "no profile" before the
+// gate ever runs.
+export const isProfileComplete = (profile) => !!profile
+  && REQUIRED_PROFILE_FIELDS.every((k) => ((profile[k] ?? '') + '').trim() !== '');
+
+// Which required fields are still missing — so the completion screen can say
+// how much is left rather than just refusing to move on.
+export const missingProfileFields = (profile) => REQUIRED_PROFILE_FIELDS
+  .filter((k) => (((profile?.[k]) ?? '') + '').trim() === '');
+
 // Blank -> null so optional fields don't store empty strings in the profile.
 export const clean = (v) => {
   const t = (v || '').trim();

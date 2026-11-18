@@ -6,8 +6,14 @@ import { GOLD, CREAM, ON_GOLD, BORDER, DANGER } from './theme';
 // Gate for authenticated portal routes. Security is enforced by RLS on the
 // server; this only decides what the UI shows. requireAdmin keeps clients out
 // of admin screens (they get bounced to their own area).
-export default function ProtectedRoute({ requireAdmin = false, children }) {
-  const { session, profile, profileReady, loading, isAdmin, signOut } = useAuth();
+//
+// AXIS-43 adds a second gate: a client whose profile is missing required fields
+// is sent to /portal/complete-profile and cannot reach anything else. It sits
+// here rather than in each screen so there is one rule and no route can be
+// reached around it. `allowIncomplete` is what the completion screen's own
+// route passes, so the gate doesn't redirect it to itself forever.
+export default function ProtectedRoute({ requireAdmin = false, allowIncomplete = false, children }) {
+  const { session, profile, profileReady, loading, isAdmin, profileComplete, signOut } = useAuth();
   const location = useLocation();
 
   if (loading) return <Loading />;
@@ -29,6 +35,18 @@ export default function ProtectedRoute({ requireAdmin = false, children }) {
   }
 
   if (requireAdmin && !isAdmin) return <Navigate to="/portal/client" replace />;
+
+  // AXIS-43: incomplete profile -> the completion step, and nowhere else.
+  // profileComplete is already true for admins (see AuthContext), so an admin
+  // is never held here by career fields they have no reason to fill in.
+  if (!allowIncomplete && !profileComplete) {
+    return <Navigate to="/portal/complete-profile" replace />;
+  }
+  // Already complete but sitting on the completion screen: send them on, so a
+  // bookmark or a back-button press doesn't strand them on a finished form.
+  if (allowIncomplete && profileComplete) {
+    return <Navigate to="/portal" replace />;
+  }
 
   return children;
 }

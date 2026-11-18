@@ -7,6 +7,7 @@ import AuthCard, { fieldStyle, labelStyle, primaryBtnStyle } from './AuthCard';
 import Modal from './Modal';
 import SignupForm from './SignupForm';
 import PasswordInput from './PasswordInput';
+import GoogleButton from './GoogleButton';
 import { INTERVIEW_PRICE } from '../payments.js';
 import { DANGER, GOLD_INK, MUTED, CREAM, GOLD_SOFT, GOLD_BORDER } from './theme';
 
@@ -53,6 +54,9 @@ export default function Login() {
 
   return (
     <AuthCard eyebrow="Portal Sign In" showConfigWarning>
+      {/* AXIS-43: above the form, because someone who uses Google should not
+          have to read past a password field to find it. */}
+      <GoogleButton onError={setError} />
       <form onSubmit={onSubmit}>
         <label style={labelStyle}>
           Email

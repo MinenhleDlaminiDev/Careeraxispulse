@@ -57,7 +57,7 @@ export default function AccessManagement() {
     setState((s) => ({ ...s, loading: true, error: false }));
     const { data, error } = await supabase
       .from('profiles')
-      .select('id, full_name, email, interview_access_expires_at, avatar_path, target_role, location, returning_client')
+      .select('id, full_name, email, interview_access_expires_at, avatar_path, avatar_url, target_role, location, returning_client')
       .eq('role', 'client')
       .order('email');
     if (error) { setState({ loading: false, clients: [], error: true }); return; }
@@ -138,7 +138,7 @@ export default function AccessManagement() {
               <Item as="div" key={c.id} className="ax-card" style={{ padding: '20px 20px 22px', display: 'flex', flexDirection: 'column' }}>
                 <Link to={to} style={{ display: 'block', color: 'inherit', textDecoration: 'none' }}>
                   <header style={{ display: 'flex', alignItems: 'center', gap: 13 }}>
-                    <Avatar path={c.avatar_path} name={c.full_name} email={c.email} />
+                    <Avatar path={c.avatar_path} src={c.avatar_url} name={c.full_name} email={c.email} />
                     <div style={{ minWidth: 0, flex: 1 }}>
                       <div style={{ fontSize: 16, fontWeight: 700, color: 'var(--ax-text)', ...ellipsis }}>{c.full_name || 'Unnamed client'}</div>
                       <div style={{ fontSize: 13, color: MUTED, ...ellipsis }}>{c.email}</div>

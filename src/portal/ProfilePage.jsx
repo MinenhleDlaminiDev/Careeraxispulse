@@ -4,7 +4,7 @@ import { useAuth } from './AuthContext';
 import { supabase } from '../supabase';
 import PageHeader from './PageHeader';
 import { fieldStyle, labelStyle } from './AuthCard';
-import { SENIORITY, EMPLOYMENT, INDUSTRIES, SKILLS, clean, cleanList, cleanEducation, asList, stableJson } from './profileFields';
+import { SENIORITY, EMPLOYMENT, INDUSTRIES, SKILLS, clean, cleanList, cleanEducation, asList, stableJson, REQUIRED_PROFILE_FIELDS } from './profileFields';
 import MultiSelect from './MultiSelect';
 import EducationFields from './EducationFields';
 import { GOLD, GOLD_INK, CREAM, MUTED, ON_GOLD, BORDER, DANGER } from './theme';
@@ -26,14 +26,14 @@ import { GOLD, GOLD_INK, CREAM, MUTED, ON_GOLD, BORDER, DANGER } from './theme';
 // compared and cleaned differently (see ProfileSection), because '' and []
 // are not interchangeable and === does not compare arrays.
 const FIELDS = {
-  full_name: { label: 'Full name', type: 'text', required: true, autoComplete: 'name' },
-  phone: { label: 'Phone / WhatsApp', type: 'tel', required: true, autoComplete: 'tel' },
-  location: { label: 'Location (city, province)', type: 'text', required: true },
+  full_name: { label: 'Full name', type: 'text', autoComplete: 'name' },
+  phone: { label: 'Phone / WhatsApp', type: 'tel', autoComplete: 'tel' },
+  location: { label: 'Location (city, province)', type: 'text' },
   linkedin_url: { label: 'LinkedIn profile', type: 'url', placeholder: 'https://linkedin.com/in/…' },
-  employment_status: { label: 'Employment status', type: 'select', options: EMPLOYMENT, required: true },
-  target_role: { label: 'Target role / position', type: 'text', required: true },
-  target_industry: { label: 'Target industry / sector', type: 'select', options: INDUSTRIES, required: true },
-  seniority_level: { label: 'Seniority level', type: 'select', options: SENIORITY, required: true },
+  employment_status: { label: 'Employment status', type: 'select', options: EMPLOYMENT },
+  target_role: { label: 'Target role / position', type: 'text' },
+  target_industry: { label: 'Target industry / sector', type: 'select', options: INDUSTRIES },
+  seniority_level: { label: 'Seniority level', type: 'select', options: SENIORITY },
   target_companies: { label: 'Companies you’re targeting', type: 'text', placeholder: 'Separate with commas' },
   change_driver: { label: 'What’s driving the change?', type: 'textarea', rows: 3, placeholder: 'New field, redundancy, growth…' },
   skills: { label: 'Skills & competencies', type: 'skills', list: true },
@@ -192,11 +192,15 @@ function ProfileSection({ section }) {
 }
 
 function Field({ name, value, onChange, first }) {
+  // AXIS-43: required comes from REQUIRED_PROFILE_FIELDS, the same list the
+  // completion gate uses. Previously each field carried its own required flag,
+  // which is how an editor ends up not asking for something the gate demands.
   const f = FIELDS[name];
+  const required = REQUIRED_PROFILE_FIELDS.includes(name);
   const style = { ...labelStyle, marginTop: first ? 0 : 16 };
   const label = (
     <>
-      {f.label}{!f.required && <> <span style={optionalHint}>(optional)</span></>}
+      {f.label}{!required && <> <span style={optionalHint}>(optional)</span></>}
     </>
   );
 
@@ -230,7 +234,7 @@ function Field({ name, value, onChange, first }) {
     return (
       <label style={style}>
         {label}
-        <select value={value} onChange={onChange} required={f.required} style={fieldStyle}>
+        <select value={value} onChange={onChange} required={required} style={fieldStyle}>
           <option value="">Select…</option>
           {options.map((o) => <option key={o} value={o}>{o}</option>)}
         </select>
@@ -251,7 +255,7 @@ function Field({ name, value, onChange, first }) {
   return (
     <label style={style}>
       {label}
-      <input type={f.type} value={value} onChange={onChange} required={f.required}
+      <input type={f.type} value={value} onChange={onChange} required={required}
         autoComplete={f.autoComplete} placeholder={f.placeholder} style={fieldStyle} />
     </label>
   );

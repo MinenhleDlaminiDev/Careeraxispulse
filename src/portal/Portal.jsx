@@ -7,6 +7,7 @@ import { NotificationsProvider } from './NotificationsContext';
 import ProtectedRoute from './ProtectedRoute';
 import Login from './Login';
 import Signup from './Signup';
+import CompleteProfile from './CompleteProfile';
 import ClientHome from './ClientHome';
 import AdminHome from './AdminHome';
 
@@ -46,6 +47,10 @@ function PortalRoot() {
         <Routes>
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<Signup />} />
+          {/* AXIS-43: the completion gate. allowIncomplete is what lets this
+              one route be reached while the profile is still missing fields;
+              every other protected route redirects here until it is done. */}
+          <Route path="complete-profile" element={<ProtectedRoute allowIncomplete><CompleteProfile /></ProtectedRoute>} />
           <Route index element={<ProtectedRoute><RoleLanding /></ProtectedRoute>} />
           <Route path="client/*" element={<ProtectedRoute><ClientHome /></ProtectedRoute>} />
           <Route path="admin/*" element={<ProtectedRoute requireAdmin><AdminHome /></ProtectedRoute>} />

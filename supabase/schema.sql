@@ -41,8 +41,12 @@ create table if not exists public.profiles (
   skills                      jsonb,
   education                   jsonb,
   -- Profile photo (AXIS-28): path to the object in the private 'avatars'
-  -- bucket. Null = fall back to initials.
+  -- bucket. Null = fall back to avatar_url, then initials.
   avatar_path                 text,
+  -- An EXTERNAL photo URL from an OAuth provider (AXIS-43), e.g. Google's
+  -- 'picture'. Kept apart from avatar_path because that one is a storage path
+  -- that gets signed — a foreign URL cannot be signed. An uploaded photo wins.
+  avatar_url                  text,
   -- Manual "this client has bought a revamp before" override (AXIS-41), for the
   -- clients served before cv_orders existed. Derived history is the normal
   -- route; this is the escape hatch. Guarded like role and access below — it
@@ -58,6 +62,7 @@ alter table public.profiles
   add column if not exists education jsonb;
 alter table public.profiles
   add column if not exists returning_client boolean not null default false;
+alter table public.profiles add column if not exists avatar_url text;
 
 create table if not exists public.interview_content (
   id         uuid primary key default gen_random_uuid(),
@@ -158,11 +163,16 @@ begin
     phone, location, linkedin_url,
     target_role, target_industry, seniority_level, target_companies,
     employment_status, change_driver,
-    skills, education
+    skills, education,
+    avatar_url
   )
   values (
     new.id,
-    new.raw_user_meta_data ->> 'full_name',
+    -- Our signup form sends full_name; Google sends name (AXIS-43).
+    coalesce(
+      nullif(trim(new.raw_user_meta_data ->> 'full_name'), ''),
+      nullif(trim(new.raw_user_meta_data ->> 'name'), '')
+    ),
     new.email,
     'client',
     new.raw_user_meta_data ->> 'phone',
@@ -176,7 +186,12 @@ begin
     new.raw_user_meta_data ->> 'change_driver',
     -- `->` not `->>`: these two stay jsonb arrays (AXIS-42).
     new.raw_user_meta_data -> 'skills',
-    new.raw_user_meta_data -> 'education'
+    new.raw_user_meta_data -> 'education',
+    -- Google uses 'picture'; some providers use 'avatar_url' (AXIS-43).
+    coalesce(
+      nullif(trim(new.raw_user_meta_data ->> 'avatar_url'), ''),
+      nullif(trim(new.raw_user_meta_data ->> 'picture'), '')
+    )
   )
   on conflict (id) do nothing;
   return new;

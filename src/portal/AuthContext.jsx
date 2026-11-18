@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState, useCallback } from 'react';
 import { supabase } from '../supabase';
+import { isProfileComplete } from './profileFields';
 
 // Holds the session plus the signed-in user's profile row (role + access
 // expiry). Role and access decide what the UI shows; RLS enforces it server
@@ -22,7 +23,7 @@ export function AuthProvider({ children }) {
     if (!supabase || !userId) { setProfile(null); setProfileReady(true); return; }
     const { data, error } = await supabase
       .from('profiles')
-      .select('id, full_name, email, role, interview_access_expires_at, avatar_path, phone, location, linkedin_url, target_role, target_industry, seniority_level, target_companies, employment_status, change_driver, skills, education, returning_client')
+      .select('id, full_name, email, role, interview_access_expires_at, avatar_path, avatar_url, phone, location, linkedin_url, target_role, target_industry, seniority_level, target_companies, employment_status, change_driver, skills, education, returning_client')
       .eq('id', userId)
       .single();
     if (error) { console.error('Failed to load profile:', error.message); setProfile(null); }
@@ -83,12 +84,34 @@ export function AuthProvider({ children }) {
     });
   }, []);
 
+  // AXIS-43: Google sign-in AND sign-up — OAuth makes no distinction, so one
+  // call serves both buttons. Supabase sends the browser to Google and back to
+  // redirectTo, which must also be listed under Authentication → URL
+  // Configuration → Redirect URLs in the dashboard, per environment (localhost,
+  // Netlify UAT, production). We return to /portal rather than a saved path so
+  // RoleLanding routes by role, the same rule as email sign-in (AXIS-20).
+  //
+  // Nothing is set here beyond starting the redirect: on the way back the auth
+  // listener picks the session up, handle_new_user has already created the
+  // profile row, and the completion gate collects what Google could not supply.
+  const signInWithGoogle = useCallback(() => {
+    if (!supabase) return Promise.resolve({ error: { message: 'Portal is not configured yet.' } });
+    return supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: { redirectTo: `${window.location.origin}/portal` },
+    });
+  }, []);
+
   const signOut = useCallback(() => {
     if (!supabase) return Promise.resolve({ error: null });
     return supabase.auth.signOut();
   }, []);
 
   const isAdmin = profile?.role === 'admin';
+  // AXIS-43: has this client given us everything we need? Admins are reported
+  // complete whatever their row says — the career fields are a client concept,
+  // and gating an admin on them would lock them out of their own portal.
+  const profileComplete = isAdmin || isProfileComplete(profile);
   const hasInterviewAccess =
     !!profile?.interview_access_expires_at &&
     new Date(profile.interview_access_expires_at) > new Date();
@@ -101,8 +124,10 @@ export function AuthProvider({ children }) {
     loading,
     isAdmin,
     hasInterviewAccess,
+    profileComplete,
     signIn,
     signUp,
+    signInWithGoogle,
     signOut,
     refreshProfile,
   };

@@ -98,7 +98,7 @@ function ProfilePhotoCard() {
 
   return (
     <section className="ax-card" style={{ padding: '18px 20px', marginBottom: 20, display: 'flex', alignItems: 'center', gap: 16, flexWrap: 'wrap' }}>
-      <Avatar path={path} name={profile?.full_name} email={profile?.email} size={64} />
+      <Avatar path={path} src={profile?.avatar_url} name={profile?.full_name} email={profile?.email} size={64} />
       {/* flex:1 with minWidth:0 let this shrink to nothing: the button group has
           no basis of its own, so on a phone it claimed the whole row and the name
           collapsed to one letter per line. A 150px floor makes the buttons wrap

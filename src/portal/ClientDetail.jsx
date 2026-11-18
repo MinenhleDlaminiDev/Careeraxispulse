@@ -289,7 +289,7 @@ export default function ClientDetail() {
     setState((s) => ({ ...s, loading: true, error: false }));
     const { data: client, error } = await supabase
       .from('profiles')
-      .select('id, full_name, email, avatar_path, interview_access_expires_at, created_at, phone, location, linkedin_url, target_role, target_industry, seniority_level, target_companies, employment_status, change_driver, skills, education, returning_client')
+      .select('id, full_name, email, avatar_path, avatar_url, interview_access_expires_at, created_at, phone, location, linkedin_url, target_role, target_industry, seniority_level, target_companies, employment_status, change_driver, skills, education, returning_client')
       .eq('id', id)
       .maybeSingle();
     if (error || !client) { setState({ loading: false, client: null, cvs: [], error: true }); return; }
@@ -356,7 +356,7 @@ export default function ClientDetail() {
 
       <section className="ax-card" style={{ padding: '22px 22px' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 16, flexWrap: 'wrap' }}>
-          <Avatar path={c.avatar_path} name={c.full_name} email={c.email} size={64} />
+          <Avatar path={c.avatar_path} src={c.avatar_url} name={c.full_name} email={c.email} size={64} />
           <div style={{ minWidth: 0, flex: 1 }}>
             <div style={{ fontFamily: SERIF, fontSize: 21, fontWeight: 700, color: 'var(--ax-text)', ...ellipsis }}>{c.full_name || 'Unnamed client'}</div>
             <div style={{ fontSize: 13.5, color: MUTED, ...ellipsis }}>{c.email}</div>

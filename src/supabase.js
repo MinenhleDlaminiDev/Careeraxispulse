@@ -10,6 +10,20 @@ const key =
 
 export const isConfigured = Boolean(url && key);
 
+// AXIS-43 — is Google sign-in switched on for this environment?
+//
+// This is NOT belt-and-braces. supabase.auth.signInWithOAuth() does not return
+// an error when a provider is disabled: it sends the browser straight to
+// Supabase, which answers with raw JSON —
+//   {"code":400,"msg":"Unsupported provider: provider is not enabled"}
+// — and the client is left staring at it with no way back. There is no
+// client-side way to detect this first, so the button must not exist until
+// Google is actually enabled in the Supabase dashboard.
+//
+// Set VITE_GOOGLE_AUTH=true in .env once the provider is configured there.
+export const googleAuthEnabled =
+  isConfigured && String(import.meta.env.VITE_GOOGLE_AUTH).toLowerCase() === 'true';
+
 if (!isConfigured) {
   console.error(
     'Missing Supabase env. Set VITE_SUPABASE_URL and VITE_SUPABASE_PUBLISHABLE_KEY in .env (see .env.example).'
