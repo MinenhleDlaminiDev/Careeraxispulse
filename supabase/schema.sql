@@ -33,14 +33,23 @@ create table if not exists public.profiles (
   target_companies            text,
   employment_status           text,
   change_driver               text,
+  -- Skills and qualifications (AXIS-42), both jsonb arrays. skills is a list of
+  -- strings; education a list of {qualification, field_of_study, institution,
+  -- year}. Null = never filled in; the app stores null, not [], for an emptied
+  -- list so no screen has to tell the two apart.
+  skills                      jsonb,
+  education                   jsonb,
   -- Profile photo (AXIS-28): path to the object in the private 'avatars'
   -- bucket. Null = fall back to initials.
   avatar_path                 text,
   created_at                  timestamptz not null default now()
 );
 
--- Idempotent migration for databases provisioned before AXIS-28.
+-- Idempotent migration for databases provisioned before AXIS-28 / AXIS-42.
 alter table public.profiles add column if not exists avatar_path text;
+alter table public.profiles
+  add column if not exists skills    jsonb,
+  add column if not exists education jsonb;
 
 create table if not exists public.interview_content (
   id         uuid primary key default gen_random_uuid(),
@@ -118,7 +127,8 @@ begin
     id, full_name, email, role,
     phone, location, linkedin_url,
     target_role, target_industry, seniority_level, target_companies,
-    employment_status, change_driver
+    employment_status, change_driver,
+    skills, education
   )
   values (
     new.id,
@@ -133,7 +143,10 @@ begin
     new.raw_user_meta_data ->> 'seniority_level',
     new.raw_user_meta_data ->> 'target_companies',
     new.raw_user_meta_data ->> 'employment_status',
-    new.raw_user_meta_data ->> 'change_driver'
+    new.raw_user_meta_data ->> 'change_driver',
+    -- `->` not `->>`: these two stay jsonb arrays (AXIS-42).
+    new.raw_user_meta_data -> 'skills',
+    new.raw_user_meta_data -> 'education'
   )
   on conflict (id) do nothing;
   return new;

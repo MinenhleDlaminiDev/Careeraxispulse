@@ -8,6 +8,7 @@ import Avatar from './Avatar';
 import { accessState, setAccessExpiry, THIRTY_DAYS_MS } from './clientAccess';
 import { downloadCv, displayName } from './cvStorage';
 import { fmtDate } from './format';
+import { asList, educationLine } from './profileFields';
 
 const ellipsis = { overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' };
 const goldBtn = {
@@ -82,7 +83,7 @@ export default function ClientDetail() {
     setState((s) => ({ ...s, loading: true, error: false }));
     const { data: client, error } = await supabase
       .from('profiles')
-      .select('id, full_name, email, avatar_path, interview_access_expires_at, created_at, phone, location, linkedin_url, target_role, target_industry, seniority_level, target_companies, employment_status, change_driver')
+      .select('id, full_name, email, avatar_path, interview_access_expires_at, created_at, phone, location, linkedin_url, target_role, target_industry, seniority_level, target_companies, employment_status, change_driver, skills, education')
       .eq('id', id)
       .maybeSingle();
     if (error || !client) { setState({ loading: false, client: null, cvs: [], error: true }); return; }
@@ -188,6 +189,32 @@ export default function ClientDetail() {
           ['Location', c.location],
           ['LinkedIn', linkedin],
         ]} />
+        {/* AXIS-42: the two list fields get their own card — chips and a list
+            of qualifications do not fit the label/value rows above. */}
+        <section className="ax-card" style={{ padding: '20px 22px' }}>
+          <p className="ax-grouplabel">Skills &amp; education</p>
+          <div style={{ fontSize: 13, color: MUTED, marginBottom: 8 }}>Skills</div>
+          {asList(c.skills).length === 0 ? (
+            <div style={{ fontSize: 14, color: MUTED, marginBottom: 18 }}>—</div>
+          ) : (
+            <div className="ax-chips" style={{ marginBottom: 18 }}>
+              {asList(c.skills).map((s) => <span key={s} className="ax-chip ax-chip-static">{s}</span>)}
+            </div>
+          )}
+          <div style={{ fontSize: 13, color: MUTED, marginBottom: 8 }}>Education &amp; qualifications</div>
+          {asList(c.education).length === 0 ? (
+            <div style={{ fontSize: 14, color: MUTED }}>—</div>
+          ) : (
+            <ul style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column', gap: 7 }}>
+              {asList(c.education).map((row, i) => (
+                <li key={i} style={{ fontSize: 14, color: 'var(--ax-text)', lineHeight: 1.5, wordBreak: 'break-word' }}>
+                  {educationLine(row)}
+                </li>
+              ))}
+            </ul>
+          )}
+        </section>
+
         <DetailCard title="Career goals" rows={[
           ['Target role', c.target_role],
           ['Target industry', c.target_industry],

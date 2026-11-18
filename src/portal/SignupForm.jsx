@@ -4,14 +4,22 @@ import { useAuth } from './AuthContext';
 import { isConfigured } from '../supabase';
 import { fieldStyle, labelStyle, primaryBtnStyle } from './AuthCard';
 import PasswordInput from './PasswordInput';
-import { SENIORITY, EMPLOYMENT, clean } from './profileFields';
+import { SENIORITY, EMPLOYMENT, INDUSTRIES, SKILLS, clean, cleanList, cleanEducation } from './profileFields';
+import MultiSelect from './MultiSelect';
+import EducationFields from './EducationFields';
 import { DANGER, GOLD_INK, CREAM, MUTED, SERIF, BORDER, DANGER_SOFT, DANGER_BORDER } from './theme';
 
+// AXIS-42 added step 4. Skills and education are heavy fields, so they sit on
+// their own optional step at the end rather than lengthening "Your goals" —
+// and nothing on step 4 is required, so a client in a hurry just presses
+// Create account and fills them in later from the profile editor.
 const STEPS = [
   { label: 'Your account', fun: 'First things first — let’s set up your login. 👋' },
   { label: 'About you', fun: 'Nice to meet you. So, how do we reach you?' },
-  { label: 'Your goals', fun: 'Last step — tell us where you’re headed. 🎯' },
+  { label: 'Your goals', fun: 'Almost there — tell us where you’re headed. 🎯' },
+  { label: 'Skills & education', fun: 'Last step, and it’s optional. Add what you can now, or fill it in later from your profile.' },
 ];
+const LAST_STEP = STEPS.length;
 
 const optionalHint = { color: MUTED, fontWeight: 400, textTransform: 'none', letterSpacing: 0 };
 const funStyle = { color: MUTED, fontSize: 13.5, lineHeight: 1.5, margin: '0 0 18px' };
@@ -40,6 +48,8 @@ export default function SignupForm({ onDone }) {
   const [targetCompanies, setTargetCompanies] = useState('');
   const [employmentStatus, setEmploymentStatus] = useState('');
   const [changeDriver, setChangeDriver] = useState('');
+  const [skills, setSkills] = useState([]);
+  const [education, setEducation] = useState([]);
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
   const [awaitConfirm, setAwaitConfirm] = useState(false);
@@ -57,6 +67,10 @@ export default function SignupForm({ onDone }) {
       target_companies: clean(targetCompanies),
       employment_status: clean(employmentStatus),
       change_driver: clean(changeDriver),
+      // Arrays, not strings — the signup trigger reads these with `->` and
+      // stores them as jsonb (AXIS-42). Empty becomes null, never [].
+      skills: cleanList(skills),
+      education: cleanEducation(education),
     };
     const { data, error: signUpError } = await signUp(email.trim(), password, fullName.trim(), profile);
     if (signUpError) { setError(signUpError.message); setBusy(false); return; }
@@ -69,7 +83,7 @@ export default function SignupForm({ onDone }) {
   // own required-field validation runs on submit before this fires.
   const onSubmit = (e) => {
     e.preventDefault();
-    if (step < 3) { setError(''); setStep(step + 1); return; }
+    if (step < LAST_STEP) { setError(''); setStep(step + 1); return; }
     doSignup();
   };
 
@@ -105,9 +119,9 @@ export default function SignupForm({ onDone }) {
 
       <div className="ax-steps">
         <div className="ax-steps-track">
-          <div className="ax-steps-fill" style={{ width: `${(step / 3) * 100}%` }} />
+          <div className="ax-steps-fill" style={{ width: `${(step / LAST_STEP) * 100}%` }} />
         </div>
-        <div className="ax-steps-label">Step {step} of 3 · {STEPS[step - 1].label}</div>
+        <div className="ax-steps-label">Step {step} of {LAST_STEP} · {STEPS[step - 1].label}</div>
       </div>
       <p style={funStyle}>{STEPS[step - 1].fun}</p>
 
@@ -161,7 +175,10 @@ export default function SignupForm({ onDone }) {
             </label>
             <label style={{ ...labelStyle, marginTop: 16 }}>
               Target industry / sector
-              <input type="text" value={targetIndustry} onChange={(e) => setTargetIndustry(e.target.value)} required style={fieldStyle} />
+              <select value={targetIndustry} onChange={(e) => setTargetIndustry(e.target.value)} required style={fieldStyle}>
+                <option value="">Select…</option>
+                {INDUSTRIES.map((s) => <option key={s} value={s}>{s}</option>)}
+              </select>
             </label>
             <label style={{ ...labelStyle, marginTop: 16 }}>
               Seniority level
@@ -181,6 +198,20 @@ export default function SignupForm({ onDone }) {
           </>
         )}
 
+        {step === 4 && (
+          <>
+            <div style={labelStyle}>
+              Skills &amp; competencies <span style={optionalHint}>(optional)</span>
+            </div>
+            <MultiSelect value={skills} onChange={setSkills} options={SKILLS} placeholder="Search skills, or type your own…" />
+
+            <div style={{ ...labelStyle, marginTop: 22 }}>
+              Education &amp; qualifications <span style={optionalHint}>(optional)</span>
+            </div>
+            <EducationFields value={education} onChange={setEducation} />
+          </>
+        )}
+
         {error && <div style={{ marginTop: 16, color: DANGER, fontSize: 13 }}>{error}</div>}
 
         <div style={{ display: 'flex', gap: 10, marginTop: 24 }}>
@@ -190,7 +221,7 @@ export default function SignupForm({ onDone }) {
             </button>
           )}
           <button type="submit" disabled={disabled} style={{ ...primaryBtnStyle(disabled), marginTop: 0, flex: 1 }}>
-            {busy ? 'Creating account…' : step < 3 ? 'Continue' : 'Create account'}
+            {busy ? 'Creating account…' : step < LAST_STEP ? 'Continue' : 'Create account'}
           </button>
         </div>
       </form>
