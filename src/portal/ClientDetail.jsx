@@ -5,10 +5,16 @@ import { GOLD, ON_GOLD, MUTED, DANGER, GOLD_INK, SERIF } from './theme';
 import Loading from './Loading';
 import Banner from './Banner';
 import Avatar from './Avatar';
+import Modal from './Modal';
+import { fieldStyle, labelStyle } from './AuthCard';
 import { accessState, setAccessExpiry, THIRTY_DAYS_MS } from './clientAccess';
 import { downloadCv, displayName } from './cvStorage';
 import { fmtDate } from './format';
 import { asList, educationLine } from './profileFields';
+import {
+  TIER_OPTIONS, ORDER_STATUSES, orderLine, listOrders, recordOrder, deleteOrder,
+  setReturningClient, suggestedAmount, isListPrice,
+} from './revampOrders';
 
 const ellipsis = { overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' };
 const goldBtn = {
@@ -68,6 +74,206 @@ function CvRow({ cv, onDownload }) {
   );
 }
 
+// AXIS-41: the admin's side of returning-client pricing.
+//
+// Two controls, because there are two ways a client can be returning:
+//   • "Record a revamp order" writes the history the portal derives from. Once
+//     one confirmed order exists, the client's NEXT revamp is priced as a
+//     returning one automatically.
+//   • "Returning client" is the manual override, for the clients served before
+//     this page existed and who have no history to derive from.
+//
+// Both are admin-only in the database (cv_orders is admin-write, and
+// returning_client sits in the profiles privilege guard), so a client can't
+// hand themselves the lower price.
+function RevampOrders({ client, onFlagChange }) {
+  const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState('');
+  const [adding, setAdding] = useState(false);
+  const [removing, setRemoving] = useState(null);
+  const [form, setForm] = useState(null);
+
+  useEffect(() => {
+    let active = true;
+    setLoading(true);
+    listOrders(client.id).then(({ orders: rows, error: err }) => {
+      if (!active) return;
+      if (err) setError('Couldn’t load revamp orders.');
+      setOrders(rows);
+      setLoading(false);
+    });
+    return () => { active = false; };
+  }, [client.id]);
+
+  const confirmed = orders.some((o) => o.status === 'confirmed');
+  const flagged = !!client.returning_client;
+  const returning = flagged || confirmed;
+
+  const toggleFlag = async () => {
+    setError('');
+    setBusy(true);
+    const { data, error: err } = await setReturningClient(client.id, !flagged);
+    setBusy(false);
+    if (err || !data) { setError('Couldn’t change that — please try again.'); return; }
+    onFlagChange(data.returning_client);
+  };
+
+  // Opening the form picks sensible defaults: the tier is left unchosen, and
+  // "charged the returning price" starts at whatever this client is today.
+  const openForm = () => {
+    setError('');
+    setForm({ tier: '', amount: '', isReturning: returning, status: 'confirmed', note: '' });
+    setAdding(true);
+  };
+
+  // Changing the tier (or the returning tick) refills the amount with that
+  // tier's list price — but only while the field still holds a list price, so a
+  // figure the admin typed themselves is never overwritten.
+  const setTier = (tier) => setForm((f) => ({
+    ...f, tier, amount: isListPrice(f.amount) ? suggestedAmount(tier, f.isReturning) : f.amount,
+  }));
+  const setIsReturning = (isReturning) => setForm((f) => ({
+    ...f, isReturning, amount: isListPrice(f.amount) ? suggestedAmount(f.tier, isReturning) : f.amount,
+  }));
+
+  const submit = async (e) => {
+    e.preventDefault();
+    setError('');
+    setBusy(true);
+    const { data, error: err } = await recordOrder({ userId: client.id, ...form });
+    setBusy(false);
+    if (err || !data) { setError('Couldn’t save that order — please try again.'); return; }
+    setOrders((o) => [data, ...o]);
+    setAdding(false);
+  };
+
+  // A mis-recorded order changes what the client is charged next time, so it
+  // has to be removable. Two taps, like revoking access.
+  const remove = async (id) => {
+    setError('');
+    setBusy(true);
+    const { error: err } = await deleteOrder(id);
+    setBusy(false);
+    setRemoving(null);
+    if (err) { setError('Couldn’t remove that order — please try again.'); return; }
+    setOrders((o) => o.filter((row) => row.id !== id));
+  };
+
+  return (
+    <section className="ax-card" style={{ padding: '20px 22px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap', marginBottom: 4 }}>
+        <p className="ax-grouplabel" style={{ margin: 0 }}>CV revamp orders</p>
+        <span className={`ax-badge ax-badge-${returning ? 'gold' : 'neutral'}`} style={{ marginLeft: 'auto' }}>
+          {returning ? 'Returning client' : 'First-time client'}
+        </span>
+      </div>
+      <p style={{ margin: '0 0 16px', fontSize: 13, color: MUTED, lineHeight: 1.6 }}>
+        {returning
+          ? `They see returning prices${confirmed ? ' because an order is recorded below' : ' because the override below is on'}${confirmed && flagged ? ' and the override is on' : ''}.`
+          : 'They see first-time prices. Record an order, or turn on the override, to change that.'}
+      </p>
+
+      <Banner kind="error" style={{ marginBottom: 14 }}>{error}</Banner>
+
+      {loading ? (
+        <div style={{ fontSize: 14, color: MUTED }}>Loading orders…</div>
+      ) : orders.length === 0 ? (
+        <div style={{ fontSize: 14, color: MUTED }}>No revamp orders recorded yet.</div>
+      ) : (
+        <ul style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column', gap: 9 }}>
+          {orders.map((o) => (
+            <li key={o.id} className="ax-cv-item">
+              <div style={{ minWidth: 0, flex: '1 1 150px' }}>
+                <div style={{ fontSize: 14, fontWeight: 600, color: 'var(--ax-text)' }}>{orderLine(o)}</div>
+                <div style={{ fontSize: 12.5, color: MUTED, marginTop: 2 }}>
+                  {fmtDate(o.created_at)}{o.note ? ` · ${o.note}` : ''}
+                </div>
+              </div>
+              {removing === o.id ? (
+                <>
+                  <button type="button" onClick={() => remove(o.id)} disabled={busy} style={{ ...dangerBtn, opacity: busy ? 0.6 : 1 }}>
+                    {busy ? '…' : 'Confirm'}
+                  </button>
+                  <button type="button" className="ax-iconbtn" onClick={() => setRemoving(null)} disabled={busy}>Cancel</button>
+                </>
+              ) : (
+                <button type="button" className="ax-iconbtn" onClick={() => setRemoving(o.id)} disabled={busy}>Remove</button>
+              )}
+            </li>
+          ))}
+        </ul>
+      )}
+
+      <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 9, marginTop: 16, paddingTop: 16, borderTop: '1px solid var(--ax-border)' }}>
+        <button type="button" onClick={openForm} disabled={busy} style={{ ...goldBtn, opacity: busy ? 0.6 : 1 }}>
+          Record a revamp order
+        </button>
+        <label className="ax-switch" style={{ marginLeft: 'auto' }}>
+          <input type="checkbox" checked={flagged} onChange={toggleFlag} disabled={busy} />
+          <span>Returning client (override)</span>
+        </label>
+      </div>
+
+      {adding && form && (
+        <Modal onClose={() => setAdding(false)} label="Record a revamp order">
+          <form onSubmit={submit}>
+            {/* paddingRight clears the Modal's ✕, which floats at top right. */}
+            <div style={{ fontFamily: SERIF, fontSize: 19, fontWeight: 700, color: 'var(--ax-text)', marginBottom: 4, paddingRight: 30 }}>
+              Record a revamp order
+            </div>
+            <p style={{ margin: '0 0 16px', fontSize: 13, color: MUTED, lineHeight: 1.6 }}>
+              For {client.full_name || client.email}. A confirmed order makes them a returning client for their next revamp.
+            </p>
+
+            <label style={labelStyle}>
+              Tier
+              <select value={form.tier} onChange={(e) => setTier(e.target.value)} required style={fieldStyle}>
+                <option value="">Choose a tier…</option>
+                {TIER_OPTIONS.map((t) => <option key={t.key} value={t.key}>{t.label}</option>)}
+              </select>
+            </label>
+
+            <label style={{ ...labelStyle, marginTop: 14 }}>
+              Amount paid (rand)
+              <input type="text" inputMode="decimal" value={form.amount}
+                onChange={(e) => setForm((f) => ({ ...f, amount: e.target.value }))}
+                placeholder="Leave blank if you don’t have it" style={fieldStyle} />
+            </label>
+
+            <label style={{ ...labelStyle, marginTop: 14 }}>
+              Status
+              <select value={form.status} onChange={(e) => setForm((f) => ({ ...f, status: e.target.value }))} style={fieldStyle}>
+                {ORDER_STATUSES.map((s) => <option key={s} value={s}>{s}</option>)}
+              </select>
+            </label>
+
+            <label style={{ ...labelStyle, marginTop: 14 }}>
+              Note (optional)
+              <input type="text" value={form.note}
+                onChange={(e) => setForm((f) => ({ ...f, note: e.target.value }))}
+                placeholder="Paystack reference, or anything worth remembering" style={fieldStyle} />
+            </label>
+
+            <label className="ax-switch" style={{ marginTop: 16 }}>
+              <input type="checkbox" checked={form.isReturning} onChange={(e) => setIsReturning(e.target.checked)} />
+              <span>Charged at the returning price</span>
+            </label>
+
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 9, marginTop: 20 }}>
+              <button type="submit" disabled={busy || !form.tier} style={{ ...goldBtn, opacity: busy || !form.tier ? 0.6 : 1 }}>
+                {busy ? 'Saving…' : 'Save order'}
+              </button>
+              <button type="button" className="ax-iconbtn" onClick={() => setAdding(false)} disabled={busy}>Cancel</button>
+            </div>
+          </form>
+        </Modal>
+      )}
+    </section>
+  );
+}
+
 // Dedicated client page (AXIS-29): the full profile the admin now collects
 // (contact + career goals), their CVs with download, and grant/revoke access —
 // reached from a card on /clients. Admin-only via the profiles/cv_uploads RLS.
@@ -83,7 +289,7 @@ export default function ClientDetail() {
     setState((s) => ({ ...s, loading: true, error: false }));
     const { data: client, error } = await supabase
       .from('profiles')
-      .select('id, full_name, email, avatar_path, interview_access_expires_at, created_at, phone, location, linkedin_url, target_role, target_industry, seniority_level, target_companies, employment_status, change_driver, skills, education')
+      .select('id, full_name, email, avatar_path, interview_access_expires_at, created_at, phone, location, linkedin_url, target_role, target_industry, seniority_level, target_companies, employment_status, change_driver, skills, education, returning_client')
       .eq('id', id)
       .maybeSingle();
     if (error || !client) { setState({ loading: false, client: null, cvs: [], error: true }); return; }
@@ -223,6 +429,13 @@ export default function ClientDetail() {
           ['Employment status', c.employment_status],
           ['What’s driving the change', c.change_driver],
         ]} />
+
+        {/* AXIS-41: order history + the manual override that together decide
+            whether this client sees returning prices. */}
+        <RevampOrders
+          client={c}
+          onFlagChange={(value) => setState((s) => ({ ...s, client: { ...s.client, returning_client: value } }))}
+        />
 
         <section className="ax-card" style={{ padding: '20px 22px' }}>
           <p className="ax-grouplabel">CVs</p>

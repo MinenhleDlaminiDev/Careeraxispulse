@@ -150,6 +150,17 @@
 .ax-tier-buy:hover{background:var(--ax-surface);border-color:var(--ax-gold)}
 .ax-tier-buy-pick{background:var(--ax-gold);color:var(--ax-on-gold);border-color:transparent}
 .ax-tier-buy-pick:hover{background:var(--ax-gold);opacity:.9}
+/* AXIS-41 returning-client pricing: the "why is this cheaper" line above the
+   button, and the struck-through first-time price on each card. */
+.ax-returning-note{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;margin:0 0 14px;padding:11px 13px;border-radius:10px;background:var(--ax-gold-soft);border:1px solid var(--ax-gold-border);font-size:13.5px;line-height:1.6;color:var(--ax-text);max-width:560px}
+.ax-returning-note>span{flex-shrink:0;background:var(--ax-gold);color:var(--ax-on-gold);font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;padding:4px 10px;border-radius:999px;white-space:nowrap}
+.ax-tier-was{font-size:15px;font-weight:400;color:var(--ax-muted);text-decoration:line-through}
+/* Checkbox + label pair (AXIS-41). Keeps the native input — it is already
+   keyboard- and screen-reader-correct — and only recolours it. */
+.ax-switch{display:inline-flex;align-items:center;gap:9px;font-size:13px;font-weight:600;color:var(--ax-text);cursor:pointer}
+.ax-switch input{width:18px;height:18px;flex-shrink:0;margin:0;accent-color:var(--ax-gold);cursor:pointer}
+.ax-switch input:disabled{cursor:default}
+.ax-switch:has(input:disabled){opacity:.6}
 /* Content editor (AXIS-32): sticky action bar, dirty state, collapsible pillars */
 .ax-editbar{position:sticky;top:0;z-index:20;display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;justify-content:space-between;padding:12px 0;margin-bottom:18px;background:var(--ax-bg-solid);border-bottom:1px solid var(--ax-border)}
 .ax-editbar-actions{display:flex;flex-wrap:wrap;gap:9px}
@@ -281,6 +292,14 @@
   /* Form controls: the base padding lands them at 43px, one short of the bar. */
   .ax-content input,.ax-content select,.ax-content textarea,
   .ax-auth input,.ax-auth select,.ax-auth textarea{min-height:44px}
+  /* AXIS-41: a Modal is portalled into .ax-portal, outside .ax-content, so the
+     rule above never reaches a form inside a dialog. Give it its own. */
+  .ax-modal-card input,.ax-modal-card select,.ax-modal-card textarea{min-height:44px}
+  /* The switch's checkbox is exempt from both: it is an 18px box, and the 44px
+     belongs to the label wrapped around it. Without this it would stretch to a
+     44px-tall, 18px-wide sliver. */
+  .ax-switch{min-height:44px}
+  .ax-switch input[type="checkbox"]{min-height:0;height:18px}
   .ax-backlink{min-height:44px;display:inline-flex;align-items:center}
   .ax-topbar a{min-height:44px;display:flex;align-items:center}
   /* The toggle keeps its 64x34 pill look; this invisible overlay gives it the

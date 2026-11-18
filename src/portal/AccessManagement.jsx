@@ -23,6 +23,16 @@ const ellipsis = { overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'no
 // the detail page).
 const shortAccess = (tone) => (tone === 'gold' ? 'Active' : tone === 'danger' ? 'Expired' : 'No access');
 
+// AXIS-41: revamp history at a glance — "2 orders · Returning". A client is
+// returning on either count, so the suffix shows whichever applies; with orders
+// recorded the count already implies it, so it only reads as the override when
+// there is no history behind it.
+function revampSummary(c) {
+  const orders = c.orderCount || 0;
+  if (orders > 0) return `${orders} order${orders === 1 ? '' : 's'} · Returning`;
+  return c.returning_client ? 'None · Returning (override)' : 'None';
+}
+
 function MetaRow({ label, value }) {
   return (
     <div style={{ display: 'flex', gap: 8, fontSize: 13 }}>
@@ -47,7 +57,7 @@ export default function AccessManagement() {
     setState((s) => ({ ...s, loading: true, error: false }));
     const { data, error } = await supabase
       .from('profiles')
-      .select('id, full_name, email, interview_access_expires_at, avatar_path, target_role, location')
+      .select('id, full_name, email, interview_access_expires_at, avatar_path, target_role, location, returning_client')
       .eq('role', 'client')
       .order('email');
     if (error) { setState({ loading: false, clients: [], error: true }); return; }
@@ -56,7 +66,16 @@ export default function AccessManagement() {
     const { data: cvs } = await supabase.from('cv_uploads').select('user_id');
     const counts = new Map();
     for (const r of cvs || []) counts.set(r.user_id, (counts.get(r.user_id) || 0) + 1);
-    const clients = (data || []).map((c) => ({ ...c, cvCount: counts.get(c.id) || 0 }));
+    // AXIS-41: confirmed revamp orders, tallied the same way. Only confirmed
+    // ones count, because only those make a client returning.
+    const { data: orders } = await supabase.from('cv_orders').select('user_id').eq('status', 'confirmed');
+    const orderCounts = new Map();
+    for (const r of orders || []) orderCounts.set(r.user_id, (orderCounts.get(r.user_id) || 0) + 1);
+    const clients = (data || []).map((c) => ({
+      ...c,
+      cvCount: counts.get(c.id) || 0,
+      orderCount: orderCounts.get(c.id) || 0,
+    }));
     setState({ loading: false, clients, error: false });
   }, []);
 
@@ -131,6 +150,7 @@ export default function AccessManagement() {
                     <MetaRow label="Target role" value={c.target_role} />
                     <MetaRow label="Location" value={c.location} />
                     <MetaRow label="CVs" value={c.cvCount ? `${c.cvCount} file${c.cvCount === 1 ? '' : 's'}` : 'None'} />
+                    <MetaRow label="Revamps" value={revampSummary(c)} />
                   </div>
                 </Link>
 

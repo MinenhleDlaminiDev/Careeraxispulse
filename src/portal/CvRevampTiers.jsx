@@ -1,7 +1,8 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from './AuthContext';
-import { CV_TIERS, CV_TIER_INCLUDES } from '../payments.js';
+import { cvTiers, CV_TIER_INCLUDES, CV_FROM_PRICE } from '../payments.js';
+import { hasConfirmedOrder } from './revampOrders';
 import { EASE, containerVariants, itemVariants } from '../motion.js';
 import { GOLD, GOLD_INK, CREAM, MUTED, SERIF, ON_GOLD } from './theme';
 
@@ -9,11 +10,13 @@ import { GOLD, GOLD_INK, CREAM, MUTED, SERIF, ON_GOLD } from './theme';
 // AXIS-45: behind a button. Four price cards sitting open under the upload box
 // turned the page into a sales pitch, and on a phone they added about 1200px of
 // scrolling that a client who only came to upload a CV had to get past.
+// AXIS-41: returning clients see returning prices and links.
 //
-// The four tiers live in payments.js (CV_TIERS) so the portal and the marketing
-// Services page quote the same prices from one list. Each card opens its own
-// Paystack product page in a new tab — checkout stays hosted by Paystack, so no
-// card details ever touch this app.
+// The tiers live in payments.js (CV_TIERS / CV_TIERS_RETURNING, the second
+// derived from the first) so the portal and the marketing Services page quote
+// the same prices from one list. Each card opens its own Paystack product page
+// in a new tab — checkout stays hosted by Paystack, so no card details ever
+// touch this app.
 //
 // Payment confirmation is still manual: Paystack emails the order, the admin
 // marks it off and delivers the revised CV through the AXIS-12 flow, which lands
@@ -25,9 +28,34 @@ export default function CvRevampTiers() {
   const [open, setOpen] = useState(false);
   const sectionRef = useRef(null);
   const seniority = profile?.seniority_level || '';
+  const userId = profile?.id;
+  const flagged = !!profile?.returning_client;
+
+  // AXIS-41: which price list this client sees. The manual flag is already on
+  // the profile, so it needs no lookup; only the derived half (do they have a
+  // confirmed order?) has to ask the database.
+  //
+  // `ready` guards the prices rather than the whole block: quoting R150 for a
+  // moment and then correcting it to R110 would be showing a client the wrong
+  // price, however briefly. Until the answer lands, no price is printed.
+  const [checked, setChecked] = useState({ ready: false, has: false });
+
+  useEffect(() => {
+    // The flag on its own settles it — don't ask for history we won't use.
+    if (flagged || !userId) { setChecked({ ready: true, has: false }); return; }
+    let active = true;
+    hasConfirmedOrder(userId).then(({ has }) => { if (active) setChecked({ ready: true, has }); });
+    return () => { active = false; };
+  }, [userId, flagged]);
+
+  const ready = checked.ready;
+  const returning = flagged || checked.has;
+  const tiers = cvTiers(returning);
+  const from = returning ? CV_FROM_PRICE.returning : CV_FROM_PRICE.first;
+
   // A suggestion, never a lock. An unset or unrecognised seniority_level simply
   // matches nothing and all four cards render plain — no crash, no default pick.
-  const suggested = CV_TIERS.find((t) => t.seniority.includes(seniority))?.key || null;
+  const suggested = tiers.find((t) => t.seniority.includes(seniority))?.key || null;
 
   // Scroll only once the panel has finished growing — scrolling while the
   // height animates chases a moving target and lands short on a phone.
@@ -50,10 +78,19 @@ export default function CvRevampTiers() {
       <div style={{ letterSpacing: '.12em', textTransform: 'uppercase', fontSize: 11, color: GOLD_INK, fontWeight: 700, marginBottom: 10 }}>
         Get your CV revamped
       </div>
-      <p style={{ margin: '0 0 16px', fontSize: 14, color: MUTED, lineHeight: 1.65, maxWidth: 560 }}>
+      <p style={{ margin: '0 0 14px', fontSize: 14, color: MUTED, lineHeight: 1.65, maxWidth: 560 }}>
         A full rewrite — restructuring, sharper content and ATS-aligned formatting.
-        From R150, priced by how much experience there is to work with.
+        {/* The price is appended once known rather than swapped in, so the
+            sentence reads correctly either way and nothing re-flows oddly. */}
+        {' '}Priced by how much experience there is to work with{ready ? `, from ${from}` : ''}.
       </p>
+
+      {ready && returning && (
+        <p className="ax-returning-note">
+          <span>Returning client</span>
+          You’ve had a CV revamped with us before, so these are your returning prices — around 30% below the standard rate.
+        </p>
+      )}
 
       <button
         type="button"
@@ -82,58 +119,69 @@ export default function CvRevampTiers() {
             onAnimationComplete={onOpened}
             style={{ overflow: 'hidden' }}
           >
-            {suggested && (
-              <p style={{ margin: '18px 0 0', fontSize: 13.5, color: MUTED, lineHeight: 1.6 }}>
-                Based on your profile ({seniority}), we’ve marked the tier that fits. You can choose any of them.
-              </p>
-            )}
+            {!ready ? (
+              <p style={{ margin: '18px 0 0', fontSize: 13.5, color: MUTED }}>Loading your options…</p>
+            ) : (
+              <>
+                {suggested && (
+                  <p style={{ margin: '18px 0 0', fontSize: 13.5, color: MUTED, lineHeight: 1.6 }}>
+                    Based on your profile ({seniority}), we’ve marked the tier that fits. You can choose any of them.
+                  </p>
+                )}
 
-            <motion.div
-              className="ax-tier-grid"
-              variants={containerVariants}
-              initial="hidden"
-              animate="show"
-              style={{ marginTop: suggested ? 8 : 16 }}
-            >
-              {CV_TIERS.map((t) => (
-                <motion.div key={t.key} variants={itemVariants}>
-                  <div className={`ax-tier${t.key === suggested ? ' ax-tier-pick' : ''}`}>
-                    {t.key === suggested && <div className="ax-tier-tag">Suggested for you</div>}
-                    <div style={{ fontSize: 11, letterSpacing: '.14em', textTransform: 'uppercase', fontWeight: 700, color: t.key === suggested ? GOLD_INK : MUTED }}>
-                      {t.label}
-                    </div>
-                    <div style={{ fontFamily: SERIF, fontSize: 18, fontWeight: 600, color: CREAM }}>{t.band}</div>
-                    <div style={{ fontFamily: SERIF, fontSize: 30, fontWeight: 600, color: CREAM, lineHeight: 1.1 }}>{t.price}</div>
-                    <ul style={{ margin: '2px 0 0', padding: '0 0 0 17px', fontSize: 13.5, color: MUTED, lineHeight: 1.9 }}>
-                      {CV_TIER_INCLUDES.map((inc) => <li key={inc}>{inc}</li>)}
-                    </ul>
-                    <a
-                      href={t.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={`ax-cta ax-tier-buy${t.key === suggested ? ' ax-tier-buy-pick' : ''}`}
-                    >
-                      Pay {t.price}
-                    </a>
-                  </div>
+                <motion.div
+                  className="ax-tier-grid"
+                  variants={containerVariants}
+                  initial="hidden"
+                  animate="show"
+                  style={{ marginTop: suggested ? 8 : 16 }}
+                >
+                  {tiers.map((t) => (
+                    <motion.div key={t.key} variants={itemVariants}>
+                      <div className={`ax-tier${t.key === suggested ? ' ax-tier-pick' : ''}`}>
+                        {t.key === suggested && <div className="ax-tier-tag">Suggested for you</div>}
+                        <div style={{ fontSize: 11, letterSpacing: '.14em', textTransform: 'uppercase', fontWeight: 700, color: t.key === suggested ? GOLD_INK : MUTED }}>
+                          {t.label}
+                        </div>
+                        <div style={{ fontFamily: SERIF, fontSize: 18, fontWeight: 600, color: CREAM }}>{t.band}</div>
+                        <div style={{ display: 'flex', alignItems: 'baseline', gap: 9, flexWrap: 'wrap' }}>
+                          <span style={{ fontFamily: SERIF, fontSize: 30, fontWeight: 600, color: CREAM, lineHeight: 1.1 }}>{t.price}</span>
+                          {/* wasPrice only exists on the returning list, so the
+                              saving shows itself without a second condition. */}
+                          {t.wasPrice && <span className="ax-tier-was">{t.wasPrice}</span>}
+                        </div>
+                        <ul style={{ margin: '2px 0 0', padding: '0 0 0 17px', fontSize: 13.5, color: MUTED, lineHeight: 1.9 }}>
+                          {CV_TIER_INCLUDES.map((inc) => <li key={inc}>{inc}</li>)}
+                        </ul>
+                        <a
+                          href={t.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={`ax-cta ax-tier-buy${t.key === suggested ? ' ax-tier-buy-pick' : ''}`}
+                        >
+                          Pay {t.price}
+                        </a>
+                      </div>
+                    </motion.div>
+                  ))}
                 </motion.div>
-              ))}
-            </motion.div>
 
-            <div style={{ marginTop: 20, paddingTop: 18, borderTop: '1px solid var(--ax-border)' }}>
-              <div style={{ fontSize: 11, letterSpacing: '.12em', textTransform: 'uppercase', fontWeight: 700, color: MUTED, marginBottom: 12 }}>
-                What happens next
-              </div>
-              <ol style={{ margin: 0, padding: '0 0 0 19px', fontSize: 13.5, color: MUTED, lineHeight: 1.75 }}>
-                <li><span style={{ color: CREAM, fontWeight: 600 }}>Upload your current CV</span> above, so we have something to work from.</li>
-                <li><span style={{ color: CREAM, fontWeight: 600 }}>Pay for your tier</span> on the Paystack page that opens.</li>
-                <li><span style={{ color: CREAM, fontWeight: 600 }}>We confirm by email</span> once the payment comes through.</li>
-                <li><span style={{ color: CREAM, fontWeight: 600 }}>Your revised CV appears here</span> under “Your finished CV”, ready to download.</li>
-              </ol>
-              <p style={{ margin: '14px 0 0', fontSize: 12.5, color: MUTED, lineHeight: 1.6 }}>
-                Turnaround is 3–4 working days, subject to current capacity and scope of work.
-              </p>
-            </div>
+                <div style={{ marginTop: 20, paddingTop: 18, borderTop: '1px solid var(--ax-border)' }}>
+                  <div style={{ fontSize: 11, letterSpacing: '.12em', textTransform: 'uppercase', fontWeight: 700, color: MUTED, marginBottom: 12 }}>
+                    What happens next
+                  </div>
+                  <ol style={{ margin: 0, padding: '0 0 0 19px', fontSize: 13.5, color: MUTED, lineHeight: 1.75 }}>
+                    <li><span style={{ color: CREAM, fontWeight: 600 }}>Upload your current CV</span> above, so we have something to work from.</li>
+                    <li><span style={{ color: CREAM, fontWeight: 600 }}>Pay for your tier</span> on the Paystack page that opens.</li>
+                    <li><span style={{ color: CREAM, fontWeight: 600 }}>We confirm by email</span> once the payment comes through.</li>
+                    <li><span style={{ color: CREAM, fontWeight: 600 }}>Your revised CV appears here</span> under “Your finished CV”, ready to download.</li>
+                  </ol>
+                  <p style={{ margin: '14px 0 0', fontSize: 12.5, color: MUTED, lineHeight: 1.6 }}>
+                    Turnaround is 3–4 working days, subject to current capacity and scope of work.
+                  </p>
+                </div>
+              </>
+            )}
           </motion.div>
         )}
       </AnimatePresence>

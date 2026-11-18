@@ -7,6 +7,7 @@
 --   • profiles          — one row per auth user (role + 30-day access expiry)
 --   • interview_content — the editable 4-pillar content (one JSON row)
 --   • cv_uploads        — a record per uploaded CV (client or admin)
+--   • cv_orders         — a record per confirmed CV revamp purchase
 --   • notifications     — per-user messages
 --   • storage bucket 'cvs' (private)
 --   • RLS so clients see only their own data and gated content; admins see all
@@ -42,14 +43,21 @@ create table if not exists public.profiles (
   -- Profile photo (AXIS-28): path to the object in the private 'avatars'
   -- bucket. Null = fall back to initials.
   avatar_path                 text,
+  -- Manual "this client has bought a revamp before" override (AXIS-41), for the
+  -- clients served before cv_orders existed. Derived history is the normal
+  -- route; this is the escape hatch. Guarded like role and access below — it
+  -- decides what the client is charged, so they must never set it themselves.
+  returning_client            boolean not null default false,
   created_at                  timestamptz not null default now()
 );
 
--- Idempotent migration for databases provisioned before AXIS-28 / AXIS-42.
+-- Idempotent migration for databases provisioned before AXIS-28 / AXIS-42 / AXIS-41.
 alter table public.profiles add column if not exists avatar_path text;
 alter table public.profiles
   add column if not exists skills    jsonb,
   add column if not exists education jsonb;
+alter table public.profiles
+  add column if not exists returning_client boolean not null default false;
 
 create table if not exists public.interview_content (
   id         uuid primary key default gen_random_uuid(),
@@ -69,6 +77,28 @@ create table if not exists public.cv_uploads (
   stage        text not null default 'original' check (stage in ('original', 'revised')),
   created_at   timestamptz not null default now()
 );
+
+-- One row per CV revamp the admin confirms (AXIS-41). This is the history that
+-- decides returning pricing: a client with any confirmed row here is a
+-- returning client, so the first revamp bought through the portal automatically
+-- prices the next one — nothing has to be remembered.
+create table if not exists public.cv_orders (
+  id           uuid primary key default gen_random_uuid(),
+  user_id      uuid not null references auth.users (id) on delete cascade,
+  -- Matches the CV_TIERS keys in src/payments.js.
+  tier         text not null check (tier in ('entry', 'mid', 'senior', 'executive')),
+  -- What was actually charged, in rand. Nullable: an order recorded after the
+  -- fact may not have the amount to hand.
+  amount       numeric(10, 2),
+  status       text not null default 'confirmed' check (status in ('pending', 'confirmed', 'refunded')),
+  -- Was THIS order charged at the returning price? History, not a gate.
+  is_returning boolean not null default false,
+  note         text,
+  created_at   timestamptz not null default now()
+);
+
+create index if not exists cv_orders_user_created_idx
+  on public.cv_orders (user_id, created_at desc);
 
 create table if not exists public.notifications (
   id         uuid primary key default gen_random_uuid(),
@@ -165,6 +195,7 @@ create trigger on_auth_user_created
 alter table public.profiles          enable row level security;
 alter table public.interview_content enable row level security;
 alter table public.cv_uploads        enable row level security;
+alter table public.cv_orders         enable row level security;
 alter table public.notifications     enable row level security;
 
 -- profiles: a client reads only their own row; admins read all. Writes are
@@ -196,14 +227,16 @@ set search_path = public
 as $$
 begin
   if auth.uid() is not null and not public.is_admin() then
-    -- Role and access can never be self-set (no privilege escalation); id and
-    -- email are the auth identity, kept in sync with auth.users, so a client
-    -- can't drift them out of band either.
+    -- Role and access can never be self-set (no privilege escalation);
+    -- returning_client decides the price a client is charged, so it is the same
+    -- kind of field (AXIS-41); id and email are the auth identity, kept in sync
+    -- with auth.users, so a client can't drift them out of band either.
     if new.role is distinct from old.role
        or new.interview_access_expires_at is distinct from old.interview_access_expires_at
+       or new.returning_client is distinct from old.returning_client
        or new.id is distinct from old.id
        or new.email is distinct from old.email then
-      raise exception 'Not allowed to change role, access, id or email';
+      raise exception 'Not allowed to change role, access, returning status, id or email';
     end if;
   end if;
   return new;
@@ -229,6 +262,17 @@ drop policy if exists cv_uploads_rw on public.cv_uploads;
 create policy cv_uploads_rw on public.cv_uploads
   for all using (user_id = auth.uid() or public.is_admin())
   with check (user_id = auth.uid() or public.is_admin());
+
+-- cv_orders (AXIS-41): a client reads their own orders, so the portal can price
+-- their next revamp, and can never write one. Admin-only writes — this table
+-- decides what a client is charged.
+drop policy if exists cv_orders_select on public.cv_orders;
+create policy cv_orders_select on public.cv_orders
+  for select using (user_id = auth.uid() or public.is_admin());
+
+drop policy if exists cv_orders_admin_write on public.cv_orders;
+create policy cv_orders_admin_write on public.cv_orders
+  for all using (public.is_admin()) with check (public.is_admin());
 
 -- notifications: owner reads + marks read; only admins create them.
 drop policy if exists notifications_select on public.notifications;
