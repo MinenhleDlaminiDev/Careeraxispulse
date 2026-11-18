@@ -3,6 +3,7 @@ import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { MotionConfig } from 'framer-motion';
 import { AuthProvider, useAuth } from './AuthContext';
 import { ThemeProvider, useTheme } from './ThemeContext';
+import { NotificationsProvider } from './NotificationsContext';
 import ProtectedRoute from './ProtectedRoute';
 import Login from './Login';
 import Signup from './Signup';
@@ -38,6 +39,10 @@ function PortalRoot() {
           signature entry and the user asked for it to always play. */}
       <MotionConfig reducedMotion="never">
         <ScrollToTop />
+        {/* AXIS-13: inside the Router (it refetches on route change) and inside
+            AuthProvider (it needs the signed-in user), wrapping the routes so
+            both bells in PortalLayout share one list and one unread count. */}
+        <NotificationsProvider>
         <Routes>
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<Signup />} />
@@ -46,6 +51,7 @@ function PortalRoot() {
           <Route path="admin/*" element={<ProtectedRoute requireAdmin><AdminHome /></ProtectedRoute>} />
           <Route path="*" element={<Navigate to="/portal" replace />} />
         </Routes>
+        </NotificationsProvider>
       </MotionConfig>
     </div>
   );

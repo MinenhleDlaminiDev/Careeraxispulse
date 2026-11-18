@@ -3,6 +3,7 @@ import { NavLink, Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useAuth } from './AuthContext';
 import ThemeToggle from './ThemeToggle';
+import NotificationBell from './NotificationBell';
 import { confirmNavigation } from './navGuard';
 import { GOLD, CREAM, MUTED, SERIF, BORDER } from './theme';
 
@@ -88,7 +89,12 @@ export default function PortalLayout({ area, nav, home, atHub, children }) {
         <div style={{ borderTop: `1px solid ${BORDER}`, paddingTop: 14, display: 'flex', flexDirection: 'column', gap: 12 }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 10 }}>
             <span style={{ fontSize: 12.5, color: MUTED }}>Theme</span>
-            <ThemeToggle />
+            {/* AXIS-13: the bell lives beside the toggle on desktop, where the
+                sidebar footer is the one spot that is always on screen. */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <NotificationBell />
+              <ThemeToggle />
+            </div>
           </div>
           {profile?.email && (
             <div style={{ fontSize: 12.5, color: MUTED, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{profile.email}</div>
@@ -110,7 +116,10 @@ export default function PortalLayout({ area, nav, home, atHub, children }) {
             <img src="/assets/logo.jpeg" alt="" width="26" height="26" style={{ borderRadius: 6, objectFit: 'cover' }} />
             <span style={{ fontFamily: SERIF, fontWeight: 700, fontSize: 15, color: CREAM }}>CareerPulse Axis</span>
           </Link>
-          <div style={{ marginLeft: 'auto' }}><ThemeToggle /></div>
+          <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 10 }}>
+            <NotificationBell />
+            <ThemeToggle />
+          </div>
         </div>
         {/* The section content enters with a choreographed fade + rise, keyed by
             route so it replays on every navigation. The small delay lets it land

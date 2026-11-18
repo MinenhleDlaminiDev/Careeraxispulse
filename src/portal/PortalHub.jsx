@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useAuth } from './AuthContext';
 import ThemeToggle from './ThemeToggle';
+import NotificationBell from './NotificationBell';
 import { Icon } from './PortalLayout';
 import { GOLD, CREAM, MUTED, SERIF } from './theme';
 
@@ -19,6 +20,10 @@ export default function PortalHub({ area, nav }) {
   return (
     <motion.div className="ax-hub" exit={{ opacity: 0 }} transition={{ duration: 0.22, ease: 'easeOut' }}>
       <div className="ax-hub-bar">
+        {/* AXIS-13: the hub is where everyone lands, and it covers the shell —
+            so without its own bell a client would arrive to no sign that
+            anything had happened. Same store as the two in PortalLayout. */}
+        <NotificationBell />
         <ThemeToggle />
         <button type="button" className="ax-iconbtn"
           onClick={async () => { const { error } = await signOut(); if (error) console.error('Sign out failed:', error.message); }}>

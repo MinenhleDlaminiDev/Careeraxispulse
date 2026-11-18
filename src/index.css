@@ -101,6 +101,20 @@
 .ax-iconbtn:disabled{opacity:.55;cursor:default}
 .ax-iconbtn svg{width:16px;height:16px;flex-shrink:0}
 .ax-grouplabel{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ax-muted);margin:0 0 9px}
+/* Notification bell + list (AXIS-13). The bell renders in the sidebar footer on
+   desktop and in the phone top bar; one set of styles serves both. */
+.ax-bell{position:relative;display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;flex-shrink:0;padding:0;border:1px solid var(--ax-border);border-radius:9px;background:transparent;color:var(--ax-text);cursor:pointer}
+.ax-bell:hover{background:var(--ax-surface);border-color:var(--ax-gold-border)}
+.ax-bell-dot{position:absolute;top:-5px;right:-5px;min-width:18px;height:18px;padding:0 4px;box-sizing:border-box;display:flex;align-items:center;justify-content:center;border-radius:999px;background:var(--ax-gold);color:var(--ax-on-gold);font-size:10.5px;font-weight:700;line-height:1}
+.ax-note{display:flex;flex-direction:column;align-items:flex-start;gap:5px;width:100%;box-sizing:border-box;text-align:left;padding:12px 13px;border-radius:10px;border:1px solid var(--ax-border);background:var(--ax-surface-2);color:var(--ax-text);font:inherit;font-size:13.5px;line-height:1.5;cursor:pointer}
+/* A read notification is not a button any more — disabled, and styled so it
+   reads as settled rather than broken. */
+.ax-note:disabled{cursor:default;opacity:.72}
+.ax-note-unread{background:var(--ax-gold-soft);border-color:var(--ax-gold-border)}
+.ax-note-unread:hover{border-color:var(--ax-gold)}
+.ax-note-body{word-break:break-word}
+.ax-note-meta{display:flex;align-items:center;gap:8px;font-size:11.5px;color:var(--ax-muted)}
+.ax-note-new{padding:2px 7px;border-radius:999px;background:var(--ax-gold);color:var(--ax-on-gold);font-size:10px;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
 /* Skills chips + the searchable picker, and the education sub-form (AXIS-42). */
 .ax-chips{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:10px}
 .ax-chip{display:inline-flex;align-items:center;gap:6px;max-width:100%;padding:6px 7px 6px 11px;border-radius:999px;background:var(--ax-gold-soft);border:1px solid var(--ax-gold-border);color:var(--ax-text);font-size:13px;line-height:1.3;word-break:break-word}
@@ -258,6 +272,9 @@
      28px is the compromise — still a comfortable thumb target, and removing a
      skill by accident costs one tap to put back. The picker's own options do
      take the full 44px, since those are the list you scroll and tap. */
+  /* AXIS-13: the bell is a primary control on a phone, so it takes the full
+     44px. The badge stays small and rides the corner. */
+  .ax-bell{width:44px;height:44px}
   .ax-chip-x{min-height:28px;height:28px;width:28px}
   .ax-chip{padding:7px 7px 7px 13px}
   .ax-ms-opt,.ax-auth .ax-ms-opt{min-height:44px}

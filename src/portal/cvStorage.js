@@ -1,4 +1,5 @@
 import { supabase } from '../supabase';
+import { notify, MESSAGES } from './notify';
 
 // Shared CV storage helpers used by the client uploader (CvUpload) and the admin
 // CV tools (AdminCvs). CVs live in the private "cvs" bucket under "<userId>/…"
@@ -43,6 +44,12 @@ export async function uploadCv({ userId, file, source, stage = 'original' }) {
     await supabase.storage.from('cvs').remove([path]);
     return { error: ins.error };
   }
+  // AXIS-13: the admin delivering a finished CV is the moment the client has
+  // been waiting for, and nothing else tells them. The other direction — a
+  // client uploading, which the admins want to know about — can't be written
+  // from here, because only an admin may insert a notification; a database
+  // trigger on cv_uploads handles that one.
+  if (source === 'admin' && stage === 'revised') notify(userId, MESSAGES.revisedCv);
   return { error: null };
 }
 
