@@ -26,11 +26,17 @@
   --ax-shadow:0 14px 40px rgba(0,0,0,.34);
   --ax-card-shadow:0 6px 22px rgba(0,0,0,.24);
 
+  /* AXIS-49: tells the browser our UI is dark, so it draws NATIVE widgets to
+     match — select popups, scrollbars, autofill, date pickers. Without it the
+     browser assumes light and paints the dropdown list on a white backdrop. */
+  color-scheme:dark;
+
   background:var(--ax-bg);
   color:var(--ax-text);
   font-family:'Public Sans',sans-serif;
 }
 .ax-portal[data-theme="light"]{
+  color-scheme:light;
   --ax-gold-ink:#8A6D12;
   --ax-bg:linear-gradient(180deg,#FDFBF6 0%,#F4ECDC 100%);
   --ax-bg-solid:#FBF8F1;
@@ -161,6 +167,15 @@
 .ax-switch input{width:18px;height:18px;flex-shrink:0;margin:0;accent-color:var(--ax-gold);cursor:pointer}
 .ax-switch input:disabled{cursor:default}
 .ax-switch:has(input:disabled){opacity:.6}
+/* AXIS-49: the options inside an open <select>.
+   The control itself uses --ax-surface-2, which in dark mode is a TRANSLUCENT
+   white (rgba(255,255,255,.09)). That reads correctly over the navy page but
+   the browser draws the dropdown popup on its own white backdrop, where 9%
+   white is just white — and cream text on white is invisible. Options must
+   therefore use an OPAQUE colour, which is what --ax-bg-solid is for. */
+.ax-portal select option,
+.ax-auth select option,
+.ax-modal-card select option{background-color:var(--ax-bg-solid);color:var(--ax-text)}
 /* AXIS-47: the required CV-sharing consent. Boxed and aligned to the top of
    the text because the wording runs to two or three lines on a phone, and a
    centred checkbox beside a paragraph looks broken. */
