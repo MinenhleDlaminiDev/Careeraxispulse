@@ -104,11 +104,30 @@ export const REQUIRED_PROFILE_FIELDS = [
   'seniority_level',
 ];
 
+// AXIS-47 — the CV-sharing consent wording, in one place so the signup form,
+// the completion gate and the privacy policy all say the same thing.
+export const CV_SHARING_CONSENT_TEXT =
+  'I give CareerPulse Axis permission to share my CV and profile with employers and recruiters looking for candidates.';
+
 // Is every required field filled in? A null profile is NOT complete, but it is
 // also not the gate's problem — ProtectedRoute handles "no profile" before the
 // gate ever runs.
+//
+// AXIS-47: is this client one we must ask for CV-sharing consent? Only
+// accounts created after the consent shipped. Clients who predate it were
+// marked cv_consent_required = false by the migration and carry on untouched.
+//
+// Defaults to true when the column is missing, so a profile loaded before the
+// migration runs errs towards asking rather than silently skipping consent.
+export const needsCvConsent = (profile) => (profile?.cv_consent_required ?? true) === true;
+
+// AXIS-47: consent is checked separately from REQUIRED_PROFILE_FIELDS because
+// it is a boolean, and that list trims strings — `false` would wrongly pass a
+// trim test as the string "false". Checking it here is what stops a Google
+// signup skipping the consent: the gate catches them and asks.
 export const isProfileComplete = (profile) => !!profile
-  && REQUIRED_PROFILE_FIELDS.every((k) => ((profile[k] ?? '') + '').trim() !== '');
+  && REQUIRED_PROFILE_FIELDS.every((k) => ((profile[k] ?? '') + '').trim() !== '')
+  && (!needsCvConsent(profile) || profile.cv_sharing_consent === true);
 
 // Which required fields are still missing — so the completion screen can say
 // how much is left rather than just refusing to move on.

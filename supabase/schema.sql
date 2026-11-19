@@ -47,6 +47,17 @@ create table if not exists public.profiles (
   -- 'picture'. Kept apart from avatar_path because that one is a storage path
   -- that gets signed — a foreign URL cannot be signed. An uploaded photo wins.
   avatar_url                  text,
+  -- Permission to send this client's CV to employers and recruiters (AXIS-47),
+  -- with the date it was given. Deliberately NOT in the privilege guard: this
+  -- choice belongs to the client, and an admin must be able to clear it when
+  -- someone asks to stop being shared.
+  cv_sharing_consent          boolean not null default false,
+  cv_sharing_consent_at       timestamptz,
+  -- Must this client answer at all? New signups must (the default). Clients
+  -- who already existed when AXIS-47 shipped were marked false by the
+  -- migration and are never asked — they were NOT backfilled to consented,
+  -- because recording a consent nobody gave is worse than having none.
+  cv_consent_required         boolean not null default true,
   -- Manual "this client has bought a revamp before" override (AXIS-41), for the
   -- clients served before cv_orders existed. Derived history is the normal
   -- route; this is the escape hatch. Guarded like role and access below — it
@@ -63,6 +74,16 @@ alter table public.profiles
 alter table public.profiles
   add column if not exists returning_client boolean not null default false;
 alter table public.profiles add column if not exists avatar_url text;
+alter table public.profiles
+  add column if not exists cv_sharing_consent    boolean not null default false,
+  add column if not exists cv_sharing_consent_at timestamptz,
+  add column if not exists cv_consent_required   boolean not null default true;
+-- Grandfather accounts that predate AXIS-47 (see the migration for why they are
+-- not backfilled to consented). Guarded so a re-run can't exempt a newer client.
+update public.profiles
+   set cv_consent_required = false
+ where cv_consent_required
+   and created_at < now();
 
 create table if not exists public.interview_content (
   id         uuid primary key default gen_random_uuid(),
@@ -157,6 +178,8 @@ language plpgsql
 security definer
 set search_path = public
 as $$
+declare
+  consented boolean := coalesce((new.raw_user_meta_data ->> 'cv_sharing_consent')::boolean, false);
 begin
   insert into public.profiles (
     id, full_name, email, role,
@@ -164,7 +187,8 @@ begin
     target_role, target_industry, seniority_level, target_companies,
     employment_status, change_driver,
     skills, education,
-    avatar_url
+    avatar_url,
+    cv_sharing_consent, cv_sharing_consent_at
   )
   values (
     new.id,
@@ -191,7 +215,11 @@ begin
     coalesce(
       nullif(trim(new.raw_user_meta_data ->> 'avatar_url'), ''),
       nullif(trim(new.raw_user_meta_data ->> 'picture'), '')
-    )
+    ),
+    -- AXIS-47. The date is only set when consent is actually true, so an
+    -- un-consented row has a null date rather than a misleading one.
+    consented,
+    case when consented then now() else null end
   )
   on conflict (id) do nothing;
   return new;

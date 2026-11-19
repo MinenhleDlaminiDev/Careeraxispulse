@@ -3,7 +3,7 @@ import { supabase } from '../supabase';
 import { useAuth } from './AuthContext';
 import AuthCard, { fieldStyle, labelStyle, primaryBtnStyle } from './AuthCard';
 import ProfileStepFields, { PROFILE_STEPS, profileValuesFrom, profilePayload } from './ProfileStepFields';
-import { missingProfileFields } from './profileFields';
+import { missingProfileFields, needsCvConsent } from './profileFields';
 import { DANGER, GOLD_INK, CREAM, MUTED, SERIF, BORDER } from './theme';
 
 const funStyle = { color: MUTED, fontSize: 13.5, lineHeight: 1.5, margin: '0 0 18px' };
@@ -41,29 +41,50 @@ export default function CompleteProfile() {
   const [busy, setBusy] = useState(false);
 
   const needsName = !((profile?.full_name || '').trim());
+  // AXIS-47: clients who predate the consent are never asked for it, even when
+  // they land here for a missing profile field.
+  const askConsent = needsCvConsent(profile);
   const set = (key, value) => setValues((v) => ({ ...v, [key]: value }));
   const stepDef = PROFILE_STEPS[step - 1];
-  const missing = missingProfileFields(profile).length;
+  const missing = missingProfileFields(profile).length
+    + (askConsent && profile?.cv_sharing_consent !== true ? 1 : 0);
 
-  const save = async () => {
-    setError('');
-    setBusy(true);
-    const payload = profilePayload(values);
+  // Write what has been filled in so far. Called on EVERY step, not just the
+  // last one: a Google signup clicked one button to get in and was not
+  // expecting a form, so they are exactly the person likely to wander off
+  // halfway. Saving per step means they resume where they stopped instead of
+  // facing an empty step 1 again.
+  //
+  // Writing the whole payload each time is safe because `values` was seeded
+  // from the existing profile — fields this step didn't touch are written back
+  // as they already were, not blanked.
+  //
+  // Consent is the exception: it is only included on the step that actually
+  // asks for it. Writing a consent value from a screen that never showed the
+  // box would be recording an answer nobody gave.
+  const persist = async (last) => {
+    const payload = profilePayload(values, { includeConsent: askConsent && last });
     if (needsName) payload.full_name = fullName.trim();
     // The client's own row, through profiles_self_update. None of these columns
     // are in the privilege guard, so a client may set them all.
     const { error: err } = await supabase.from('profiles').update(payload).eq('id', user.id);
-    if (err) { setError('We couldn’t save that. Please try again.'); setBusy(false); return; }
-    // Refresh rather than navigate: once profileComplete flips, the gate in
-    // ProtectedRoute stops redirecting and the portal appears on its own.
-    await refreshProfile();
-    setBusy(false);
+    return err;
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-    if (step < LAST) { setError(''); setStep(step + 1); return; }
-    save();
+    setError('');
+    setBusy(true);
+    const last = step === LAST;
+    const err = await persist(last);
+    setBusy(false);
+    // Don't advance on a failed save — moving on would tell them it was kept
+    // when it wasn't. Pressing Continue again retries.
+    if (err) { setError('We couldn’t save that. Check your connection and try again.'); return; }
+    if (!last) { setStep(step + 1); return; }
+    // Last step: refresh so profileComplete flips. The gate in ProtectedRoute
+    // then stops redirecting and the portal appears on its own.
+    await refreshProfile();
   };
 
   return (
@@ -96,7 +117,7 @@ export default function CompleteProfile() {
           </label>
         )}
 
-        <ProfileStepFields stepKey={stepDef.key} values={values} set={set} />
+        <ProfileStepFields stepKey={stepDef.key} values={values} set={set} showConsent={askConsent} />
 
         {error && <div style={{ marginTop: 16, color: DANGER, fontSize: 13 }}>{error}</div>}
 
@@ -109,6 +130,11 @@ export default function CompleteProfile() {
           <button type="submit" disabled={busy} style={{ ...primaryBtnStyle(busy), marginTop: 0, flex: 1 }}>
             {busy ? 'Saving…' : step < LAST ? 'Continue' : 'Finish'}
           </button>
+        </div>
+
+        {/* Worth saying out loud — it's the reason it's safe to stop. */}
+        <div style={{ marginTop: 12, fontSize: 12.5, color: MUTED, textAlign: 'center' }}>
+          Your answers are saved as you go, so you can stop and come back.
         </div>
       </form>
 

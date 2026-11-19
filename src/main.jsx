@@ -16,6 +16,8 @@ import InterviewCode from './pages/InterviewCode.jsx';
 import Testimonials from './pages/Testimonials.jsx';
 import Contact from './pages/Contact.jsx';
 import RefundPolicy from './pages/RefundPolicy.jsx';
+import Privacy from './pages/Privacy.jsx';
+import Terms from './pages/Terms.jsx';
 import './index.css';
 import './hover.css';
 
@@ -43,6 +45,10 @@ createRoot(document.getElementById('root')).render(
           <Route path="/testimonials" element={<Testimonials />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/refund-policy" element={<RefundPolicy />} />
+          {/* AXIS-46: Google won't publish the OAuth app without these two
+              URLs resolving, and the AXIS-47 consent needs a policy to point at. */}
+          <Route path="/privacy" element={<Privacy />} />
+          <Route path="/terms" element={<Terms />} />
           <Route path="*" element={<Home />} />
         </Route>
       </Routes>

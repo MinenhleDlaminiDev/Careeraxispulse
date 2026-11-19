@@ -1,9 +1,10 @@
+import { Link } from 'react-router-dom';
 import { fieldStyle, labelStyle } from './AuthCard';
 import MultiSelect from './MultiSelect';
 import EducationFields from './EducationFields';
 import {
   SENIORITY, EMPLOYMENT, INDUSTRIES, SKILLS,
-  clean, cleanList, cleanEducation, asList,
+  clean, cleanList, cleanEducation, asList, CV_SHARING_CONSENT_TEXT,
 } from './profileFields';
 import { MUTED } from './theme';
 
@@ -27,7 +28,9 @@ export const PROFILE_STEPS = [
   {
     key: 'extras',
     label: 'Skills & education',
-    fun: 'Last step, and it’s optional. Add what you can now, or fill it in later from your profile.',
+    // AXIS-47 put a required tick box on this step, so it can no longer be
+    // described as optional — the fields above it still are.
+    fun: 'Last step. Skills and education are optional — add what you can now, or fill them in later from your profile.',
   },
 ];
 
@@ -37,6 +40,9 @@ export const emptyProfileValues = () => ({
   target_role: '', target_industry: '', seniority_level: '',
   target_companies: '', change_driver: '',
   skills: [], education: [],
+  // AXIS-47 — required before an account can be created. Starts unticked: a
+  // consent box that arrives pre-ticked isn't consent.
+  cv_sharing_consent: false,
 });
 
 // Prefill from an existing profile row — what the completion gate needs, since
@@ -56,11 +62,15 @@ export const profileValuesFrom = (profile) => ({
   change_driver: profile?.change_driver || '',
   skills: asList(profile?.skills),
   education: asList(profile?.education),
+  cv_sharing_consent: profile?.cv_sharing_consent === true,
 });
 
 // Values -> the shape both signup metadata and a profiles update expect.
 // Blank strings become null, empty lists become null (AXIS-42), never '' or [].
-export const profilePayload = (v) => ({
+// `includeConsent` false leaves the two consent columns alone entirely — used
+// for clients who predate AXIS-47 and are never asked. Writing `false` for them
+// would be harmless but untrue in spirit: we did not ask, so we say nothing.
+export const profilePayload = (v, { includeConsent = true } = {}) => ({
   phone: clean(v.phone),
   location: clean(v.location),
   linkedin_url: clean(v.linkedin_url),
@@ -72,6 +82,13 @@ export const profilePayload = (v) => ({
   change_driver: clean(v.change_driver),
   skills: cleanList(v.skills),
   education: cleanEducation(v.education),
+  // AXIS-47. The date is stamped only when consent is true, so an un-consented
+  // row carries no misleading timestamp. Written here rather than by each
+  // caller so signup and the completion gate record it identically.
+  ...(includeConsent ? {
+    cv_sharing_consent: v.cv_sharing_consent === true,
+    cv_sharing_consent_at: v.cv_sharing_consent === true ? new Date().toISOString() : null,
+  } : {}),
 });
 
 // A saved industry that is not in the current INDUSTRIES list would render as a
@@ -80,7 +97,11 @@ export const profilePayload = (v) => ({
 const withCurrent = (options, value) => (value && !options.includes(value) ? [value, ...options] : options);
 
 // One step's fields. `set(key, value)` updates a single field.
-export default function ProfileStepFields({ stepKey, values: v, set }) {
+//
+// `showConsent` false hides the AXIS-47 tick box, for clients who predate it
+// and are not required to answer. They can still be sent here by the gate for
+// a missing profile field, and must not be asked for consent on the way past.
+export default function ProfileStepFields({ stepKey, values: v, set, showConsent = true }) {
   if (stepKey === 'about') {
     return (
       <>
@@ -151,6 +172,30 @@ export default function ProfileStepFields({ stepKey, values: v, set }) {
         Education &amp; qualifications <span style={optionalHint}>(optional)</span>
       </div>
       <EducationFields value={v.education} onChange={(next) => set('education', next)} />
+
+      {/* AXIS-47: required. `required` on the input means the browser's own
+          validation blocks the step, the same mechanism every other required
+          field on this wizard uses — no separate error path to keep in step. */}
+      {/* The privacy link sits OUTSIDE the label on purpose. Inside it, a
+          <label> forwards the click to the checkbox, so reading the policy
+          would silently tick or untick the consent on the way out — and the
+          navigation threw away the half-filled form with it. */}
+      {showConsent && (
+        <div className="ax-consent">
+          <label className="ax-switch">
+            <input
+              type="checkbox"
+              checked={v.cv_sharing_consent === true}
+              onChange={(e) => set('cv_sharing_consent', e.target.checked)}
+              required
+            />
+            <span>{CV_SHARING_CONSENT_TEXT}</span>
+          </label>
+          <Link to="/privacy" target="_blank" rel="noopener noreferrer" className="ax-consent-link">
+            How we use your CV →
+          </Link>
+        </div>
+      )}
     </>
   );
 }

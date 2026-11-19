@@ -161,6 +161,16 @@
 .ax-switch input{width:18px;height:18px;flex-shrink:0;margin:0;accent-color:var(--ax-gold);cursor:pointer}
 .ax-switch input:disabled{cursor:default}
 .ax-switch:has(input:disabled){opacity:.6}
+/* AXIS-47: the required CV-sharing consent. Boxed and aligned to the top of
+   the text because the wording runs to two or three lines on a phone, and a
+   centred checkbox beside a paragraph looks broken. */
+.ax-consent{margin-top:22px;padding:14px 15px;border-radius:10px;background:var(--ax-surface-2);border:1px solid var(--ax-border)}
+.ax-consent .ax-switch{align-items:flex-start;font-weight:400;font-size:13.5px;line-height:1.6}
+.ax-consent .ax-switch input{margin-top:2px}
+/* Outside the label (see ProfileStepFields), indented to line up under the
+   consent text rather than under the checkbox. */
+.ax-consent-link{display:inline-block;margin:9px 0 0 27px;font-size:12.5px;font-weight:600;color:var(--ax-gold-ink);text-decoration:none}
+.ax-consent-link:hover{text-decoration:underline}
 /* AXIS-43: "Continue with Google" + the "or" divider under it. The button is
    white in both themes — Google's brand guidelines fix that, and a themed
    version would read as a fake. */

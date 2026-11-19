@@ -23,7 +23,7 @@ export function AuthProvider({ children }) {
     if (!supabase || !userId) { setProfile(null); setProfileReady(true); return; }
     const { data, error } = await supabase
       .from('profiles')
-      .select('id, full_name, email, role, interview_access_expires_at, avatar_path, avatar_url, phone, location, linkedin_url, target_role, target_industry, seniority_level, target_companies, employment_status, change_driver, skills, education, returning_client')
+      .select('id, full_name, email, role, interview_access_expires_at, avatar_path, avatar_url, phone, location, linkedin_url, target_role, target_industry, seniority_level, target_companies, employment_status, change_driver, skills, education, returning_client, cv_sharing_consent, cv_sharing_consent_at, cv_consent_required')
       .eq('id', userId)
       .single();
     if (error) { console.error('Failed to load profile:', error.message); setProfile(null); }

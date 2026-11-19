@@ -74,6 +74,78 @@ function CvRow({ cv, onDownload }) {
   );
 }
 
+// AXIS-47: the client's permission to have their CV sent to employers.
+//
+// The consent is required at signup and the client has no switch of their own,
+// so this card is the ONLY place it can be withdrawn. Someone who emails asking
+// to stop being shared is handled here. Turning it back on from the admin side
+// is deliberately not offered — that would be the admin consenting on the
+// client's behalf, which is not consent. If they want back in, they tick it
+// themselves: clearing it makes their profile incomplete, so the completion
+// gate asks them again next time they sign in.
+function CvSharingConsent({ client, onChange }) {
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState('');
+  const [confirming, setConfirming] = useState(false);
+  const on = client.cv_sharing_consent === true;
+  // Signed up before AXIS-47 shipped, so they were never asked. Not the same
+  // as refusing, and not the same as agreeing — say so plainly rather than
+  // showing "Withdrawn", which would read as a decision they never made.
+  const exempt = (client.cv_consent_required ?? true) !== true && !on;
+
+  const withdraw = async () => {
+    setError('');
+    setBusy(true);
+    const { data, error: err } = await supabase
+      .from('profiles')
+      .update({ cv_sharing_consent: false, cv_sharing_consent_at: null })
+      .eq('id', client.id)
+      .select('cv_sharing_consent, cv_sharing_consent_at')
+      .single();
+    setBusy(false);
+    setConfirming(false);
+    if (err || !data) { setError('Couldn’t update that — please try again.'); return; }
+    onChange(data);
+  };
+
+  return (
+    <section className="ax-card" style={{ padding: '20px 22px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap', marginBottom: 4 }}>
+        <p className="ax-grouplabel" style={{ margin: 0 }}>CV sharing</p>
+        <span className={`ax-badge ax-badge-${on ? 'gold' : exempt ? 'neutral' : 'danger'}`} style={{ marginLeft: 'auto' }}>
+          {on ? 'Consented' : exempt ? 'Never asked' : 'Withdrawn'}
+        </span>
+      </div>
+      <p style={{ margin: '0 0 14px', fontSize: 13.5, color: MUTED, lineHeight: 1.6 }}>
+        {on
+          ? `They agreed on ${fmtDate(client.cv_sharing_consent_at)} that their CV and profile may be shared with employers and recruiters looking for candidates.`
+          : exempt
+            ? 'This account predates the consent box, so they were never asked. Don’t send their CV to employers without asking them directly first.'
+            : 'Their CV must NOT be sent to employers or recruiters. They will be asked again next time they sign in.'}
+      </p>
+
+      <Banner kind="error" style={{ marginBottom: 14 }}>{error}</Banner>
+
+      {on && (
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 9, paddingTop: 14, borderTop: '1px solid var(--ax-border)' }}>
+          {confirming ? (
+            <>
+              <button type="button" onClick={withdraw} disabled={busy} style={{ ...dangerBtn, opacity: busy ? 0.6 : 1 }}>
+                {busy ? '…' : 'Confirm — stop sharing'}
+              </button>
+              <button type="button" className="ax-iconbtn" onClick={() => setConfirming(false)} disabled={busy}>Cancel</button>
+            </>
+          ) : (
+            <button type="button" className="ax-iconbtn" onClick={() => setConfirming(true)} disabled={busy}>
+              Withdraw consent
+            </button>
+          )}
+        </div>
+      )}
+    </section>
+  );
+}
+
 // AXIS-41: the admin's side of returning-client pricing.
 //
 // Two controls, because there are two ways a client can be returning:
@@ -289,7 +361,7 @@ export default function ClientDetail() {
     setState((s) => ({ ...s, loading: true, error: false }));
     const { data: client, error } = await supabase
       .from('profiles')
-      .select('id, full_name, email, avatar_path, avatar_url, interview_access_expires_at, created_at, phone, location, linkedin_url, target_role, target_industry, seniority_level, target_companies, employment_status, change_driver, skills, education, returning_client')
+      .select('id, full_name, email, avatar_path, avatar_url, interview_access_expires_at, created_at, phone, location, linkedin_url, target_role, target_industry, seniority_level, target_companies, employment_status, change_driver, skills, education, returning_client, cv_sharing_consent, cv_sharing_consent_at, cv_consent_required')
       .eq('id', id)
       .maybeSingle();
     if (error || !client) { setState({ loading: false, client: null, cvs: [], error: true }); return; }
@@ -429,6 +501,14 @@ export default function ClientDetail() {
           ['Employment status', c.employment_status],
           ['What’s driving the change', c.change_driver],
         ]} />
+
+        {/* AXIS-47: whether this client's CV may go to employers, and when
+            they agreed. Clearing it is how a withdrawal request is honoured —
+            the client has no switch of their own, so it has to live here. */}
+        <CvSharingConsent
+          client={c}
+          onChange={(row) => setState((s) => ({ ...s, client: { ...s.client, ...row } }))}
+        />
 
         {/* AXIS-41: order history + the manual override that together decide
             whether this client sees returning prices. */}
