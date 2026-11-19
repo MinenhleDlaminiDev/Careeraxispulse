@@ -38,7 +38,16 @@ export default function Layout() {
 
   return (
     <div onClickCapture={onClick} onContextMenu={blockImage} onDragStart={blockImage}>
-      <Header />
+      {/* AXIS-50: the header and the weekend bar stick together as one block.
+          The sticky lives HERE, not on <Header>, so the two never separate as
+          you scroll. Marketing routes only — the portal is mounted outside
+          this Layout (AXIS-02), so no portal screen gets the bar. */}
+      <div style={{ position: 'sticky', top: 0, zIndex: 50 }}>
+        <Header />
+        <div style={{ background: '#C9A227', color: '#131F38', textAlign: 'center', fontWeight: 700, fontSize: '13.5px', letterSpacing: '.02em', padding: '9px 16px', lineHeight: 1.4 }}>
+          We are closed on weekends · Office hours Monday to Friday
+        </div>
+      </div>
       <Outlet />
       <Footer />
     </div>

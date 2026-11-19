@@ -24,8 +24,11 @@ export default function Header() {
     </svg>
   );
 
+  // AXIS-50: no position:sticky here on purpose — the sticky wrapper in
+  // Layout.jsx holds this header AND the weekend bar together. Putting it
+  // back would pin the header alone and let the bar scroll away beneath it.
   return (
-    <header style={{ position: 'sticky', top: 0, zIndex: 50, background: 'rgba(14,24,48,.92)', backdropFilter: 'blur(8px)', borderBottom: '1px solid rgba(201,162,39,.25)' }}>
+    <header style={{ background: 'rgba(14,24,48,.92)', backdropFilter: 'blur(8px)', borderBottom: '1px solid rgba(201,162,39,.25)' }}>
       <div style={{ maxWidth: '1240px', margin: '0 auto', padding: '14px 32px', display: 'flex', alignItems: 'center', gap: '16px 36px', flexWrap: 'wrap' }}>
         <Link to="/" onClick={close} style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           {logo}
