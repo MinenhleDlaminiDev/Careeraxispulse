@@ -21,8 +21,25 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      # AXIS-48 — DO NOT REMOVE THIS env BLOCK.
+      #
+      # Vite inlines import.meta.env at BUILD time, so these have to be present
+      # here, not at runtime. Without them src/supabase.js sees no URL or key,
+      # isConfigured is false, the client is null, and every /portal/* screen
+      # renders "Portal not configured". The build still SUCCEEDS and the
+      # marketing pages still look right — the portal is just silently dead.
+      #
+      # These are repository VARIABLES, not secrets, on purpose: all three are
+      # inlined into the shipped bundle and readable by anyone who opens the
+      # site. Supabase designs the publishable key to be public and RLS is what
+      # protects the data. The FTP credentials below are a different matter and
+      # stay secrets.
       - name: Build
         run: npm run build
+        env:
+          VITE_SUPABASE_URL: ${{ vars.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_PUBLISHABLE_KEY: ${{ vars.VITE_SUPABASE_PUBLISHABLE_KEY }}
+          VITE_GOOGLE_AUTH: ${{ vars.VITE_GOOGLE_AUTH }}
 
       - name: Deploy to cPanel via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
