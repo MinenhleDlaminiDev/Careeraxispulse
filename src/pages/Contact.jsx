@@ -55,7 +55,7 @@ export default function Contact() {
               <li>Interview date (for readiness sessions)</li>
               <li>Experience, responsibilities &amp; certifications</li>
             </ul>
-            <div style={{ fontSize: "13px", color: "#8A94AC" }}>Turnaround: 3–4 working days, Monday to Friday. Weekends and public holidays are not counted.</div>
+            <div style={{ fontSize: "13px", color: "#8A94AC" }}>Turnaround: 3-4 working days, Monday to Friday. Weekends and public holidays are not counted.</div>
           </Item>
         </Stagger>
       </section>

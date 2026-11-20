@@ -17,7 +17,7 @@ import { DANGER, GOLD_INK, CREAM, MUTED, SERIF, BORDER, DANGER_SOFT, DANGER_BORD
 // ProfileStepFields, which the completion gate also uses, so the two can never
 // ask different questions. Step 1 stays local: it is the only part a Google
 // user never sees.
-const ACCOUNT_STEP = { label: 'Your account', fun: 'First things first — let’s set up your login. 👋' };
+const ACCOUNT_STEP = { label: 'Your account', fun: 'First things first, let’s set up your login. 👋' };
 const STEPS = [ACCOUNT_STEP, ...PROFILE_STEPS];
 const LAST_STEP = STEPS.length;
 
@@ -79,7 +79,7 @@ export default function SignupForm({ onDone }) {
       <>
         {header}
         <div style={{ color: MUTED, fontSize: 14.5, lineHeight: 1.6 }}>
-          Almost there — we’ve sent a confirmation link to <strong style={{ color: CREAM }}>{email.trim()}</strong>.
+          Almost there. We’ve sent a confirmation link to <strong style={{ color: CREAM }}>{email.trim()}</strong>.
           Confirm your email, then <Link to="/portal/login" onClick={onDone} style={{ color: GOLD_INK, fontWeight: 600 }}>sign in</Link>.
         </div>
       </>
@@ -91,7 +91,7 @@ export default function SignupForm({ onDone }) {
       {header}
       {!isConfigured && (
         <div style={{ marginBottom: 18, padding: '10px 12px', borderRadius: 6, background: DANGER_SOFT, border: `1px solid ${DANGER_BORDER}`, color: DANGER, fontSize: 13, lineHeight: 1.5 }}>
-          Portal not configured — add your Supabase URL and key to <code>.env</code>.
+          Portal not configured. Add your Supabase URL and key to <code>.env</code>.
         </div>
       )}
 

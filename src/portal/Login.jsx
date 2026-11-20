@@ -93,7 +93,7 @@ export default function Login() {
               </div>
               <div style={{ fontSize: 13, color: MUTED, lineHeight: 1.6 }}>
                 Your profile is where we switch on your 30 days, so you need one before you pay.
-                It takes a minute — then you can buy for {INTERVIEW_PRICE} straight from the portal.
+                It takes a minute, then you can buy for {INTERVIEW_PRICE} straight from the portal.
                 Already registered? Close this to sign in.
               </div>
             </div>

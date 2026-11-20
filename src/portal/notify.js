@@ -28,5 +28,5 @@ export async function notify(userId, message) {
 // The wording lives here so the bell reads consistently wherever rows come from.
 export const MESSAGES = {
   accessGranted: (expiry) => `Your Axis Interview Code access is active until ${new Date(expiry).toLocaleDateString()}.`,
-  revisedCv: 'Your revised CV is ready — open My CV to download it.',
+  revisedCv: 'Your revised CV is ready. Open My CV to download it.',
 };

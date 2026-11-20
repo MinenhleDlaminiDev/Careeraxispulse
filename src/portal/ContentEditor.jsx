@@ -153,7 +153,7 @@ export default function ContentEditor() {
       .eq('id', load.id);
     if (!mountedRef.current) return;
     setSaving(false);
-    if (error) { setMessage({ kind: 'error', text: 'Couldn’t save — please try again.' }); return; }
+    if (error) { setMessage({ kind: 'error', text: 'Couldn’t save. Please try again.' }); return; }
     savedContentRef.current = content;
     savedJsonRef.current = JSON.stringify(content);
     setLastSavedAt(Date.now());
@@ -224,7 +224,7 @@ export default function ContentEditor() {
                 <span className={'ax-pillar-chev' + (isOpen ? ' open' : '')} aria-hidden="true">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M9 6l6 6-6 6" /></svg>
                 </span>
-                <span className="ax-pillar-title">Pillar {p.number || i + 1}{p.title ? ` — ${p.title}` : ' — Untitled'}</span>
+                <span className="ax-pillar-title">Pillar {p.number || i + 1}{p.title ? `: ${p.title}` : ': Untitled'}</span>
               </button>
               <div className="ax-pillar-actions">
                 <button type="button" onClick={() => movePillar(i, -1)} disabled={i === 0} aria-label="Move pillar up"

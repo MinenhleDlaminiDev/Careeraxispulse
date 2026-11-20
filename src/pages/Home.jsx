@@ -27,10 +27,10 @@ export default function Home() {
       <section style={{ background: "#C9A227", overflow: "hidden", padding: "14px 0" }}>
         <div style={{ display: "flex", gap: "0", width: "max-content", animation: "marquee 28s linear infinite" }}>
           <div style={{ display: "flex", gap: "56px", paddingRight: "56px", fontSize: "13px", fontWeight: "700", letterSpacing: ".2em", textTransform: "uppercase", color: "#131F38", whiteSpace: "nowrap" }}>
-            <span>ATS-aligned formatting</span><span>✦</span><span>3–4 day turnaround</span><span>✦</span><span>11% returning client discount</span><span>✦</span><span>Align. Elevate. Thrive.</span><span>✦</span><span>Graduate to executive</span><span>✦</span>
+            <span>ATS-aligned formatting</span><span>✦</span><span>3-4 day turnaround</span><span>✦</span><span>11% returning client discount</span><span>✦</span><span>Align. Elevate. Thrive.</span><span>✦</span><span>Graduate to executive</span><span>✦</span>
           </div>
           <div style={{ display: "flex", gap: "56px", paddingRight: "56px", fontSize: "13px", fontWeight: "700", letterSpacing: ".2em", textTransform: "uppercase", color: "#131F38", whiteSpace: "nowrap" }}>
-            <span>ATS-aligned formatting</span><span>✦</span><span>3–4 day turnaround</span><span>✦</span><span>11% returning client discount</span><span>✦</span><span>Align. Elevate. Thrive.</span><span>✦</span><span>Graduate to executive</span><span>✦</span>
+            <span>ATS-aligned formatting</span><span>✦</span><span>3-4 day turnaround</span><span>✦</span><span>11% returning client discount</span><span>✦</span><span>Align. Elevate. Thrive.</span><span>✦</span><span>Graduate to executive</span><span>✦</span>
           </div>
         </div>
       </section>
@@ -58,7 +58,7 @@ export default function Home() {
               <h3 style={{ fontFamily: "'Source Serif 4',serif", fontSize: "26px", fontWeight: "600", margin: "0 0 6px" }}>Interview Readiness</h3>
               <div style={{ fontSize: "13px", letterSpacing: ".14em", textTransform: "uppercase", fontWeight: "600", color: "#6B7690" }}>One-on-one · from R200</div>
             </div>
-            <p style={{ fontSize: "15px", lineHeight: "1.65", color: "#56607A", margin: "0", flex: "2 1 300px" }}>Structured 45–60 minute sessions that prepare you for graduate and professional-level interviews.</p>
+            <p style={{ fontSize: "15px", lineHeight: "1.65", color: "#56607A", margin: "0", flex: "2 1 300px" }}>Structured 45-60 minute sessions that prepare you for graduate and professional-level interviews.</p>
             <div style={{ fontSize: "22px", color: "#C9A227", marginLeft: "auto" }}>→</div>
           </Item>
           <Item as="a" href="/interview-code" style={{ display: "flex", flexWrap: "wrap", gap: "24px 32px", alignItems: "center", padding: "36px 8px", borderTop: "1px solid #E0D9C7", borderBottom: "1px solid #E0D9C7" }} data-h="hv-home-4">
@@ -76,7 +76,7 @@ export default function Home() {
         <div style={{ maxWidth: "1240px", margin: "0 auto", padding: "92px 32px" }}>
           <Stagger style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(280px,1fr))", gap: "56px" }}>
             <Item>
-              <div style={{ fontFamily: "'Source Serif 4',serif", fontSize: "clamp(48px,7vw,76px)", fontWeight: "600", color: "#1B2A4A", lineHeight: "1" }}>3–4</div>
+              <div style={{ fontFamily: "'Source Serif 4',serif", fontSize: "clamp(48px,7vw,76px)", fontWeight: "600", color: "#1B2A4A", lineHeight: "1" }}>3-4</div>
               <div style={{ height: "3px", width: "44px", background: "#C9A227", margin: "18px 0" }}></div>
               <h3 style={{ fontSize: "17px", fontWeight: "600", margin: "0 0 8px" }}>Working day turnaround</h3>
               <p style={{ fontSize: "14.5px", lineHeight: "1.65", color: "#56607A", margin: "0" }}>Monday to Friday, weekends and public holidays excluded. You'll always know before we start.</p>

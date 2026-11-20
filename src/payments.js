@@ -9,9 +9,9 @@ export const PAYSTACK_URL = 'https://paystack.shop/pay/zzvuae8ftf';
 
 // CV Revamp — one Paystack product page per experience tier.
 export const CV_REVAMP = {
-  entry: 'https://paystack.com/buy/entry-level-02-years-cv-revamp-iwskxa',       // 0–2 years, R150
-  mid: 'https://paystack.com/buy/mid-level-cv-revamp-r220-sfqauq',              // 2–5 years, R220
-  senior: 'https://paystack.com/buy/senior-level-cv-revamp-r300-ucajlr',        // 5–10 years, R300
+  entry: 'https://paystack.com/buy/entry-level-02-years-cv-revamp-iwskxa',       // 0-2 years, R150
+  mid: 'https://paystack.com/buy/mid-level-cv-revamp-r220-sfqauq',              // 2-5 years, R220
+  senior: 'https://paystack.com/buy/senior-level-cv-revamp-r300-ucajlr',        // 5-10 years, R300
   executive: 'https://paystack.com/buy/executive-level-10-years-r400-jxaapg',   // 10+ years, R400
 };
 
@@ -21,9 +21,9 @@ export const CV_REVAMP = {
 // a tier rather than to lock one in. Bands and prices verified against the live
 // Paystack pages on 2026-11-17.
 export const CV_TIERS = [
-  { key: 'entry', label: 'Entry level', band: '0–2 years', price: 'R150', url: CV_REVAMP.entry, seniority: ['Entry level'] },
-  { key: 'mid', label: 'Mid-level', band: '2–5 years', price: 'R220', url: CV_REVAMP.mid, seniority: ['Mid level'] },
-  { key: 'senior', label: 'Senior level', band: '5–10 years', price: 'R300', url: CV_REVAMP.senior, seniority: ['Senior'] },
+  { key: 'entry', label: 'Entry level', band: '0-2 years', price: 'R150', url: CV_REVAMP.entry, seniority: ['Entry level'] },
+  { key: 'mid', label: 'Mid-level', band: '2-5 years', price: 'R220', url: CV_REVAMP.mid, seniority: ['Mid level'] },
+  { key: 'senior', label: 'Senior level', band: '5-10 years', price: 'R300', url: CV_REVAMP.senior, seniority: ['Senior'] },
   { key: 'executive', label: 'Executive', band: '10+ years', price: 'R400', url: CV_REVAMP.executive, seniority: ['Management', 'Executive'] },
 ];
 
@@ -34,9 +34,9 @@ export const CV_TIER_INCLUDES = ['CV restructuring', 'Content refinement', 'ATS-
 // Paystack pages ("<Tier> CV Revamp – Returning Client"). Prices verified
 // against the live pages on 2026-11-18: about 27-30% below first-time.
 export const CV_REVAMP_RETURNING = {
-  entry: 'https://paystack.com/buy/entry-level-cv-revamp--returning-client-dqllvx',          // 0–2 years, R110
-  mid: 'https://paystack.com/buy/mid-level-cv-revamp--returning-client-akqpaz',              // 2–5 years, R160
-  senior: 'https://paystack.com/buy/senior-level-cv-revamp--returning-client-xoytmf',        // 5–10 years, R210
+  entry: 'https://paystack.com/buy/entry-level-cv-revamp--returning-client-dqllvx',          // 0-2 years, R110
+  mid: 'https://paystack.com/buy/mid-level-cv-revamp--returning-client-akqpaz',              // 2-5 years, R160
+  senior: 'https://paystack.com/buy/senior-level-cv-revamp--returning-client-xoytmf',        // 5-10 years, R210
   executive: 'https://paystack.com/buy/executive-level-cv-revamp--returning-client-jghxdk',  // 10+ years, R280
 };
 

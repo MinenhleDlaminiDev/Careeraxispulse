@@ -37,7 +37,7 @@ function MetaRow({ label, value }) {
   return (
     <div style={{ display: 'flex', gap: 8, fontSize: 13 }}>
       <span style={{ color: MUTED, minWidth: 74, flexShrink: 0 }}>{label}</span>
-      <span style={{ color: 'var(--ax-text)', ...ellipsis }}>{value || '—'}</span>
+      <span style={{ color: 'var(--ax-text)', ...ellipsis }}>{value || 'Not set'}</span>
     </div>
   );
 }
@@ -92,7 +92,7 @@ export default function AccessManagement() {
         clients: s.clients.map((c) => (c.id === id ? { ...c, interview_access_expires_at: data.interview_access_expires_at } : c)),
       }));
     } else {
-      setActionError('Couldn’t update access — please try again.');
+      setActionError('Couldn’t update access. Please try again.');
     }
   }, []);
 
@@ -103,7 +103,7 @@ export default function AccessManagement() {
     return (
       <div>
         <PageHeader eyebrow="Clients" title="Clients">
-          Manage your clients — open a client for their full profile and CVs, or grant and revoke Interview Code access here.
+          Manage your clients. Open a client for their full profile and CVs, or grant and revoke Interview Code access here.
         </PageHeader>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(290px,1fr))', gap: 16 }}>
           {Array.from({ length: 6 }).map((_, i) => <ClientCardSkeleton key={i} />)}
@@ -115,7 +115,7 @@ export default function AccessManagement() {
   return (
     <div>
       <PageHeader eyebrow="Clients" title="Clients">
-        Manage your clients — open a client for their full profile and CVs, or grant and revoke Interview Code access here.
+        Manage your clients. Open a client for their full profile and CVs, or grant and revoke Interview Code access here.
       </PageHeader>
 
       <Banner kind="error" style={{ marginBottom: 14 }}>{actionError}</Banner>

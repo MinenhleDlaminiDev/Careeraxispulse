@@ -50,7 +50,7 @@ export default function Terms() {
             <p style={P}>CareerPulse Axis offers:</p>
             <ul style={UL}>
               <li><strong>CV writing and CV revamps</strong>, priced by how much experience there is to work with.</li>
-              <li><strong>The Axis Interview Code</strong> — interview readiness material, available through the portal for a set access period once purchased.</li>
+              <li><strong>The Axis Interview Code</strong>: interview readiness material, available through the portal for a set access period once purchased.</li>
               <li><strong>eBooks and related career resources.</strong></li>
               <li><strong>A client portal</strong> where you manage your profile, upload your CV and collect the revised version.</li>
             </ul>
@@ -89,8 +89,8 @@ export default function Terms() {
           <div style={CARD}>
             <h2 style={H2}>Turnaround and your part in it</h2>
             <p style={{ ...P, margin: 0 }}>
-              CV revamp turnaround is usually 3–4 working days, depending on current capacity and how much work
-              is involved. That clock starts once we have everything we need from you — your current CV and the
+              CV revamp turnaround is usually 3-4 working days, depending on current capacity and how much work
+              is involved. That clock starts once we have everything we need from you, which is your current CV and the
               details we ask for. Delays in getting those to us move the date out.
             </p>
           </div>

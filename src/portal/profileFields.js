@@ -176,11 +176,11 @@ export const stableJson = (value) => JSON.stringify(value, (key, val) => (
     : val
 ));
 
-// "BCom, Finance — UJ (2019)" for the admin's client page and anywhere else a
+// "BCom, Finance at UJ (2019)" for the admin's client page and anywhere else a
 // qualification has to fit on one line.
 export const educationLine = (row) => {
   if (!row) return '';
   const head = [row.qualification, row.field_of_study].filter(Boolean).join(', ');
   const tail = [row.institution, row.year ? `(${row.year})` : null].filter(Boolean).join(' ');
-  return [head, tail].filter(Boolean).join(' — ');
+  return [head, tail].filter(Boolean).join(' at ');
 };

@@ -158,7 +158,7 @@ export default function AdminCvs() {
     setBusy({ clientId: pending.clientId, stage: pending.stage });
     const { error } = await uploadCv({ userId: pending.clientId, file, source: 'admin', stage: pending.stage });
     setBusy(null);
-    if (error) { setMessage({ clientId: pending.clientId, kind: 'error', text: 'Upload failed — please try again.' }); return; }
+    if (error) { setMessage({ clientId: pending.clientId, kind: 'error', text: 'Upload failed. Please try again.' }); return; }
     setMessage({ clientId: pending.clientId, kind: 'ok', text: pending.stage === 'revised' ? 'Revised CV delivered.' : 'Original CV added.' });
     load();
   };
@@ -207,7 +207,7 @@ export default function AdminCvs() {
                     <div style={{ fontSize: 16, fontWeight: 700, color: 'var(--ax-text)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                       {c.full_name || 'Unnamed client'}
                     </div>
-                    <div style={{ fontSize: 13, color: MUTED, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{c.email || '—'}</div>
+                    <div style={{ fontSize: 13, color: MUTED, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{c.email || 'Not set'}</div>
                   </div>
                   <span style={{ fontSize: 12.5, color: MUTED, flexShrink: 0 }}>{count === 0 ? 'No CV' : `${count} file${count === 1 ? '' : 's'}`}</span>
                 </header>

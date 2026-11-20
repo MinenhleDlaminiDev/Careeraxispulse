@@ -55,7 +55,7 @@ export default function InterviewCode() {
             <div>
               <Link to={BUY_PATH} style={{ display: "inline-block", background: "#C9A227", color: "#131F38", padding: "16px 40px", borderRadius: "3px", fontWeight: "600", fontSize: "16px" }} data-h="hv-interview-0">Get Access for {PRICE} →</Link>
               <p style={{ fontSize: "13.5px", color: "#9FB0C9", margin: "14px 0 0", lineHeight: "1.6", maxWidth: "420px" }}>
-                You’ll create a free profile first — that’s where we switch your 30 days on
+                You’ll create a free profile first. That’s where we switch your 30 days on
                 once payment is confirmed. Already have one?{" "}
                 <Link to="/portal/login" style={{ color: "#C9A227", fontWeight: 600 }}>Sign in</Link>.
               </p>

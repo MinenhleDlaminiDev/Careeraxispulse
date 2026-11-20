@@ -14,7 +14,7 @@ export default function Services() {
         <Reveal style={{ maxWidth: "1200px", margin: "0 auto", padding: "72px 32px 64px" }}>
           <div style={{ letterSpacing: ".22em", textTransform: "uppercase", fontSize: "12.5px", fontWeight: "600", color: "#C9A227", marginBottom: "16px", textAlign: "center" }}>Services &amp; pricing</div>
           <h1 style={{ fontFamily: "'Source Serif 4',serif", fontWeight: "600", fontSize: "clamp(32px,5vw,50px)", lineHeight: "1.1", margin: "0", textAlign: "center", maxWidth: "700px", marginLeft: "auto", marginRight: "auto", textWrap: "pretty" }}>Professional services, priced by <em style={{ fontStyle: "italic", color: "#C9A227" }}>where you are</em> in your career.</h1>
-          <p style={{ fontSize: "17px", lineHeight: "1.65", color: "#B9C0D2", maxWidth: "560px", margin: "22px 0 0", marginLeft: "auto", marginRight: "auto", textAlign: "center" }}>CV revamps and interview readiness sessions with a 3–4 working day turnaround, subject to current capacity and scope of work.</p>
+          <p style={{ fontSize: "17px", lineHeight: "1.65", color: "#B9C0D2", maxWidth: "560px", margin: "22px 0 0", marginLeft: "auto", marginRight: "auto", textAlign: "center" }}>CV revamps and interview readiness sessions with a 3-4 working day turnaround, subject to current capacity and scope of work.</p>
         </Reveal>
       </section>
       <section style={{ maxWidth: "1200px", margin: "0 auto", padding: "88px 32px 72px" }} id="cv">
@@ -26,7 +26,7 @@ export default function Services() {
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(230px,1fr))", gap: "20px", alignItems: "stretch" }}>
           <div style={{ background: "#FFFFFF", border: "1px solid #E7E2D6", borderRadius: "4px", padding: "32px 26px", display: "flex", flexDirection: "column", gap: "12px", animation: "cardUp .6s ease both", transition: "transform .25s ease, box-shadow .25s ease, border-color .25s ease" }} data-h="hv-services-0">
             <div style={{ fontSize: "12px", letterSpacing: ".14em", textTransform: "uppercase", fontWeight: "600", color: "#6B7690" }}>Entry level</div>
-            <h3 style={{ fontFamily: "'Source Serif 4',serif", fontSize: "21px", fontWeight: "600", margin: "0" }}>0–2 years</h3>
+            <h3 style={{ fontFamily: "'Source Serif 4',serif", fontSize: "21px", fontWeight: "600", margin: "0" }}>0-2 years</h3>
             <div style={{ fontFamily: "'Source Serif 4',serif", fontSize: "34px", fontWeight: "600" }}>R150</div>
             <ul style={{ margin: "0", padding: "0 0 0 18px", fontSize: "14.5px", color: "#56607A", lineHeight: "2", flex: "1" }}>
               <li>CV restructuring</li><li>Content refinement</li><li>ATS-aligned formatting</li>
@@ -35,7 +35,7 @@ export default function Services() {
           </div>
           <div style={{ background: "#FFFFFF", border: "1px solid #E7E2D6", borderRadius: "4px", padding: "32px 26px", display: "flex", flexDirection: "column", gap: "12px", animation: "cardUp .6s ease both", transition: "transform .25s ease, box-shadow .25s ease, border-color .25s ease" }} data-h="hv-services-2">
             <div style={{ fontSize: "12px", letterSpacing: ".14em", textTransform: "uppercase", fontWeight: "600", color: "#6B7690" }}>Mid-level</div>
-            <h3 style={{ fontFamily: "'Source Serif 4',serif", fontSize: "21px", fontWeight: "600", margin: "0" }}>2–5 years</h3>
+            <h3 style={{ fontFamily: "'Source Serif 4',serif", fontSize: "21px", fontWeight: "600", margin: "0" }}>2-5 years</h3>
             <div style={{ fontFamily: "'Source Serif 4',serif", fontSize: "34px", fontWeight: "600" }}>R220</div>
             <ul style={{ margin: "0", padding: "0 0 0 18px", fontSize: "14.5px", color: "#56607A", lineHeight: "2", flex: "1" }}>
               <li>CV restructuring</li><li>Content refinement</li><li>ATS-aligned formatting</li>
@@ -45,7 +45,7 @@ export default function Services() {
           <div style={{ background: "linear-gradient(180deg,#131F38 0%,#26396A 100%)", color: "#F4EFE4", borderRadius: "4px", padding: "32px 26px", display: "flex", flexDirection: "column", gap: "12px", position: "relative", boxShadow: "0 8px 20px rgba(19,31,56,.16)", animation: "cardUp .6s ease .12s both", transition: "transform .25s ease, box-shadow .25s ease" }} data-h="hv-services-4">
             <div style={{ position: "absolute", top: "-13px", left: "50%", transform: "translateX(-50%)", background: "#C9A227", color: "#131F38", fontSize: "11.5px", fontWeight: "700", letterSpacing: ".12em", textTransform: "uppercase", padding: "5px 14px", borderRadius: "99px" }}>Most popular</div>
             <div style={{ fontSize: "12px", letterSpacing: ".14em", textTransform: "uppercase", fontWeight: "600", color: "#C9A227" }}>Senior level</div>
-            <h3 style={{ fontFamily: "'Source Serif 4',serif", fontSize: "21px", fontWeight: "600", margin: "0" }}>5–10 years</h3>
+            <h3 style={{ fontFamily: "'Source Serif 4',serif", fontSize: "21px", fontWeight: "600", margin: "0" }}>5-10 years</h3>
             <div style={{ fontFamily: "'Source Serif 4',serif", fontSize: "34px", fontWeight: "600" }}>R300</div>
             <ul style={{ margin: "0", padding: "0 0 0 18px", fontSize: "14.5px", color: "#B9C0D2", lineHeight: "2", flex: "1" }}>
               <li>CV restructuring</li><li>Content refinement</li><li>ATS-aligned formatting</li>
@@ -62,7 +62,7 @@ export default function Services() {
             <a href={PAYSTACK.cv.executive} style={{ border: "1px solid #C9B98A", textAlign: "center", padding: "12px", borderRadius: "3px", fontWeight: "600", fontSize: "14.5px" }} data-h="hv-services-7">Pay now</a>
           </div>
         </div>
-        <div style={{ marginTop: "22px", fontSize: "13.5px", color: "#8A94AC" }}>Returning clients receive an 11% discount. Turnaround 3–4 working days, Monday to Friday, weekends and public holidays excluded, subject to current capacity and scope of work.</div>
+        <div style={{ marginTop: "22px", fontSize: "13.5px", color: "#8A94AC" }}>Returning clients receive an 11% discount. Turnaround 3-4 working days, Monday to Friday, weekends and public holidays excluded, subject to current capacity and scope of work.</div>
       </section>
       <section style={{ background: "#FFFFFF", borderTop: "1px solid #E7E2D6", borderBottom: "1px solid #E7E2D6" }} id="interviews">
         <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "88px 32px" }}>

@@ -21,7 +21,7 @@ export default function EducationFields({ value, onChange, max = 6 }) {
     <div>
       {rows.length === 0 && (
         <div style={{ fontSize: 13.5, color: MUTED, lineHeight: 1.6, marginBottom: 12 }}>
-          Nothing added yet. Matric counts — add it the same way as a degree.
+          Nothing added yet. Matric counts. Add it the same way as a degree.
         </div>
       )}
 
@@ -77,7 +77,7 @@ export default function EducationFields({ value, onChange, max = 6 }) {
 
       {rows.length > 0 && (
         <div style={{ fontSize: 12, color: MUTED, marginTop: 9, lineHeight: 1.55 }}>
-          <span style={{ color: CREAM }}>Only the qualification is needed</span> — the rest helps us write it up properly.
+          <span style={{ color: CREAM }}>Only the qualification is needed</span>, and the rest helps us write it up properly.
         </div>
       )}
     </div>

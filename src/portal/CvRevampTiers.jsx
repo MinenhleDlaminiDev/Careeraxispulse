@@ -79,7 +79,7 @@ export default function CvRevampTiers() {
         Get your CV revamped
       </div>
       <p style={{ margin: '0 0 14px', fontSize: 14, color: MUTED, lineHeight: 1.65, maxWidth: 560 }}>
-        A full rewrite — restructuring, sharper content and ATS-aligned formatting.
+        A full rewrite: restructuring, sharper content and ATS-aligned formatting.
         {/* The price is appended once known rather than swapped in, so the
             sentence reads correctly either way and nothing re-flows oddly. */}
         {' '}Priced by how much experience there is to work with{ready ? `, from ${from}` : ''}.
@@ -88,7 +88,7 @@ export default function CvRevampTiers() {
       {ready && returning && (
         <p className="ax-returning-note">
           <span>Returning client</span>
-          You’ve had a CV revamped with us before, so these are your returning prices — around 30% below the standard rate.
+          You’ve had a CV revamped with us before, so these are your returning prices, around 30% below the standard rate.
         </p>
       )}
 
@@ -177,7 +177,7 @@ export default function CvRevampTiers() {
                     <li><span style={{ color: CREAM, fontWeight: 600 }}>Your revised CV appears here</span> under “Your finished CV”, ready to download.</li>
                   </ol>
                   <p style={{ margin: '14px 0 0', fontSize: 12.5, color: MUTED, lineHeight: 1.6 }}>
-                    Turnaround is 3–4 working days, subject to current capacity and scope of work.
+                    Turnaround is 3-4 working days, subject to current capacity and scope of work.
                   </p>
                 </div>
               </>

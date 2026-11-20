@@ -68,7 +68,7 @@ export default function CvUpload() {
     setUploading(true);
     const { error } = await uploadCv({ userId: user.id, file, source: 'client', stage: 'original' });
     setUploading(false);
-    if (error) { setMessage({ kind: 'error', text: 'Upload failed — please try again.' }); return; }
+    if (error) { setMessage({ kind: 'error', text: 'Upload failed. Please try again.' }); return; }
     setMessage({ kind: 'ok', text: 'CV uploaded.' });
     load();
   };

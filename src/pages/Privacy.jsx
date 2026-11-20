@@ -33,7 +33,7 @@ export default function Privacy() {
           <div style={{ letterSpacing: '.22em', textTransform: 'uppercase', fontSize: '12.5px', fontWeight: '600', color: '#C9A227', marginBottom: '16px', textAlign: 'center' }}>Policy</div>
           <h1 style={{ fontFamily: "'Source Serif 4',serif", fontWeight: '600', fontSize: 'clamp(30px,4.5vw,44px)', lineHeight: '1.1', margin: '0', textAlign: 'center' }}>Privacy Policy</h1>
           <p style={{ fontSize: '16px', lineHeight: '1.65', color: '#B9C0D2', maxWidth: '620px', margin: '18px auto 0', textAlign: 'center' }}>
-            How we collect, use, share and protect your personal information — including your CV — under the Protection of Personal Information Act (POPIA).
+            How we collect, use, share and protect your personal information, including your CV, under the Protection of Personal Information Act (POPIA).
           </p>
         </div>
       </section>
@@ -58,12 +58,12 @@ export default function Privacy() {
             <h2 style={H2}>What we collect</h2>
             <p style={P}>When you create a portal account and use our services, we collect:</p>
             <ul style={UL}>
-              <li><strong>Who you are</strong> — your name, email address, phone or WhatsApp number and location.</li>
-              <li><strong>Your career profile</strong> — target role, target industry, seniority, employment status, companies you are targeting, what is driving your change, your skills and your education history.</li>
-              <li><strong>Your CV</strong> — the document you upload, and the revised version we produce for you.</li>
+              <li><strong>Who you are</strong>: your name, email address, phone or WhatsApp number and location.</li>
+              <li><strong>Your career profile</strong>: target role, target industry, seniority, employment status, companies you are targeting, what is driving your change, your skills and your education history.</li>
+              <li><strong>Your CV</strong>: the document you upload, and the revised version we produce for you.</li>
               <li><strong>Your LinkedIn profile link</strong>, if you give it.</li>
               <li><strong>Your profile photo</strong>, if you upload one. If you sign in with Google we also receive your Google display name and profile picture.</li>
-              <li><strong>Service records</strong> — purchases, the access period for the Axis Interview Code, and notes we keep about work done for you.</li>
+              <li><strong>Service records</strong>: purchases, the access period for the Axis Interview Code, and notes we keep about work done for you.</li>
             </ul>
           </div>
 
@@ -77,7 +77,7 @@ export default function Privacy() {
             </p>
             <p style={P}>What that means in practice:</p>
             <ul style={{ ...UL, marginBottom: '14px' }}>
-              <li>We may send your CV — the original you upload or the revised version we write — to employers, recruitment agencies and hiring contacts who are looking for someone with your background.</li>
+              <li>We may send your CV, either the original you upload or the revised version we write, to employers, recruitment agencies and hiring contacts who are looking for someone with your background.</li>
               <li>We may share the profile details that go with it: your name, contact details, location, target role, seniority, skills and education.</li>
               <li>We share it to put you in front of opportunities. We do not sell your information, and we do not share it for advertising.</li>
               <li>Once a CV is with an employer or recruiter, they hold their own copy and their own privacy policy applies to it. We cannot withdraw a copy someone else already has.</li>
@@ -93,10 +93,10 @@ export default function Privacy() {
             <h2 style={H2}>Who else handles your information</h2>
             <p style={P}>We use a small number of service providers to run the portal. They process your information on our instructions only:</p>
             <ul style={UL}>
-              <li><strong>Supabase</strong> — stores your account, your profile and your CV files. CVs sit in private storage that only you and our administrators can open.</li>
-              <li><strong>Paystack</strong> — takes payments. Payments happen on Paystack's own pages, so your card details never reach our site and we never see or store them.</li>
-              <li><strong>Google</strong> — only if you choose to sign in with Google, in which case Google confirms your identity and gives us your name, email address and profile picture.</li>
-              <li><strong>Netlify and our web host</strong> — serve the website itself.</li>
+              <li><strong>Supabase</strong>: stores your account, your profile and your CV files. CVs sit in private storage that only you and our administrators can open.</li>
+              <li><strong>Paystack</strong>: takes payments. Payments happen on Paystack's own pages, so your card details never reach our site and we never see or store them.</li>
+              <li><strong>Google</strong>: only if you choose to sign in with Google, in which case Google confirms your identity and gives us your name, email address and profile picture.</li>
+              <li><strong>Netlify and our web host</strong>: serve the website itself.</li>
             </ul>
           </div>
 
@@ -115,7 +115,7 @@ export default function Privacy() {
             <p style={P}>You can ask us to:</p>
             <ul style={{ ...UL, marginBottom: '14px' }}>
               <li>tell you what information we hold about you;</li>
-              <li>correct anything that is wrong or out of date — most of it you can edit yourself in your portal profile;</li>
+              <li>correct anything that is wrong or out of date, and most of it you can edit yourself in your portal profile;</li>
               <li>delete your account and the information we hold;</li>
               <li>stop sharing your CV with employers and recruiters;</li>
               <li>explain anything in this policy you are unsure about.</li>

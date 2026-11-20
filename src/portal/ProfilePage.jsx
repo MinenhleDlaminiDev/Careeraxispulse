@@ -69,7 +69,7 @@ export default function ProfilePage() {
   return (
     <div>
       <PageHeader eyebrow="Your profile" title="Edit your profile">
-        Keep this current — it is what we work from when we prepare your CV and your interview practice.
+        Keep this current. It is what we work from when we prepare your CV and your interview practice.
       </PageHeader>
 
       <div style={{ marginBottom: 18 }}>

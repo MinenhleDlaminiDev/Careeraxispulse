@@ -24,13 +24,13 @@ const optionalHint = { color: MUTED, fontWeight: 400, textTransform: 'none', let
 
 export const PROFILE_STEPS = [
   { key: 'about', label: 'About you', fun: 'Nice to meet you. So, how do we reach you?' },
-  { key: 'goals', label: 'Your goals', fun: 'Almost there — tell us where you’re headed. 🎯' },
+  { key: 'goals', label: 'Your goals', fun: 'Almost there. Tell us where you’re headed. 🎯' },
   {
     key: 'extras',
     label: 'Skills & education',
     // AXIS-47 put a required tick box on this step, so it can no longer be
     // described as optional — the fields above it still are.
-    fun: 'Last step. Skills and education are optional — add what you can now, or fill them in later from your profile.',
+    fun: 'Last step. Skills and education are optional. Add what you can now, or fill them in later from your profile.',
   },
 ];
 

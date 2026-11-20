@@ -59,7 +59,7 @@ export default function AuthCard({ eyebrow, showConfigWarning = false, children 
 
             {showConfigWarning && !isConfigured && (
               <div style={{ marginBottom: 18, padding: '10px 12px', borderRadius: 6, background: DANGER_SOFT, border: `1px solid ${DANGER_BORDER}`, color: DANGER, fontSize: 13, lineHeight: 1.5 }}>
-                Portal not configured — add your Supabase URL and key to <code>.env</code>.
+                Portal not configured. Add your Supabase URL and key to <code>.env</code>.
               </div>
             )}
             {children}

@@ -48,7 +48,7 @@ function DetailCard({ title, rows }) {
           <div key={label} style={{ display: 'flex', gap: 12, fontSize: 14, flexWrap: 'wrap' }}>
             <span style={{ color: MUTED, minWidth: 128, flexShrink: 0 }}>{label}</span>
             <span style={{ color: 'var(--ax-text)', flex: 1, minWidth: 0, wordBreak: 'break-word' }}>
-              {value == null || value === '' ? '—' : value}
+              {value == null || value === '' ? 'Not set' : value}
             </span>
           </div>
         ))}
@@ -104,7 +104,7 @@ function CvSharingConsent({ client, onChange }) {
       .single();
     setBusy(false);
     setConfirming(false);
-    if (err || !data) { setError('Couldn’t update that — please try again.'); return; }
+    if (err || !data) { setError('Couldn’t update that. Please try again.'); return; }
     onChange(data);
   };
 
@@ -131,7 +131,7 @@ function CvSharingConsent({ client, onChange }) {
           {confirming ? (
             <>
               <button type="button" onClick={withdraw} disabled={busy} style={{ ...dangerBtn, opacity: busy ? 0.6 : 1 }}>
-                {busy ? '…' : 'Confirm — stop sharing'}
+                {busy ? '…' : 'Yes, stop sharing'}
               </button>
               <button type="button" className="ax-iconbtn" onClick={() => setConfirming(false)} disabled={busy}>Cancel</button>
             </>
@@ -188,7 +188,7 @@ function RevampOrders({ client, onFlagChange }) {
     setBusy(true);
     const { data, error: err } = await setReturningClient(client.id, !flagged);
     setBusy(false);
-    if (err || !data) { setError('Couldn’t change that — please try again.'); return; }
+    if (err || !data) { setError('Couldn’t change that. Please try again.'); return; }
     onFlagChange(data.returning_client);
   };
 
@@ -216,7 +216,7 @@ function RevampOrders({ client, onFlagChange }) {
     setBusy(true);
     const { data, error: err } = await recordOrder({ userId: client.id, ...form });
     setBusy(false);
-    if (err || !data) { setError('Couldn’t save that order — please try again.'); return; }
+    if (err || !data) { setError('Couldn’t save that order. Please try again.'); return; }
     setOrders((o) => [data, ...o]);
     setAdding(false);
   };
@@ -229,7 +229,7 @@ function RevampOrders({ client, onFlagChange }) {
     const { error: err } = await deleteOrder(id);
     setBusy(false);
     setRemoving(null);
-    if (err) { setError('Couldn’t remove that order — please try again.'); return; }
+    if (err) { setError('Couldn’t remove that order. Please try again.'); return; }
     setOrders((o) => o.filter((row) => row.id !== id));
   };
 
@@ -383,7 +383,7 @@ export default function ClientDetail() {
     if (!error && data) {
       setState((s) => ({ ...s, client: { ...s.client, interview_access_expires_at: data.interview_access_expires_at } }));
     } else {
-      setActionError('Couldn’t update access — please try again.');
+      setActionError('Couldn’t update access. Please try again.');
     }
   };
   const grant = () => setExpiry(new Date(Date.now() + THIRTY_DAYS_MS).toISOString());
@@ -473,7 +473,7 @@ export default function ClientDetail() {
           <p className="ax-grouplabel">Skills &amp; education</p>
           <div style={{ fontSize: 13, color: MUTED, marginBottom: 8 }}>Skills</div>
           {asList(c.skills).length === 0 ? (
-            <div style={{ fontSize: 14, color: MUTED, marginBottom: 18 }}>—</div>
+            <div style={{ fontSize: 14, color: MUTED, marginBottom: 18 }}>Not set</div>
           ) : (
             <div className="ax-chips" style={{ marginBottom: 18 }}>
               {asList(c.skills).map((s) => <span key={s} className="ax-chip ax-chip-static">{s}</span>)}
@@ -481,7 +481,7 @@ export default function ClientDetail() {
           )}
           <div style={{ fontSize: 13, color: MUTED, marginBottom: 8 }}>Education &amp; qualifications</div>
           {asList(c.education).length === 0 ? (
-            <div style={{ fontSize: 14, color: MUTED }}>—</div>
+            <div style={{ fontSize: 14, color: MUTED }}>Not set</div>
           ) : (
             <ul style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column', gap: 7 }}>
               {asList(c.education).map((row, i) => (

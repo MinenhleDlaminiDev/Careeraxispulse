@@ -63,7 +63,7 @@ function WaitingScreen({ expiry }) {
       <p style={{ color: MUTED, fontSize: 14.5, lineHeight: 1.6, margin: '0 0 22px' }}>
         {expired
           ? 'Your 30-day access has expired. Renew to return to the four winning pillars of interview readiness.'
-          : 'Get 30 days of access to the four winning pillars of interview readiness — master the position, not just the questions.'}
+          : 'Get 30 days of access to the four winning pillars of interview readiness. Master the position, not just the questions.'}
       </p>
 
       <a href={PAYSTACK.interview} target="_blank" rel="noopener noreferrer" className="ax-cta"
@@ -73,7 +73,7 @@ function WaitingScreen({ expiry }) {
 
       <p style={{ color: MUTED, fontSize: 12.5, lineHeight: 1.6, margin: '16px 0 0' }}>
         One-time payment, no automatic renewal. We activate your 30 days as soon as your
-        payment is confirmed — you’ll see it here when it’s live.
+        payment is confirmed. You’ll see it here when it’s live.
       </p>
     </div>
   );
