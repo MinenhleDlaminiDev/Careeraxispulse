@@ -29,17 +29,23 @@ jobs:
       # renders "Portal not configured". The build still SUCCEEDS and the
       # marketing pages still look right — the portal is just silently dead.
       #
-      # These are repository VARIABLES, not secrets, on purpose: all three are
-      # inlined into the shipped bundle and readable by anyone who opens the
-      # site. Supabase designs the publishable key to be public and RLS is what
-      # protects the data. The FTP credentials below are a different matter and
-      # stay secrets.
+      # These read from SECRETS, not repository variables. Note that none of
+      # the three is actually confidential: Vite inlines all of them into the
+      # bundle, so anyone who opens the site can read them. Supabase designs
+      # the publishable key to be public, and RLS is what protects the data.
+      # They live in secrets because that is where the project keeps them.
+      #
+      # Two consequences worth knowing. GitHub masks secret values in logs, so
+      # VITE_GOOGLE_AUTH holding "true" blanks that word out of the log
+      # everywhere it appears. And `vars.X` and `secrets.X` are separate
+      # stores: a value added to the wrong one reads back as empty, with no
+      # error, which is exactly how the 22 Nov release shipped a dead portal.
       - name: Build
         run: npm run build
         env:
-          VITE_SUPABASE_URL: ${{ vars.VITE_SUPABASE_URL }}
-          VITE_SUPABASE_PUBLISHABLE_KEY: ${{ vars.VITE_SUPABASE_PUBLISHABLE_KEY }}
-          VITE_GOOGLE_AUTH: ${{ vars.VITE_GOOGLE_AUTH }}
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_PUBLISHABLE_KEY: ${{ secrets.VITE_SUPABASE_PUBLISHABLE_KEY }}
+          VITE_GOOGLE_AUTH: ${{ secrets.VITE_GOOGLE_AUTH }}
 
       - name: Deploy to cPanel via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
