@@ -73,12 +73,12 @@ export const rands = (n) => `R${Math.round(n || 0).toLocaleString('en-ZA').repla
 // no reason to hide the client and revamp figures behind that. The Axis Code
 // panel says what is missing; nothing else pretends the number is zero.
 export async function loadReportData() {
-  if (!supabase) return { clients: [], orders: [], grants: [], error: true, grantsUnavailable: true };
+  if (!supabase) return { clients: [], testAccounts: 0, orders: [], grants: [], error: true, grantsUnavailable: true };
 
   const [clientsRes, ordersRes, grantsRes] = await Promise.all([
     supabase
       .from('profiles')
-      .select('id, full_name, email, created_at, interview_access_expires_at')
+      .select('id, full_name, email, created_at, interview_access_expires_at, is_test_account')
       .eq('role', 'client'),
     supabase
       .from('cv_orders')
@@ -90,13 +90,28 @@ export async function loadReportData() {
   ]);
 
   if (clientsRes.error || ordersRes.error) {
-    return { clients: [], orders: [], grants: [], error: true, grantsUnavailable: true };
+    return { clients: [], testAccounts: 0, orders: [], grants: [], error: true, grantsUnavailable: true };
   }
 
-  const clients = clientsRes.data || [];
+  const everyClient = clientsRes.data || [];
 
-  // Orders and grants are narrowed to rows belonging to a current CLIENT, here,
-  // once, before anything counts them.
+  // AXIS-58: staff test accounts drop out here, before anything is counted.
+  //
+  // This one line is why the flag lives on the account rather than on a sale.
+  // Every figure on the screen is counted off `clients`, so removing a row here
+  // takes it out of the client count, the signup chart, the sales, the revenue
+  // and the paying share at once. Flagging a single grant would have corrected
+  // one of those five and left the other four quietly wrong.
+  //
+  // The account itself is untouched and still appears on the Clients screen,
+  // which is the point: it is how the portal gets tested. The screen reports
+  // `testAccounts` so the gap between the two pages is explained rather than
+  // looking like one of them is broken.
+  const clients = everyClient.filter((c) => !c.is_test_account);
+  const testAccounts = everyClient.length - clients.length;
+
+  // Orders and grants are narrowed to rows belonging to a current COUNTED
+  // client, here, once, before anything counts them.
   //
   // Without this the totals and the lists disagree. Three admin accounts carry
   // an Interview Code expiry from testing, and granting access to one of them
@@ -111,6 +126,7 @@ export async function loadReportData() {
 
   return {
     clients,
+    testAccounts,
     orders: (ordersRes.data || []).filter(mine),
     grants: grantsRes.error ? [] : (grantsRes.data || []).filter(mine),
     error: false,

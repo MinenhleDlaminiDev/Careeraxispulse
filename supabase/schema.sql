@@ -64,6 +64,13 @@ create table if not exists public.profiles (
   -- route; this is the escape hatch. Guarded like role and access below — it
   -- decides what the client is charged, so they must never set it themselves.
   returning_client            boolean not null default false,
+  -- A staff test account (AXIS-58). Left out of every Dashboard figure, kept
+  -- everywhere else, so it still shows on the Clients screen and can still be
+  -- used to test the portal. Its own field rather than a third value in role,
+  -- because role answers "client or admin" and this answers "real or test".
+  -- Guarded below for the same reason as returning_client: a client must not
+  -- be able to take themselves out of the business's own reporting.
+  is_test_account             boolean not null default false,
   created_at                  timestamptz not null default now()
 );
 
@@ -74,6 +81,8 @@ alter table public.profiles
   add column if not exists education jsonb;
 alter table public.profiles
   add column if not exists returning_client boolean not null default false;
+alter table public.profiles
+  add column if not exists is_test_account boolean not null default false;
 alter table public.profiles add column if not exists avatar_url text;
 alter table public.profiles
   add column if not exists cv_sharing_consent    boolean not null default false,
@@ -278,9 +287,10 @@ begin
     if new.role is distinct from old.role
        or new.interview_access_expires_at is distinct from old.interview_access_expires_at
        or new.returning_client is distinct from old.returning_client
+       or new.is_test_account is distinct from old.is_test_account
        or new.id is distinct from old.id
        or new.email is distinct from old.email then
-      raise exception 'Not allowed to change role, access, returning status, id or email';
+      raise exception 'Not allowed to change role, access, returning status, test flag, id or email';
     end if;
   end if;
   return new;

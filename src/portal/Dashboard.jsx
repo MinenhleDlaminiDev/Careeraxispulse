@@ -104,6 +104,7 @@ export default function Dashboard() {
       code: codeBuyers(d.clients, d.grants),
       revamps: revampBuyers(d.clients, d.orders),
       grantsUnavailable: d.grantsUnavailable,
+      testAccounts: d.testAccounts || 0,
     };
   }, [d]);
 
@@ -137,12 +138,12 @@ export default function Dashboard() {
     return (
       <div>
         {header}
-        <div style={{ color: DANGER, fontSize: 14 }}>Couldn’t load the reports. Refresh to try again.</div>
+        <div style={{ color: DANGER, fontSize: 14 }}>Couldn’t load the dashboard. Refresh to try again.</div>
       </div>
     );
   }
 
-  const { s, days, tiers, months, code, revamps, grantsUnavailable } = view;
+  const { s, days, tiers, months, code, revamps, grantsUnavailable, testAccounts } = view;
   const busiest = days.reduce((best, r) => (r.value > best.value ? r : best), days[0]);
 
   // What the revenue figure does and does not include, said plainly under it.
@@ -190,6 +191,16 @@ export default function Dashboard() {
           hint={`${s.paying} of ${s.clients} signups`}
         />
       </div>
+
+      {/* AXIS-58. The Clients page still lists the test accounts, so without
+          this line the two screens would simply show different client numbers
+          and neither would say why. */}
+      {testAccounts > 0 && (
+        <p style={{ fontSize: 12.5, color: MUTED, margin: '11px 2px 0', lineHeight: 1.5 }}>
+          {testAccounts === 1 ? 'One test account is' : `${testAccounts} test accounts are`} left out of every figure
+          above. {testAccounts === 1 ? 'It still appears' : 'They still appear'} on the Clients page.
+        </p>
+      )}
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 16, marginTop: 16 }}>
         <Card
