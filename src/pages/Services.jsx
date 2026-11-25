@@ -62,7 +62,7 @@ export default function Services() {
             <a href={PAYSTACK.cv.executive} style={{ border: "1px solid #C9B98A", textAlign: "center", padding: "12px", borderRadius: "3px", fontWeight: "600", fontSize: "14.5px" }} data-h="hv-services-7">Pay now</a>
           </div>
         </div>
-        <div style={{ marginTop: "22px", fontSize: "13.5px", color: "#8A94AC" }}>Returning clients receive an 11% discount. Turnaround 3-4 working days, Monday to Friday, weekends and public holidays excluded, subject to current capacity and scope of work.</div>
+        <div style={{ marginTop: "22px", fontSize: "13.5px", color: "#8A94AC" }}>Returning clients save R40 to R120 on a revamp, depending on the tier. Turnaround 3-4 working days, Monday to Friday, weekends and public holidays excluded, subject to current capacity and scope of work.</div>
       </section>
       <section style={{ background: "#FFFFFF", borderTop: "1px solid #E7E2D6", borderBottom: "1px solid #E7E2D6" }} id="interviews">
         <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "88px 32px" }}>
@@ -118,7 +118,7 @@ export default function Services() {
           </Item>
           <Item style={{ background: "#FFFFFF", border: "1px solid #E7E2D6", borderRadius: "4px", padding: "30px 28px" }}>
             <h3 style={{ fontSize: "17px", fontWeight: "600", margin: "0 0 6px" }}>Existing clients</h3>
-            <div style={{ display: "inline-block", background: "#F3EBD3", color: "#8A6D14", fontSize: "12px", fontWeight: "600", padding: "4px 10px", borderRadius: "99px", marginBottom: "10px" }}>11% discount applied</div>
+            <div style={{ display: "inline-block", background: "#F3EBD3", color: "#8A6D14", fontSize: "12px", fontWeight: "600", padding: "4px 10px", borderRadius: "99px", marginBottom: "10px" }}>Returning client prices apply</div>
             <ul style={{ margin: "0", padding: "0 0 0 18px", fontSize: "14.5px", color: "#56607A", lineHeight: "2" }}>
               <li>Job description or interview invitation</li>
               <li>Interview date</li>

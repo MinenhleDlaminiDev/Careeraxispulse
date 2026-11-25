@@ -27,10 +27,10 @@ export default function Home() {
       <section style={{ background: "#C9A227", overflow: "hidden", padding: "14px 0" }}>
         <div style={{ display: "flex", gap: "0", width: "max-content", animation: "marquee 28s linear infinite" }}>
           <div style={{ display: "flex", gap: "56px", paddingRight: "56px", fontSize: "13px", fontWeight: "700", letterSpacing: ".2em", textTransform: "uppercase", color: "#131F38", whiteSpace: "nowrap" }}>
-            <span>ATS-aligned formatting</span><span>✦</span><span>3-4 day turnaround</span><span>✦</span><span>11% returning client discount</span><span>✦</span><span>Align. Elevate. Thrive.</span><span>✦</span><span>Graduate to executive</span><span>✦</span>
+            <span>ATS-aligned formatting</span><span>✦</span><span>3-4 day turnaround</span><span>✦</span><span>Up to 30% returning client discount</span><span>✦</span><span>Align. Elevate. Thrive.</span><span>✦</span><span>Graduate to executive</span><span>✦</span>
           </div>
           <div style={{ display: "flex", gap: "56px", paddingRight: "56px", fontSize: "13px", fontWeight: "700", letterSpacing: ".2em", textTransform: "uppercase", color: "#131F38", whiteSpace: "nowrap" }}>
-            <span>ATS-aligned formatting</span><span>✦</span><span>3-4 day turnaround</span><span>✦</span><span>11% returning client discount</span><span>✦</span><span>Align. Elevate. Thrive.</span><span>✦</span><span>Graduate to executive</span><span>✦</span>
+            <span>ATS-aligned formatting</span><span>✦</span><span>3-4 day turnaround</span><span>✦</span><span>Up to 30% returning client discount</span><span>✦</span><span>Align. Elevate. Thrive.</span><span>✦</span><span>Graduate to executive</span><span>✦</span>
           </div>
         </div>
       </section>
@@ -88,10 +88,10 @@ export default function Home() {
               <p style={{ fontSize: "14.5px", lineHeight: "1.65", color: "#56607A", margin: "0" }}>Formatted to pass applicant tracking systems before a human ever reads it.</p>
             </Item>
             <Item>
-              <div style={{ fontFamily: "'Source Serif 4',serif", fontSize: "clamp(48px,7vw,76px)", fontWeight: "600", color: "#1B2A4A", lineHeight: "1" }}>11%</div>
+              <div style={{ fontFamily: "'Source Serif 4',serif", fontSize: "clamp(48px,7vw,76px)", fontWeight: "600", color: "#1B2A4A", lineHeight: "1" }}>30%</div>
               <div style={{ height: "3px", width: "44px", background: "#C9A227", margin: "18px 0" }}></div>
               <h3 style={{ fontSize: "17px", fontWeight: "600", margin: "0 0 8px" }}>Returning client discount</h3>
-              <p style={{ fontSize: "14.5px", lineHeight: "1.65", color: "#56607A", margin: "0" }}>Career positioning is ongoing, so loyal clients pay less every time they come back.</p>
+              <p style={{ fontSize: "14.5px", lineHeight: "1.65", color: "#56607A", margin: "0" }}>Career positioning is ongoing, so loyal clients pay up to 30% less every time they come back.</p>
             </Item>
           </Stagger>
         </div>
