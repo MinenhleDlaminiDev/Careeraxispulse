@@ -15,6 +15,7 @@ export const ICONS = {
   file: 'M6 2h8l4 4v16H6zM14 2v4h4',
   users: 'M16 19v-1.5A3.5 3.5 0 0 0 12.5 14h-5A3.5 3.5 0 0 0 4 17.5V19M10 10.5A3 3 0 1 0 10 4.5a3 3 0 0 0 0 6zM20 19v-1.5a3.5 3.5 0 0 0-2.6-3.4M16 4.7a3 3 0 0 1 0 5.8',
   edit: 'M4 20h4L18.5 9.5a2 2 0 0 0-2.8-2.8L5 17zM14 7l3 3',
+  chart: 'M4 20h16M7.5 20v-6M12 20v-10M16.5 20v-4',
 };
 export function Icon({ name, size = 18 }) {
   return (

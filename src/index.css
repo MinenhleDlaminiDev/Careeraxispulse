@@ -23,6 +23,14 @@
   --ax-gold-border:rgba(201,162,39,.32);
   --ax-sidebar:rgba(9,16,34,.55);
   --ax-sidebar-border:rgba(201,162,39,.22);
+
+  /* AXIS-55: chart series. Gold and slate, because gold against blue is the
+     safest pair to tell apart, including for the commonest kinds of colour
+     blindness. The track is the empty part of a bar, and the 2px stub a zero
+     leaves behind. */
+  --ax-chart-1:#C9A227;
+  --ax-chart-2:#7E8CA8;
+  --ax-chart-track:rgba(255,255,255,.1);
   --ax-shadow:0 14px 40px rgba(0,0,0,.34);
   --ax-card-shadow:0 6px 22px rgba(0,0,0,.24);
 
@@ -52,6 +60,9 @@
   --ax-gold-border:rgba(201,162,39,.4);
   --ax-sidebar:#FFFFFF;
   --ax-sidebar-border:rgba(19,31,56,.1);
+  /* Gold stays; the slate darkens so it still reads against a cream card. */
+  --ax-chart-2:#46587F;
+  --ax-chart-track:rgba(19,31,56,.09);
   --ax-shadow:0 14px 40px rgba(19,31,56,.1);
   --ax-card-shadow:0 6px 18px rgba(19,31,56,.07);
 }
