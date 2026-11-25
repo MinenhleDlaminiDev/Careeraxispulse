@@ -3,17 +3,17 @@ import AccessManagement from './AccessManagement';
 import ClientDetail from './ClientDetail';
 import ContentEditor from './ContentEditor';
 import AdminCvs from './AdminCvs';
-import Reports from './Reports';
+import Dashboard from './Dashboard';
 
 const NAV = [
-  { to: '/portal/admin/reports', label: 'Reports', icon: 'chart', desc: 'Clients, new signups, and who has bought the Interview Code or a CV revamp.' },
+  { to: '/portal/admin/dashboard', label: 'Dashboard', icon: 'chart', desc: 'Clients, new signups, and who has bought the Interview Code or a CV revamp.' },
   { to: '/portal/admin/clients', label: 'Clients', icon: 'users', desc: 'Grant or revoke Interview Code access and see every client account.' },
   { to: '/portal/admin/content', label: 'Content', icon: 'edit', desc: 'Edit the four Interview Code pillars clients read.' },
   { to: '/portal/admin/cvs', label: 'CVs', icon: 'file', desc: 'Review uploaded CVs and deliver the finished versions.' },
 ];
 
 const SECTIONS = [
-  { path: 'reports', element: <Reports /> },
+  { path: 'dashboard', element: <Dashboard /> },
   { path: 'clients', element: <AccessManagement /> },
   { path: 'clients/:id', element: <ClientDetail /> },
   { path: 'content', element: <ContentEditor /> },

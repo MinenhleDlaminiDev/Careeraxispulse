@@ -72,6 +72,16 @@
 .ax-portal, .ax-portal *{transition:background-color .35s ease, color .35s ease, border-color .35s ease, fill .35s ease, box-shadow .35s ease}
 @media (prefers-reduced-motion: reduce){.ax-portal, .ax-portal *{transition:none}}
 
+/* AXIS-57: the dashboard's stat row. A fixed six columns rather than auto-fit,
+   because auto-fit fitted five at this width and wrapped the sixth, which read
+   as though it belonged to something else. One line also means the six stretch
+   to a common height instead of standing at 120, 132 and 168px.
+   The first step down is at 820px, not higher, so six really do stay on one
+   line at a normal laptop width. */
+.ax-stats{display:grid;grid-template-columns:repeat(6,1fr);gap:13px}
+@media (max-width:820px){.ax-stats{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:560px){.ax-stats{grid-template-columns:repeat(2,1fr)}}
+
 /* Portal inputs get a gold focus ring in both themes */
 .ax-portal input:focus,.ax-portal textarea:focus{outline:none;border-color:var(--ax-gold) !important;box-shadow:0 0 0 3px var(--ax-gold-soft)}
 

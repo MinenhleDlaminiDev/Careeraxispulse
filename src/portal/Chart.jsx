@@ -1,6 +1,6 @@
 import { MUTED, BORDER } from './theme';
 
-// AXIS-55 — the two charts the Reports screen needs, built from divs.
+// AXIS-55 — the two charts the admin Dashboard needs, built from divs.
 //
 // No chart library, and no SVG either. Bars are flex children with a percentage
 // height, which means the browser handles every width for free: no viewBox to

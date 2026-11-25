@@ -9,10 +9,10 @@ import { fmtDate } from './format';
 import {
   loadReportData, summary, signupsByDay, tierSplit, revenueByMonth,
   codeBuyers, revampBuyers, rands, AXIS_CODE_PRICE,
-} from './reportData';
+} from './dashboardData';
 
-// Admin Reports (AXIS-55). How many clients, how many arrived today, who bought
-// a CV revamp and who bought the Axis Interview Code.
+// The admin Dashboard (AXIS-55, named in AXIS-57). How many clients, how many
+// arrived today, who bought a CV revamp and who bought the Axis Interview Code.
 //
 // The screen's one rule: never flatter the business. A figure that is missing
 // says it is missing, an estimate says it is an estimate, and a number nobody
@@ -32,17 +32,23 @@ function Card({ title, note, children }) {
 }
 
 function Stat({ label, value, hint }) {
-  // A tile is about 155px wide on a phone, which holds roughly six characters
-  // of 30px serif. A longer value, like "Not set up", steps down a size rather
-  // than spilling out of the card.
-  const size = String(value).length > 6 ? 20 : 30;
+  // Six across leaves a card near 105px wide on a laptop, which holds about six
+  // characters of 26px serif. A longer value, like "Not set up", steps down a
+  // size rather than spilling out of the card.
+  //
+  // The padding, the label tracking and the hint size are all tuned for that
+  // width (AXIS-57). At the old 17px padding and .12em tracking the cards came
+  // out 180px tall, because "PAYING CLIENTS" wrapped and every hint ran to four
+  // narrow lines. The hints themselves were cut to a few words for the same
+  // reason: on one line each card is as tall as the wordiest one.
+  const size = String(value).length > 6 ? 19 : 26;
   return (
-    <div className="ax-card" style={{ padding: '16px 17px 17px' }}>
-      <div style={{ fontSize: 11, letterSpacing: '.12em', textTransform: 'uppercase', color: GOLD }}>{label}</div>
-      <div style={{ fontFamily: SERIF, fontSize: size, fontWeight: 700, lineHeight: 1.15, margin: '9px 0 0', color: 'var(--ax-text)' }}>
+    <div className="ax-card" style={{ padding: '13px 13px 14px' }}>
+      <div style={{ fontSize: 10, letterSpacing: '.07em', textTransform: 'uppercase', color: GOLD, lineHeight: 1.3 }}>{label}</div>
+      <div style={{ fontFamily: SERIF, fontSize: size, fontWeight: 700, lineHeight: 1.15, margin: '7px 0 0', color: 'var(--ax-text)' }}>
         {value}
       </div>
-      {hint && <div style={{ fontSize: 12.5, color: MUTED, marginTop: 5, lineHeight: 1.45 }}>{hint}</div>}
+      {hint && <div style={{ fontSize: 11.5, color: MUTED, marginTop: 4, lineHeight: 1.4 }}>{hint}</div>}
     </div>
   );
 }
@@ -76,7 +82,7 @@ function Empty({ children }) {
   return <div style={{ fontSize: 13.5, color: MUTED, padding: '20px 2px', lineHeight: 1.6 }}>{children}</div>;
 }
 
-export default function Reports() {
+export default function Dashboard() {
   const [state, setState] = useState({ loading: true, error: false, data: null });
 
   const load = useCallback(async () => {
@@ -102,7 +108,7 @@ export default function Reports() {
   }, [d]);
 
   const header = (
-    <PageHeader eyebrow="Reports" title="Reports">
+    <PageHeader eyebrow="Dashboard" title="Dashboard">
       How the business is doing: who has signed up, who has bought the Axis Interview Code, and who has bought a CV revamp.
     </PageHeader>
   );
@@ -111,7 +117,7 @@ export default function Reports() {
     return (
       <div>
         {header}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(152px,1fr))', gap: 13 }}>
+        <div className="ax-stats">
           {Array.from({ length: 6 }).map((_, i) => (
             <div key={i} className="ax-card" style={{ padding: '16px 17px 17px' }}>
               <Skel w="60%" h={9} />
@@ -142,10 +148,10 @@ export default function Reports() {
   // What the revenue figure does and does not include, said plainly under it.
   const revenueCaveats = [];
   if (!grantsUnavailable && s.codeSales > 0) {
-    revenueCaveats.push(`Axis Code counted at the ${rands(AXIS_CODE_PRICE)} list price`);
+    revenueCaveats.push(`Axis Code at ${rands(AXIS_CODE_PRICE)} list`);
   }
   if (s.ordersMissingAmount > 0) {
-    revenueCaveats.push(`${s.ordersMissingAmount} revamp${s.ordersMissingAmount === 1 ? '' : 's'} recorded with no amount`);
+    revenueCaveats.push(`${s.ordersMissingAmount} revamp${s.ordersMissingAmount === 1 ? '' : 's'} with no amount`);
   }
 
   return (
@@ -158,13 +164,13 @@ export default function Reports() {
         </Banner>
       )}
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(152px,1fr))', gap: 13 }}>
-        <Stat label="Clients" value={s.clients} hint="Client accounts, admins excluded" />
-        <Stat label="New today" value={s.newToday} hint={`${s.newThisWeek} in the last 7 days`} />
+      <div className="ax-stats">
+        <Stat label="Clients" value={s.clients} hint="Admins excluded" />
+        <Stat label="New today" value={s.newToday} hint={`${s.newThisWeek} in 7 days`} />
         <Stat
           label="Axis Code"
           value={grantsUnavailable ? 'Not set up' : s.codeSales}
-          hint={grantsUnavailable ? 'Sales history not recorded yet' : `${s.codeBuyers} ${s.codeBuyers === 1 ? 'person' : 'people'}, ${s.accessLive} with access live now`}
+          hint={grantsUnavailable ? 'History not set up' : `${s.codeBuyers} ${s.codeBuyers === 1 ? 'person' : 'people'}, ${s.accessLive} live now`}
         />
         <Stat
           label="CV revamps"
@@ -174,12 +180,14 @@ export default function Reports() {
         <Stat
           label="Revenue"
           value={rands(s.revenue)}
-          hint={revenueCaveats.length ? revenueCaveats.join('. ') + '.' : 'From recorded sales only'}
+          hint={revenueCaveats.length ? revenueCaveats.join('. ') : 'Recorded sales only'}
         />
         <Stat
           label="Paying clients"
           value={`${s.payingRate}%`}
-          hint={`${s.paying} of ${s.clients} ${s.clients === 1 ? 'account' : 'accounts'} ${s.paying === 1 ? 'has' : 'have'} bought something. Signup to sale, not visit to sale.`}
+          // Short on purpose (AXIS-57). On one line every card stretches to the
+          // tallest, so a long hint here would have grown all six.
+          hint={`${s.paying} of ${s.clients} signups`}
         />
       </div>
 

@@ -1,11 +1,11 @@
 import { supabase } from '../supabase';
 import { CV_TIERS, INTERVIEW_PRICE } from '../payments.js';
 
-// AXIS-55 — the numbers behind the admin Reports screen (Reports.jsx).
+// AXIS-55 — the numbers behind the admin Dashboard (Dashboard.jsx).
 //
-// The file is reportData.js, not reports.js, because Windows matches filenames
-// without regard to case: next to Reports.jsx, an import of "./Reports" would
-// resolve to this file and the build would fail on a missing default export.
+// The file is dashboardData.js, never dashboard.js, because Windows matches
+// filenames without regard to case: a reports.js beside Reports.jsx did exactly
+// that during AXIS-55, and the build failed on a missing default export.
 //
 // Everything here is either one of three queries or a pure function over their
 // results. The split is deliberate: the maths can be read, and checked, without
