@@ -8,6 +8,7 @@
 --   • interview_content — the editable 4-pillar content (one JSON row)
 --   • cv_uploads        — a record per uploaded CV (client or admin)
 --   • cv_orders         — a record per confirmed CV revamp purchase
+--   • access_grants     — a record per Axis Interview Code sale (AXIS-56)
 --   • notifications     — per-user messages
 --   • storage bucket 'cvs' (private)
 --   • RLS so clients see only their own data and gated content; admins see all
@@ -499,3 +500,74 @@ create policy videos_admin_write on storage.objects
   for all
   using (bucket_id = 'videos' and public.is_admin())
   with check (bucket_id = 'videos' and public.is_admin());
+
+-- ---------------------------------------------------------------------------
+-- Axis Interview Code sales history (AXIS-56). profiles.interview_access_
+-- expires_at answers "does this client have access right now"; this table
+-- answers "who has ever bought it". Two questions, two fields, so a revoke or
+-- a renewal can't wipe the sales record. Filled by a trigger rather than by
+-- the app, so the Supabase table editor and a raw API call are logged too.
+-- The full reasoning is in supabase/migrations/20261125_access_grants.sql,
+-- which also carries the one-off backfill. No amount column yet: the trigger
+-- cannot know what was charged, so reporting values these at the R90 list
+-- price and says so.
+-- ---------------------------------------------------------------------------
+
+create table if not exists public.access_grants (
+  id         uuid primary key default gen_random_uuid(),
+  user_id    uuid not null references auth.users (id) on delete cascade,
+  granted_at timestamptz not null default now(),
+  expires_at timestamptz not null,
+  -- 'grant' = logged as it happened, exact. 'backfill' = reconstructed from
+  -- the profiles column by the AXIS-56 migration, so the date is an estimate.
+  source     text not null default 'grant' check (source in ('grant', 'backfill')),
+  note       text
+);
+
+create index if not exists access_grants_user_granted_idx
+  on public.access_grants (user_id, granted_at desc);
+create index if not exists access_grants_granted_idx
+  on public.access_grants (granted_at desc);
+
+alter table public.access_grants enable row level security;
+
+-- A client reads their own purchase history and can never write one.
+drop policy if exists access_grants_select on public.access_grants;
+create policy access_grants_select on public.access_grants
+  for select using (user_id = auth.uid() or public.is_admin());
+
+drop policy if exists access_grants_admin_write on public.access_grants;
+create policy access_grants_admin_write on public.access_grants
+  for all using (public.is_admin()) with check (public.is_admin());
+
+-- Logging can never break the grant that caused it, the same rule the AXIS-54
+-- emails follow: a failed log must not undo a client's access.
+create or replace function public.log_access_grant()
+returns trigger
+language plpgsql
+security definer
+set search_path = public
+as $$
+begin
+  insert into public.access_grants (user_id, granted_at, expires_at, source)
+  values (new.id, now(), new.interview_access_expires_at, 'grant');
+  return new;
+exception when others then
+  raise warning '[access_grants] could not log the grant for %: %', new.id, sqlerrm;
+  return new;
+end;
+$$;
+
+-- Same WHEN clause as the AXIS-54 access email, word for word, so the email
+-- and the log fire off one event. A future date is a sale; null is a revoke
+-- and logs nothing, which is how history outlives the revoke.
+drop trigger if exists on_access_grant_logged on public.profiles;
+create trigger on_access_grant_logged
+  after update of interview_access_expires_at on public.profiles
+  for each row
+  when (
+    new.interview_access_expires_at is distinct from old.interview_access_expires_at
+    and new.interview_access_expires_at is not null
+    and new.interview_access_expires_at > now()
+  )
+  execute function public.log_access_grant();
